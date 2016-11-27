@@ -3,10 +3,13 @@ package com.devdmin.rest.controller;
 import com.devdmin.core.model.User;
 import com.devdmin.core.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("users")
 @RestController
@@ -23,16 +26,33 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("{username}")
-    User findUser(@PathVariable String username) {
-        return userRepository.findByUsername(username);
+    @GetMapping("/{username}")
+     public ResponseEntity<User> find(@PathVariable String username){
+        return Optional.ofNullable(userRepository.findByUsername(username))
+                .map(user -> {
+                    return new ResponseEntity<>(user, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    User add(@RequestBody User sentUser) {
+    public ResponseEntity<User> add(@RequestBody User sentUser) {
         sentUser.setSignUpDate(LocalDate.now());
         User user = userRepository.save(sentUser);
-        return user;
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
+    @DeleteMapping
+    void delete(@PathVariable Long id){
+        userRepository.delete(id);
+    }
+//
+//    @PostMapping
+//    User update(@RequestBody User sentUser){
+//        User user = userRepository.findOne(sentUser.getId());
+//        user.setPassword(sentUser.getPassword());
+//        user.setEmail(sentUser.getEmail());
+//        userRepository.save(user);
+//        return user;
+//    }
 }
