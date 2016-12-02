@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RequestMapping("sportField")
+@RequestMapping("api/sportField")
 @RestController
 public class SportFieldController {
     private SportFieldRepository sportFieldRepository;

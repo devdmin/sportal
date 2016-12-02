@@ -18,6 +18,7 @@ public class User {
     private String password;
     private String email;
     private LocalDate signUpDate;
+    private int age;
 
     @ManyToMany(mappedBy = "users")
     private List<Event> events;
@@ -64,6 +65,14 @@ public class User {
 
     public void setEvents(List<Event> events) {
         this.events = events;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override

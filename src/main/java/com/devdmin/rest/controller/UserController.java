@@ -2,23 +2,29 @@ package com.devdmin.rest.controller;
 
 import com.devdmin.core.model.User;
 import com.devdmin.core.repository.UserRepository;
+import com.devdmin.core.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("users")
+@RequestMapping("api/users")
 @RestController
 public class UserController {
     private final UserRepository userRepository;
 
+    private UserValidator userValidator;
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, UserValidator userValidator) {
         this.userRepository = userRepository;
+        this.userValidator = userValidator;
     }
 
     @GetMapping
@@ -36,16 +42,20 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> add(@RequestBody User sentUser) {
-        sentUser.setSignUpDate(LocalDate.now());
-        User user = userRepository.save(sentUser);
-        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    public ResponseEntity<User> add(@RequestBody @Valid User sentUser, BindingResult result) {
+        userValidator.validate(sentUser, result);
+        if(result.hasErrors()){
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
+        }else {
+            userRepository.save(sentUser);
+            return new ResponseEntity<>(sentUser, HttpStatus.CREATED);
+        }
     }
 
-    @DeleteMapping
-    void delete(@PathVariable Long id){
-        userRepository.delete(id);
-    }
+//    @DeleteMapping
+//    void delete(@PathVariable Long id){
+//        userRepository.delete(id);
+//    }
 //
 //    @PostMapping
 //    User update(@RequestBody User sentUser){

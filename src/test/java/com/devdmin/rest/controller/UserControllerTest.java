@@ -43,9 +43,10 @@ public class UserControllerTest {
         createdUser.setEmail("test@test.test");
         createdUser.setPassword("testtest");
 
+        when(repository.findByUsername("test")).thenReturn(createdUser);
         when(repository.save(any(User.class))).thenReturn(createdUser);
 
-        mockMvc.perform(post("/users")
+        mockMvc.perform(post("api/users")
                 .content("{\"username\":\"test\",\"password\":\"testtest\",\"email\":\"test@test.test\"}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.username", is(createdUser.getUsername())))
