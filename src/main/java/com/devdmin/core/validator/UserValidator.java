@@ -20,6 +20,7 @@ public class UserValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
+        System.out.println("YYYYYYYYYYYYYYYYYYYYYYYY");
         ValidationUtils.rejectIfEmpty(errors, "username", "username.empty");
         User user = (User) o;
         if(user.getAge() < 6){

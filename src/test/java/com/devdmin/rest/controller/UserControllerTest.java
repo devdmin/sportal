@@ -11,8 +11,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-
-
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
@@ -25,7 +23,7 @@ public class UserControllerTest {
     private UserController controller;
 
     @Mock
-    UserRepository repository;
+    private UserRepository repository;
 
     private MockMvc mockMvc;
 
@@ -42,19 +40,35 @@ public class UserControllerTest {
         createdUser.setUsername("test");
         createdUser.setEmail("test@test.test");
         createdUser.setPassword("testtest");
+        createdUser.setAge(16);
 
-        when(repository.findByUsername("test")).thenReturn(createdUser);
         when(repository.save(any(User.class))).thenReturn(createdUser);
 
-        mockMvc.perform(post("api/users")
-                .content("{\"username\":\"test\",\"password\":\"testtest\",\"email\":\"test@test.test\"}")
+        mockMvc.perform(post("/api/users")
+                .content("{\"username\":\"test\",\"password\":\"testtest\",\"email\":\"test@test.test\",\"age\":16}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.username", is(createdUser.getUsername())))
                 .andExpect(jsonPath("$.email", is(createdUser.getEmail())))
+                .andExpect(jsonPath("$.age", is(createdUser.getAge())))
                 .andExpect(status().isCreated());
 
     }
 
+    @Test
+    public void createUserExistingUsername() throws Exception{
+        User createdUser = new User();
 
+        createdUser.setUsername("test");
+        createdUser.setEmail("test@test.test");
+        createdUser.setPassword("testtest");
+        createdUser.setAge(16);
+
+        when(repository.findByUsername("test")).thenReturn(createdUser);
+
+        mockMvc.perform(post("/api/users")
+                .content("{\"username\":\"test\",\"password\":\"testtest\",\"email\":\"test@test.test\",\"age\":16}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
 }
 
