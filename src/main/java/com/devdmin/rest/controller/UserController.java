@@ -35,7 +35,6 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> add(@RequestBody @Valid User sentUser, BindingResult result) {
-        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         if (result.hasErrors()) {
             return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         } else {

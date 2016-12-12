@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,7 +31,9 @@ public class UserControllerTest {
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .build();
+
     }
 
     @Test
@@ -54,21 +57,5 @@ public class UserControllerTest {
 
     }
 
-    @Test
-    public void createUserExistingUsername() throws Exception{
-        User createdUser = new User();
-
-        createdUser.setUsername("test");
-        createdUser.setEmail("test@test.test");
-        createdUser.setPassword("testtest");
-        createdUser.setAge(16);
-
-        when(repository.findByUsername("test")).thenReturn(createdUser);
-
-        mockMvc.perform(post("/api/users")
-                .content("{\"username\":\"test\",\"password\":\"testtest\",\"email\":\"test@test.test\",\"age\":16}")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
-    }
 }
 
