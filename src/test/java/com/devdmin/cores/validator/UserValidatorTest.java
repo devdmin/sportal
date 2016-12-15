@@ -53,6 +53,31 @@ public class UserValidatorTest {
     }
 
     @Test
+    public void testValidationWithoutEmail() throws Exception{
+        User createdUser = new User();
+        createdUser.setUsername("test");
+        createdUser.setEmail("");
+        createdUser.setPassword("password");
+        createdUser.setAge(16);
+        Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
+
+        userValidator.validate(createdUser,errors);
+        assertTrue(errors.hasErrors());
+    }
+
+    @Test
+    public void testValidationWithoutPassword() throws Exception{
+        User createdUser = new User();
+        createdUser.setUsername("test");
+        createdUser.setEmail("test@test.test");
+        createdUser.setPassword("");
+        createdUser.setAge(16);
+        Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
+
+        userValidator.validate(createdUser,errors);
+        assertTrue(errors.hasErrors());
+    }
+    @Test
     public void testValidationWithExistingUsername() throws Exception{
         User createdUser = new User();
         createdUser.setUsername("test");
@@ -134,4 +159,6 @@ public class UserValidatorTest {
         userValidator.validate(createdUser, errors);
         assertTrue(errors.hasErrors());
     }
+
+
 }
