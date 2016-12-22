@@ -2,6 +2,7 @@ package com.devdmin.cores.validator;
 
 import com.devdmin.core.model.User;
 import com.devdmin.core.repository.UserRepository;
+import com.devdmin.core.service.UserService;
 import com.devdmin.core.validator.UserValidator;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class UserValidatorTest {
     @InjectMocks
     UserValidator userValidator;
     @Mock
-    private UserRepository userRepository;
+    private UserService service;
 
     @Before
     public void setup() {
@@ -85,7 +86,7 @@ public class UserValidatorTest {
         createdUser.setPassword("testtest");
         createdUser.setAge(16);
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
-        when(userRepository.findByUsername(any(String.class))).thenReturn(createdUser);
+        when(service.find(any(String.class))).thenReturn(createdUser);
 
         userValidator.validate(createdUser, errors);
         assertTrue(errors.hasErrors());
@@ -113,7 +114,7 @@ public class UserValidatorTest {
         createdUser.setPassword("testtest");
         createdUser.setAge(16);
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
-        when(userRepository.findByEmail(any(String.class))).thenReturn(createdUser);
+        when(service.findByEmail(any(String.class))).thenReturn(createdUser);
 
         userValidator.validate(createdUser, errors);
         assertTrue(errors.hasErrors());

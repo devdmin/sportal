@@ -2,6 +2,7 @@ package com.devdmin.rest.controller;
 
 import com.devdmin.core.model.User;
 import com.devdmin.core.repository.UserRepository;
+import com.devdmin.core.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -24,7 +25,7 @@ public class UserControllerTest {
     private UserController controller;
 
     @Mock
-    private UserRepository repository;
+    private UserService service;
 
     private MockMvc mockMvc;
 
@@ -45,7 +46,7 @@ public class UserControllerTest {
         createdUser.setPassword("testtest");
         createdUser.setAge(16);
 
-        when(repository.save(any(User.class))).thenReturn(createdUser);
+        when(service.addUser(any(User.class))).thenReturn(createdUser);
 
         mockMvc.perform(post("/api/users")
                 .content("{\"username\":\"test\",\"password\":\"testtest\",\"email\":\"test@test.test\",\"age\":16}")
@@ -56,6 +57,5 @@ public class UserControllerTest {
                 .andExpect(status().isCreated());
 
     }
-
 }
 
