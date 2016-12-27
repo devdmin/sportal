@@ -1,25 +1,36 @@
 package com.devdmin.rest.controller;
 
 import com.devdmin.core.model.SportField;
+import com.devdmin.core.model.util.SportFieldType;
 import com.devdmin.core.repository.SportFieldRepository;
+import com.devdmin.core.service.SportFieldService;
+import com.devdmin.core.service.util.SportFieldList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequestMapping("api/sportField")
 @RestController
 public class SportFieldController {
-    private SportFieldRepository sportFieldRepository;
+   private SportFieldService sportFieldService;
 
     @Autowired
-    public SportFieldController(SportFieldRepository sportFieldRepository){
-        this.sportFieldRepository = sportFieldRepository;
+    public SportFieldController(SportFieldService sportFieldService){
+        this.sportFieldService = sportFieldService;
     }
 
     @GetMapping
-    List<SportField> findAll(){ return sportFieldRepository.findAll(); }
+    public ResponseEntity<SportFieldList> findAll(){
+        SportFieldList sportFieldList = new SportFieldList(sportFieldService.findAll());
+        return new ResponseEntity<SportFieldList>(sportFieldList, HttpStatus.OK);
+    }
 
+    @PostMapping
+    public ResponseEntity<SportField> add(@RequestBody SportField sportField){
+        sportFieldService.add(sportField);
+        return new ResponseEntity<SportField>(sportField, HttpStatus.CREATED);
+    }
 }

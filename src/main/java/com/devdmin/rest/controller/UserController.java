@@ -4,18 +4,21 @@ import com.devdmin.core.model.User;
 import com.devdmin.core.repository.UserRepository;
 
 import com.devdmin.core.service.UserService;
+import com.devdmin.core.service.util.UserList;
 import com.devdmin.core.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -36,14 +39,6 @@ public class UserController {
         binder.setValidator(userValidator);
     }
 
-    @GetMapping("/{username}")
-    public ResponseEntity<User> get(@PathVariable String username) {
-        return Optional.ofNullable(userService.find(username))
-                .map(user -> {
-                    return new ResponseEntity<User>(user, HttpStatus.OK);
-                })
-                .orElse(new ResponseEntity<User>(HttpStatus.NOT_FOUND));
-    }
 
     @PostMapping
     public ResponseEntity<User> add(@RequestBody @Valid User sentUser, BindingResult result) {
@@ -55,11 +50,26 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{username}")
-    public ResponseEntity<User> update(@PathVariable String username, @RequestBody User sentUser){
+    @GetMapping
+    public ResponseEntity<UserList> findAll(){
+        UserList userList = new UserList(userService.findAll());
+        return new ResponseEntity<UserList>(userList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<User> get(@PathVariable String username) {
         return Optional.ofNullable(userService.find(username))
                 .map(user -> {
+                    return new ResponseEntity<User>(user, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<User>(HttpStatus.NOT_FOUND));
+    }
 
+
+    @PutMapping("/{username}")
+    public ResponseEntity<User> update(@PathVariable String username, @RequestBody @Valid User sentUser){
+        return Optional.ofNullable(userService.find(username))
+                .map(user -> {
                     User updatedUser = userService.update(user.getId(), sentUser);
                     return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
                 })
@@ -75,20 +85,4 @@ public class UserController {
                 })
                 .orElse(new ResponseEntity<User>(HttpStatus.NOT_FOUND));
         }
-    }
-
-//
-//    @GetMapping
-//    List<User> findAll(){
-//        return userRepository.findAll();
-//    }
-//
-//    @GetMapping("/{username}")
-//     public ResponseEntity<User> find(@PathVariable String username){
-//        return Optional.ofNullable(userRepository.findByUsername(username))
-//                .map(user -> {
-//                    return new ResponseEntity<>(user, HttpStatus.OK);
-//                })
-//                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//    }
-
+}
