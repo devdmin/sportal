@@ -1,5 +1,7 @@
 package com.devdmin;
 
+import com.devdmin.core.model.User;
+import com.devdmin.core.service.impl.UserServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

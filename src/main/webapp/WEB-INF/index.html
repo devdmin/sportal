@@ -8,8 +8,8 @@
     <title>Bootstrap 101 Template</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/cover.css" rel="stylesheet">
+    <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../resources/css/cover.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -18,12 +18,14 @@
     <![endif]-->
     <!-- AngularJS -->
     
-    <script src="js/angular.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="../resources/js/angular.min.js"></script>
+    <script src="../resources/js/angular-resource.js"></script>
+    <script src="../resources/js/app.js"></script>
+    
 </head>
 <body>
 <video playsinline autoplay muted loop id="bgvid">
-    <source src="video/video.mp4" type="video/mp4">
+    <source src="../resources/video/video.mp4" type="video/mp4">
 </video>
 
 <div class="site-wrapper">
@@ -37,7 +39,7 @@
                     <h3 class="masthead-brand">Sportal!</h3>
                     <nav>
                         <ul class="nav masthead-nav">
-                            <li class="active"><a href="#">Strona główna</a></li>
+                            <li class="active"><a href="/">Strona główna</a></li>
                             <li><a href="#">O nas</a></li>
                             <li><a href="#">Kontakt</a></li>
                         </ul>
@@ -48,8 +50,8 @@
                 <h1 class="cover-heading">Zacznij grać z nami teraz !</h1>
                 <p class="lead">Sportal jest to serwis społecznościowy dla ludzi z pasją do sportu </p>
                 <p class="lead">
-                    <a href="#" class="btn btn-lg btn-default">Zaloguj</a>
-                    <a href="register.html" class="btn btn-lg btn-primary">Zarejestruj</a>
+                    <a href="/login" class="btn btn-lg btn-default">Zaloguj</a>
+                    <a href="/register" class="btn btn-lg btn-primary">Zarejestruj</a>
                 </p>
             </div>
 
@@ -61,6 +63,6 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<script src="../resources/js/bootstrap.min.js"></script>
 </body>
 </html>

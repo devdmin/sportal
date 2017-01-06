@@ -7,7 +7,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class MainController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home(){
+    public String home() {
         return "index";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register() {
+        return "register";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String users(){
+        return "users";
     }
 }
