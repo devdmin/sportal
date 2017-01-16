@@ -7,7 +7,7 @@ var sportal = angular.module('sportal', ['ngResource'])
            "&password=" + data.password, {
                headers: {'Content-Type': 'application/x-www-form-urlencoded'}
            } ).then(function(data) {
-            $window.location.href = '/';
+            $window.location.href = '/dashboard';
                localStorage.setItem("session", {});
            }, function(data) {
                alert("Błąd logowania");
@@ -29,6 +29,11 @@ var sportal = angular.module('sportal', ['ngResource'])
         var Users = $resource("/api/users");
         return Users.get();
     }
+    
+    service.register = function(user, success, failure){
+        var User = $resource("/api/users");
+        User.save({}, user, success, failure);
+    }
     return service;
 })
 
@@ -36,11 +41,20 @@ var sportal = angular.module('sportal', ['ngResource'])
     
 })
 
-.controller('RegisterCtrl', function($scope){
+.controller('RegisterCtrl', function($scope, sessionService, userService){
       $scope.register = function(){
-        console.log('X ' + JSON.stringify($scope.user));
-          console.log((new Date().getFullYear())-$scope.user.year);
-      }
+          var user = $scope.user;
+          user.age = (new Date().getFullYear())-$scope.user.year;
+          delete user.year;
+          userService.register(user,
+           function(returnedData) {
+             sessionService.login(user);
+           },
+           function() {
+               alert("Error registering user");
+           });
+            console.log('X ' + JSON.stringify(user));
+          };
 })
 
 .controller('UsersCtrl', function($scope, userService){

@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(authFailure)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/**")
+                .antMatchers("/login", "/resources/**", "/", "/register", "/users", "/api/**")
                 .permitAll()
                 .anyRequest().authenticated();
     }

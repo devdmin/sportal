@@ -9,6 +9,7 @@ import com.devdmin.core.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.ObjectError;
@@ -41,6 +42,7 @@ public class UserController {
 
 
     @PostMapping
+    @PreAuthorize("permitAll")
     public ResponseEntity<User> add(@RequestBody @Valid User sentUser, BindingResult result) {
         if (result.hasErrors()) {
             return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
@@ -51,12 +53,14 @@ public class UserController {
     }
 
     @GetMapping
+    @PreAuthorize("permitAll")
     public ResponseEntity<UserList> findAll(){
         UserList userList = new UserList(userService.findAll());
         return new ResponseEntity<UserList>(userList, HttpStatus.OK);
     }
 
     @GetMapping("/{username}")
+    @PreAuthorize("permitAll")
     public ResponseEntity<User> get(@PathVariable String username) {
         return Optional.ofNullable(userService.find(username))
                 .map(user -> {
