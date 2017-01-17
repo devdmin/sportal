@@ -53,3 +53,6 @@
       #target {
         width: 345px;
       }
+        #lng, #lat{
+            color: black;
+        }

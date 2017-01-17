@@ -2,9 +2,11 @@ function initAutocomplete() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 51.8335857, lng: 14.6499367},
     zoom: 5,
-    mapTypeId: 'roadmap'
+    mapTypeId: 'hybrid'
+   
   });
-
+    var newSportField;
+    map.setOptions({draggableCursor:'crosshair'});
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
   var searchBox = new google.maps.places.SearchBox(input);
@@ -80,10 +82,20 @@ function initAutocomplete() {
     map.setZoom(14);
   });
     
-     google.maps.event.addListener(Marker, "dragend", function(event) { 
-          var lat = event.latLng.lat(); 
-          var lng = event.latLng.lng(); 
-         console.log(lat +"  " + lng);
-        }); 
+  google.maps.event.addListener(map, "click", function(event) {
+    if(newSportField != null){
+        newSportField.setMap(null);
+    }
+    var lat = event.latLng.lat();
+    var lng = event.latLng.lng();
+    // populate yor box/field with lat, lng
+   
+      document.getElementById('lat').value = lat;
+       document.getElementById('lng').value = lng;
+    newSportField = new google.maps.Marker({
+          position: new google.maps.LatLng(lat, lng),
+          map: map,
+          title: 'Hello World!'
+        });
+  });
 }
-

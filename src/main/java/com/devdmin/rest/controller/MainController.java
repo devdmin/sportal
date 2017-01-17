@@ -19,7 +19,7 @@ public class MainController {
     /* The user is logged in :) */
             return "dashboard";
         }
-            return "index";
+        return "index";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -33,13 +33,13 @@ public class MainController {
     }
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public String users(){
+    public String users() {
         return "users";
     }
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_USER')")
-    public String dashboard(){
+    public String dashboard() {
         return "dashboard";
     }
 }
