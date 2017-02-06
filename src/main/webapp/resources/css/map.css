@@ -53,6 +53,6 @@
       #target {
         width: 345px;
       }
-        #lng, #lat{
+        #lng, #lat, #spf{
             color: black;
         }

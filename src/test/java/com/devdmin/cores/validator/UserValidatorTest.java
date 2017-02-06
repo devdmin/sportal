@@ -1,6 +1,7 @@
 package com.devdmin.cores.validator;
 
 import com.devdmin.core.model.User;
+import com.devdmin.core.model.util.Gender;
 import com.devdmin.core.repository.UserRepository;
 import com.devdmin.core.service.UserService;
 import com.devdmin.core.validator.UserValidator;
@@ -34,10 +35,24 @@ public class UserValidatorTest {
         createdUser.setEmail("test@test.test");
         createdUser.setPassword("testtest");
         createdUser.setAge(16);
+        createdUser.setGender(Gender.MALE);
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
 
         userValidator.validate(createdUser,errors);
         assertFalse(errors.hasErrors());
+    }
+
+    @Test
+    public void testValidationWithoutGender() throws Exception{
+        User createdUser = new User();
+        createdUser.setUsername("test");
+        createdUser.setEmail("test@test.test");
+        createdUser.setPassword("testtest");
+        createdUser.setAge(16);
+        Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
+
+        userValidator.validate(createdUser,errors);
+        assertTrue(errors.hasErrors());
     }
 
     @Test

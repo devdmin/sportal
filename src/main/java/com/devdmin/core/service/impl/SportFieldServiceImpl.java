@@ -6,6 +6,7 @@ import com.devdmin.core.service.SportFieldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -21,13 +22,15 @@ public class SportFieldServiceImpl implements SportFieldService{
 
     @Override
     public SportField add(SportField sportField) {
+        sportField.setAddingDate(LocalDate.now());
         return repository.save(sportField);
     }
 
     @Override
     public SportField update(Long id, SportField sportField) {
         SportField sportFieldToUpdate = find(id);
-        sportFieldToUpdate.setCoords(sportField.getCoords());
+        sportField.setLat(sportField.getLat());
+        sportField.setLng(sportField.getLng());
         sportFieldToUpdate.setEvents(sportField.getEvents());
         sportFieldToUpdate.setType(sportField.getType());
         return repository.save(sportFieldToUpdate);

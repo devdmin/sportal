@@ -1,4 +1,5 @@
 function initAutocomplete() {
+
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 51.8335857, lng: 14.6499367},
     zoom: 5,
@@ -15,19 +16,30 @@ function initAutocomplete() {
       
     searchBox.setBounds(map.getBounds());
   });
-
+  
+   
+    var sportFields = [];
+    sportFields = JSON.parse(localStorage.getItem("sportFields"));
+    console.log(sportFields);
   var markers = [];
-       var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(50.736439, 19.138677),
+
+    for (i = 0; i < sportFields.length; i++) { 
+        markers.push(
+        new google.maps.Marker({
+          position: new google.maps.LatLng(sportFields[i].lat,sportFields[i].lng),
           map: map,
-          title: 'Hello World!'
-        });
+          title: 'Hello World!',
+          id: sportFields[i].id
+        }));
+    }
     
-        var marker2 = new google.maps.Marker({
-          position: new google.maps.LatLng(50.747402, 19.177645),
-          map: map,
-          title: 'Hello World!'
-        });
+     markers.forEach(function(marker) {
+      google.maps.event.addListener(marker, 'click', function() {
+           map.setZoom(14);
+          map.setCenter(marker.getPosition());
+          showSportField(marker.id);
+        }); 
+    });
     
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
@@ -79,11 +91,12 @@ function initAutocomplete() {
     map.fitBounds(bounds);
     map.setZoom(14);
   });
+  
     
-     google.maps.event.addListener(Marker, "dragend", function(event) { 
-          var lat = event.latLng.lat(); 
-          var lng = event.latLng.lng(); 
-         console.log(lat +"  " + lng);
-        }); 
+
 }
 
+function showSportField(sportField){
+     var scope = angular.element(document.getElementById("mainMap")).scope();
+     scope.show(sportField);
+}

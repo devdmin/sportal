@@ -17,6 +17,11 @@ public class UserServiceImpl implements UserService{
     private UserRepository repository;
 
     @Override
+    public User save(User user) {
+        return repository.save(user);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public User find(Long id) {
         return repository.findOne(id);

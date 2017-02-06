@@ -1,12 +1,10 @@
 package com.devdmin.core.model;
 
+import com.devdmin.core.model.util.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,9 +21,13 @@ public class User {
     private String email;
     private LocalDate signUpDate;
     private int age;
+    private Gender gender;
 
     @ManyToMany(mappedBy = "users")
     private List<Event> events;
+    @OneToMany
+    @JoinColumn(name = "author_id")
+    private List<SportField> sportFields;
 
     public Long getId() {
         return id;
@@ -81,6 +83,22 @@ public class User {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public List<SportField> getSportFields() {
+        return sportFields;
+    }
+
+    public void setSportFields(List<SportField> sportFields) {
+        this.sportFields = sportFields;
     }
 
     @Override

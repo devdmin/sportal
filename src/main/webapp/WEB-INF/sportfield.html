@@ -22,7 +22,7 @@
     <script src="../resources/js/angular-resource.js"></script>
     <script src="../resources/js/app.js"></script>
 </head>
-<body class="body"  ng-controller="SportiFieldCtrl">
+<body class="body"  ng-controller="SportFieldCtrl">
 
 <div class="site-wrapper">
 
@@ -48,17 +48,18 @@
         </div>
             <input id="pac-input" class="controls" type="text" placeholder="Wpisz nazwę twojej miejscowości">
         <div id="map"></div>
-<form> 
+        <form ng-submit="add()"> 
         <input id="lat" type="hidden" />
         <input id="lng" type="hidden" />
          <div class="col-md-2 col-md-offset-5">
-        <select class="form-control ">
+        <select class="form-control" ng-model="sportField.type">
           <option value="FOOTBALL">Piłka nożna</option>
           <option value="VOLLEYBALL">Siatkówka</option> 
           <option value="BASKETBALL">Koszykówka</option>
         </select>
-             </div>
-</form>
+            </div> </br>
+            <input type="submit" value="Dodaj!" class="btn btn-default"/>
+        </form>
     </div>
 
 </div>
@@ -66,8 +67,9 @@
     
 </div>
 <script src="../resources/js/sportfield.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&callback=initAutocomplete"
-         async defer></script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR8w97EFC1rgwwTg8tvxijf6wiD6t25nY&libraries=places&sensor=false&callback=initAutocomplete"
+  type="text/javascript"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->

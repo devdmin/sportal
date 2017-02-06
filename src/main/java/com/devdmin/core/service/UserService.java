@@ -5,6 +5,7 @@ import com.devdmin.core.model.User;
 import java.util.List;
 
 public interface UserService {
+    User save(User user);
     User find(Long id);
     User find(String username);
     User findByEmail(String email);

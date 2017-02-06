@@ -2,6 +2,7 @@ package com.devdmin.rest.controller;
 
 import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
+import com.devdmin.core.model.util.Gender;
 import com.devdmin.core.model.util.SportFieldType;
 import com.devdmin.core.repository.UserRepository;
 import com.devdmin.core.service.UserService;
@@ -53,15 +54,17 @@ public class UserControllerTest {
         createdUser.setUsername("test");
         createdUser.setEmail("test@test.test");
         createdUser.setPassword("testtest");
+        createdUser.setGender(Gender.MALE);
         createdUser.setAge(16);
 
         when(service.addUser(any(User.class))).thenReturn(createdUser);
 
         mockMvc.perform(post("/api/users")
-                .content("{\"username\":\"test\",\"password\":\"testtest\",\"email\":\"test@test.test\",\"age\":16}")
+                .content("{\"username\":\"test\",\"password\":\"testtest\",\"email\":\"test@test.test\",\"gender\":\"MALE\",\"age\":16}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.username", is(createdUser.getUsername())))
                 .andExpect(jsonPath("$.email", is(createdUser.getEmail())))
+                .andExpect(jsonPath("$.gender", is(createdUser.getGender().toString())))
                 .andExpect(jsonPath("$.age", is(createdUser.getAge())))
                 .andExpect(status().isCreated());
         verify(service).addUser(userCaptor.capture());

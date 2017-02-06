@@ -17,19 +17,18 @@ function initAutocomplete() {
       
     searchBox.setBounds(map.getBounds());
   });
-
+   
+    var sportFields = [];
+    sportFields = JSON.parse(localStorage.getItem("sportFields"));
+    console.log(sportFields);
   var markers = [];
-       var marker = new google.maps.Marker({
-          position: new google.maps.LatLng(50.736439, 19.138677),
+    for (i = 0; i < sportFields.length; i++) { 
+        new google.maps.Marker({
+          position: new google.maps.LatLng(sportFields[i].lat,sportFields[i].lng),
           map: map,
           title: 'Hello World!'
         });
-    
-        var marker2 = new google.maps.Marker({
-          position: new google.maps.LatLng(50.747402, 19.177645),
-          map: map,
-          title: 'Hello World!'
-        });
+    }
     
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
@@ -82,6 +81,7 @@ function initAutocomplete() {
     map.setZoom(14);
   });
     
+    
   google.maps.event.addListener(map, "click", function(event) {
     if(newSportField != null){
         newSportField.setMap(null);
@@ -97,5 +97,6 @@ function initAutocomplete() {
           map: map,
           title: 'Hello World!'
         });
+
   });
 }

@@ -42,4 +42,9 @@ public class MainController {
     public String dashboard() {
         return "dashboard";
     }
+
+    @RequestMapping(value = "/sportField", method = RequestMethod.GET)
+    public String sportField() {
+        return "sportfield";
+    }
 }

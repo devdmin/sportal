@@ -30,7 +30,8 @@ public class UserValidator implements Validator {
 
         ValidationUtils.rejectIfEmpty(errors, "username", "username.empty");
         ValidationUtils.rejectIfEmpty(errors, "email", "email.empty");
-        ValidationUtils.rejectIfEmpty(errors, "password", "email.password");
+        ValidationUtils.rejectIfEmpty(errors, "password", "email.empty");
+        ValidationUtils.rejectIfEmpty(errors, "gender", "email.empty");
 
         User user = (User) o;
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(user.getEmail());

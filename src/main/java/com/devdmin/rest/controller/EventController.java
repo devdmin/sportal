@@ -21,8 +21,10 @@ public class EventController {
     @GetMapping
     List<Event> findAll() { return eventRepository.findAll(); }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     Event findEventById(@PathVariable Long id){
         return eventRepository.findOne(id);
     }
+
+
 }

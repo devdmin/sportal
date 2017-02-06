@@ -37,6 +37,19 @@ var sportal = angular.module('sportal', ['ngResource'])
     return service;
 })
 
+.factory("sportFieldService", function($resource, $http){
+    var service = {};
+    service.add = function(sportField, success, failure){
+        var SportField = $resource("/api/sportField");
+        SportField.save({}, sportField, success, failure);
+    }
+    service.findAll = function(){
+        var SportFields = $resource("/api/sportField");
+        return SportFields.get();
+    }
+    return service;
+})
+
 .controller('AppCtrl', function AppCtrl ($scope){
     
 })
@@ -51,9 +64,9 @@ var sportal = angular.module('sportal', ['ngResource'])
              sessionService.login(user);
            },
            function() {
-               alert("Error registering user");
+               alert("Błąd podczas rejestracji użytkownika");
            });
-            console.log('X ' + JSON.stringify(user));
+
           };
 })
 
@@ -66,11 +79,53 @@ var sportal = angular.module('sportal', ['ngResource'])
     });
 })
 
+.controller('MapCtrl', function($scope, sportFieldService, $filter){
+    var sportFields;
+    $scope.hide = false;
+    sportFieldService.findAll().$promise.then(function (result) {
+        sportFields = result.sportFieldList;
+        console.log(sportFields);
+        localStorage.setItem("sportFields",  JSON.stringify(sportFields));
+        initAutocomplete();
+    });
+    
+    $scope.show = function(sportFieldId){
+        
+        $scope.hide = false;
+        console.log($scope.hide);
+        console.log(JSON.stringify($filter('filter')(sportFields, {id: sportFieldId})[0]));
+         $scope.$apply(function () {
+            $scope.sportField = $filter('filter')(sportFields, {id: sportFieldId})[0];
+         });
+        console.log($scope.sportField.addingDate);
+     }
+   
+})
 
-.controller('LoginCtrl', function($scope, $http, sessionService){
+.controller('LoginCtrl', function($scope, sessionService){
   $scope.login = function(){
         sessionService.login($scope.user)
       }
-});
+})
+
+.controller('SportFieldCtrl', function($scope, sportFieldService, $window){
+    var sportField;
+     $scope.add = function(){
+         sportField = $scope.sportField;
+         sportField.lat = document.getElementById('lat').value;
+         sportField.lng = document.getElementById('lng').value;
+         
+         sportFieldService.add(sportField, function(returnedData){
+             console.log(returnedData);
+         },
+         function(err){
+             console.log("err", err);
+         }        
+        );
+         $window.localStorage.clear();
+         $window.location.href = '/dashboard';
+     }
+})
+;
 
 
