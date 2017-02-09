@@ -1,79 +1,84 @@
 <!DOCTYPE html>
 <html lang="pl" ng-app="sportal">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Sportal! - Login</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Sportal! - Login</title>
 
-		<!-- Bootstrap -->
-		<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-		<link href="../resources/css/cover.css" rel="stylesheet">
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
+        <!-- Bootstrap -->
+        <link href="../resources/css/bootstrap.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="../resources/flat-ui/css/flat-ui.min.css"/>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-		<script src="../resources/js/angular.min.js"></script>
-		<script src="../resources/js/angular-resource.js"></script>
-		<script src="../resources/js/app.js"></script>
-	</head>
-	<body class="body"  ng-controller="LoginCtrl">
+        <script src="../resources/js/angular.min.js"></script>
+        <script src="../resources/js/angular-resource.js"></script>
+        <script src="../resources/js/app.js"></script>
+    </head>
+    <body class="body"  ng-controller="LoginCtrl">
 
-		<div class="site-wrapper">
+        <nav class="navbar navbar-inverse" role="navigation" style="border-radius:0">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                        <span class="sr-only">Nawigacja</span>
+                    </button>
+                    <a class="navbar-brand" href="#!">Sportal!</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse-01">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">Strona główna</a></li>
+                        <li><a href="#!">Kontakt</a></li>
+                        <li><a href="#!">O nas</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Użytkownik <b class="caret"></b></a>
+                            <span class="dropdown-arrow"></span>
+                            <ul class="dropdown-menu">
+                                <li><a href="login.html">Zaloguj się</a></li>
+                                <li><a href="register.html">Zarejestruj</a></li>
+                            </ul>
+                        </li>
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="login-form col-md-4">
+                    <form ng-submit="login(user)">
+                        <div class="form-group">
+                            <input ng-model="user.username" type="text" class="form-control login-field" value="" placeholder="Nazwa użytkownika" id="username" required/>
+                            <label class="login-field-icon fui-user" for="username"></label>
+                        </div>
 
-			<div class="site-wrapper-inner">
+                        <div class="form-group">
+                            <input ng-model="user.password" type="password" class="form-control login-field" value="" placeholder="Hasło" id="inputPassword3" required/>
+                            <label class="login-field-icon fui-lock" for="inputPassword3"></label>
+                        </div>
 
-				<div class="cover-container">
+                        <input class="btn btn-primary btn-lg btn-block" type="submit" value="Zaloguj"/>
+                        <a class="login-link" href="#">Zapomniałeś hasła?</a>
 
-					<div class="masthead clearfix">
-						<div class="inner">
-							<h3 class="masthead-brand">Sportal!</h3>
-							<nav>
-								<ul class="nav masthead-nav">
-									<li class="active"><a href="/">Strona główna</a></li>
-									<li><a href="#">O nas</a></li>
-									<li><a href="#">Kontakt</a></li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-					<form class="form-horizontal" ng-submit="login(user)">
-						<div class="form-group">
-							<label for="inputUsername" class="col-sm-2 control-label">Login:</label>
-							<div class="col-sm-10">
-								<input ng-model="user.username" type="text" class="form-control" id="username" placeholder="Nazwa użytkownika" required>
-							</div>
-						</div>
+                        <br/>
+                        <p><a class="btn btn-inverse btn-lg btn-block" href="register.html">Zarejestruj się</a></p>
 
-						<div class="form-group">
-							<label for="inputPassword" class="col-sm-2 control-label">Hasło</label>
-							<div class="col-sm-10">
-								<input ng-model="user.password" type="password" class="form-control" id="inputPassword3" placeholder="Hasło">
-							</div>
-						</div>
+                    </form>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+        </div>
 
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button type="submit" class="btn btn-primary">Zaloguj</button>
-							</div>
-						</div>
-					</form>
-
-				</div>
-
-			</div>
-
-		</div>
-
-
-		</div>
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="../resources/js/bootstrap.min.js"></script>
-	</body>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="../resources/js/bootstrap.min.js"></script>
+    </body>
 </html>

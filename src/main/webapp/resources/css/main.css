@@ -1,0 +1,52 @@
+video#bgvid {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	min-width: 100%;
+	min-height: 100%;
+	width: auto;
+	height: auto;
+	z-index: -100;
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+	background: url(polina.jpg) no-repeat;
+	background-size: cover;
+	filter: brightness(20%);
+}
+
+.center-cover {
+    text-align: center;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 50vh;
+}
+
+.cover-inner {
+    flex: 1 1 auto;
+    vertical-align: middle;
+}
+
+.white-text {
+    color: white;
+}
+
+ul.nav li a {
+    color: white;
+    border-bottom: 2px solid rgba(255,255,255,0);
+}
+
+ul.nav li a:hover {
+    border-bottom: 2px solid rgba(255,255,255,0.5);
+}
+
+ul.nav li.active a {
+    border-bottom: 2px solid rgba(255,255,255,1);
+}
+
+.dropdown-menu li a {
+    color: #606d7a!important;
+}
