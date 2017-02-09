@@ -55,11 +55,11 @@ var sportal = angular.module('sportal', ['ngResource'])
 			return SportFields.get();
 		};
 		return service;
-	});
+	})
 
 .controller('AppCtrl', function AppCtrl ($scope) {
     
-});
+})
 
 .controller('RegisterCtrl', function($scope, sessionService, userService){
 	$scope.register = function(){
