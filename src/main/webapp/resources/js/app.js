@@ -1,8 +1,8 @@
 /*jslint browser: true*/
 /*jslint node: true*/
-/*global alert*/
+/*global angular,alert*/
 
-var angular, sportal = angular.module('sportal', ['ngResource'])
+var sportal = angular.module('sportal', ['ngResource'])
 
 	.factory("sessionService", function ($http, $window) {
 		"use strict";
@@ -132,7 +132,6 @@ var angular, sportal = angular.module('sportal', ['ngResource'])
 		$window.localStorage.clear();
 		$window.location.href = '/dashboard';
 	}
-})
-;
+});
 
 
