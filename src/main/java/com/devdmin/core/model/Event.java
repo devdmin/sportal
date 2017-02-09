@@ -4,6 +4,7 @@ import com.devdmin.core.model.util.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,12 +21,17 @@ public class Event {
     @JoinColumn(name = "userId")
     private List<User> users;
     private LocalDateTime date;
+    private LocalDate addingDate;
     private int minAge;
     private int maxAge;
     private Gender gender;
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User author;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public Long getId() {
         return id;
     }
@@ -85,5 +91,13 @@ public class Event {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public LocalDate getAddingDate() {
+        return addingDate;
+    }
+
+    public void setAddingDate(LocalDate addingDate) {
+        this.addingDate = addingDate;
     }
 }

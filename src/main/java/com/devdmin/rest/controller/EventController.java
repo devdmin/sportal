@@ -1,30 +1,30 @@
 package com.devdmin.rest.controller;
 
 import com.devdmin.core.model.Event;
-import com.devdmin.core.repository.EventRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+
+import com.devdmin.core.service.EventService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("api/events")
 @RestController
 public class EventController {
-    private final EventRepository eventRepository;
+    @Autowired
+    private final EventService eventService;
 
-    public EventController(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
     }
 
-    @GetMapping
-    List<Event> findAll() { return eventRepository.findAll(); }
-
-    @GetMapping("/{id}")
-    Event findEventById(@PathVariable Long id){
-        return eventRepository.findOne(id);
+    @PostMapping
+    @PreAuthorize("permitAll")
+    public ResponseEntity<Event> add(@RequestBody Event sentEvent) {
+            Event event = eventService.add(sentEvent);
+            return new ResponseEntity<Event>(event, HttpStatus.CREATED);
     }
-
-
 }
