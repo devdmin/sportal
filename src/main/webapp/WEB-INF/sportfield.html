@@ -1,75 +1,75 @@
 <!DOCTYPE html>
 <html lang="pl" ng-app="sportal">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Sportal!</title>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Sportal!</title>
 
-    <link href="../resources/css/map.css" rel="stylesheet">
-    <!-- Bootstrap -->
-    <link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../resources/css/cover.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    
-    <script src="../resources/js/angular.min.js"></script>
-    <script src="../resources/js/angular-resource.js"></script>
-    <script src="../resources/js/app.js"></script>
-</head>
-<body class="body"  ng-controller="SportFieldCtrl">
+		<link href="../resources/css/map.css" rel="stylesheet">
+		<!-- Bootstrap -->
+		<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../resources/css/cover.css" rel="stylesheet">
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
 
-<div class="site-wrapper">
+		<script src="../resources/js/angular.min.js"></script>
+		<script src="../resources/js/angular-resource.js"></script>
+		<script src="../resources/js/app.js"></script>
+	</head>
+	<body class="body"  ng-controller="SportFieldCtrl">
 
-    <div class="site-wrapper-inner">
+		<div class="site-wrapper">
 
-        <div class="cover-container">
+			<div class="site-wrapper-inner">
 
-            <div class="masthead clearfix">
-                <div class="inner">
-                    <h3 class="masthead-brand">Sportal!</h3>
-                    <nav>
-                        <ul class="nav masthead-nav">
-                            <li class="active"><a href="/">Strona główna</a></li>
-                            <li><a href="#">O nas</a></li>
-                            <li><a href="#">Kontakt</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                
-            </div>
-        
-            <h2>Wyszukaj i zaznacz boisko</h2>
-        </div>
-            <input id="pac-input" class="controls" type="text" placeholder="Wpisz nazwę twojej miejscowości">
-        <div id="map"></div>
-        <form ng-submit="add()"> 
-        <input id="lat" type="hidden" />
-        <input id="lng" type="hidden" />
-         <div class="col-md-2 col-md-offset-5">
-        <select class="form-control" ng-model="sportField.type">
-          <option value="FOOTBALL">Piłka nożna</option>
-          <option value="VOLLEYBALL">Siatkówka</option> 
-          <option value="BASKETBALL">Koszykówka</option>
-        </select>
-            </div> </br>
-            <input type="submit" value="Dodaj!" class="btn btn-default"/>
-        </form>
-    </div>
+				<div class="cover-container">
 
-</div>
-    
-    
-</div>
+					<div class="masthead clearfix">
+						<div class="inner">
+							<h3 class="masthead-brand">Sportal!</h3>
+							<nav>
+								<ul class="nav masthead-nav">
+									<li class="active"><a href="/">Strona główna</a></li>
+									<li><a href="#">O nas</a></li>
+									<li><a href="#">Kontakt</a></li>
+								</ul>
+							</nav>
+						</div>
+
+					</div>
+
+					<h2>Wyszukaj i zaznacz boisko</h2>
+				</div>
+				<input id="pac-input" class="controls" type="text" placeholder="Wpisz nazwę twojej miejscowości">
+				<div id="map"></div>
+				<form ng-submit="add()">
+					<input id="lat" type="hidden" />
+					<input id="lng" type="hidden" />
+					<div class="col-md-2 col-md-offset-5">
+						<select class="form-control" ng-model="sportField.type">
+							<option value="FOOTBALL">Piłka nożna</option>
+							<option value="VOLLEYBALL">Siatkówka</option>
+							<option value="BASKETBALL">Koszykówka</option>
+						</select>
+					</div> </br>
+				<input type="submit" value="Dodaj!" class="btn btn-default"/>
+				</form>
+		</div>
+
+		</div>
+
+
+	</div>
 <script src="../resources/js/sportfield.js"></script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR8w97EFC1rgwwTg8tvxijf6wiD6t25nY&libraries=places&sensor=false&callback=initAutocomplete"
-  type="text/javascript"></script>
+		type="text/javascript"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
