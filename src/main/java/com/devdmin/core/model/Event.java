@@ -100,4 +100,5 @@ public class Event {
     public void setAddingDate(LocalDate addingDate) {
         this.addingDate = addingDate;
     }
+
 }

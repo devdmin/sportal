@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/events")
 @RestController
 public class EventController {
-    @Autowired
-    private final EventService eventService;
 
+    private final EventService eventService;
+    @Autowired
     public EventController(EventService eventService) {
         this.eventService = eventService;
     }
 
-    @PostMapping
+    @PostMapping("/{sportFieldId}")
     @PreAuthorize("permitAll")
-    public ResponseEntity<Event> add(@RequestBody Event sentEvent) {
-            Event event = eventService.add(sentEvent);
-            return new ResponseEntity<Event>(event, HttpStatus.CREATED);
+    public ResponseEntity<Event> add(@PathVariable Long sportFieldId, @RequestBody Event sentEvent) {
+        Event event = eventService.add(sentEvent, sportFieldId);
+        return new ResponseEntity<Event>(event, HttpStatus.CREATED);
     }
 }
