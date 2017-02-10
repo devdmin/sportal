@@ -6,14 +6,10 @@ Sportal jest to serwis społecznościowy dla ludzi z pasją do sportu.
 
 ### CHANGELOG ###
 
-#### 0.0.2 ####
+#### [Unreleased] ####
 
-*
-*
-*
+##### Added: #####
 
-#### 0.0.1 ####
-
-*
-*
-*
+- []
+- []
+- []
