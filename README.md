@@ -13,3 +13,15 @@ Sportal jest to serwis społecznościowy dla ludzi z pasją do sportu.
 - []
 - []
 - []
+
+#### Changed: ####
+
+- []
+- []
+- []
+
+#### Fixed: ####
+
+- []
+- []
+- []
