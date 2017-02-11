@@ -17,7 +17,6 @@ public class SportField {
     private boolean isVerified;
     private LocalDate addingDate;
 //    @OneToMany
-//    @JoinColumn(name = "author_id")
 //    private User author;
     @OneToMany(mappedBy = "sportField")
     private List<Event> events;
@@ -76,7 +75,7 @@ public class SportField {
     public void setAddingDate(LocalDate addingDate) {
         this.addingDate = addingDate;
     }
-//
+
 //    public User getAuthor() {
 //        return author;
 //    }
