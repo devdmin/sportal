@@ -14,17 +14,21 @@ public class Event {
     @Id
     @GeneratedValue
     private Long id;
+
     @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "sportFieldId")
     private SportField sportField;
+
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "userId")
     private List<User> users;
+
     private LocalDateTime date;
     private LocalDate addingDate;
     private int minAge;
     private int maxAge;
     private Gender gender;
+
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User author;

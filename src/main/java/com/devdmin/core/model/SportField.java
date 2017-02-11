@@ -16,8 +16,9 @@ public class SportField {
     private SportFieldType type;
     private boolean isVerified;
     private LocalDate addingDate;
-//    @OneToMany
-//    private User author;
+    @ManyToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "author_id")
+    private User author;
     @OneToMany(mappedBy = "sportField")
     private List<Event> events;
 
@@ -76,11 +77,11 @@ public class SportField {
         this.addingDate = addingDate;
     }
 
-//    public User getAuthor() {
-//        return author;
-//    }
-//
-//    public void setAuthor(User author) {
-//        this.author = author;
-//    }
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
 }

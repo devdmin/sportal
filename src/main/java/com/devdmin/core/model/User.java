@@ -22,7 +22,8 @@ public class User {
     private LocalDate signUpDate;
     private int age;
     private Gender gender;
-
+    @OneToMany(mappedBy = "author")
+    private List<SportField> ownSportFields;
     @ManyToMany(mappedBy = "users")
     private List<Event> events;
     @OneToMany
