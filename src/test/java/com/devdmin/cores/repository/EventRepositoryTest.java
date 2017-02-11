@@ -1,8 +1,11 @@
 package com.devdmin.cores.repository;
 
 import com.devdmin.core.model.Event;
+import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.util.Gender;
+import com.devdmin.core.model.util.SportFieldType;
 import com.devdmin.core.repository.EventRepository;
+import com.devdmin.core.repository.SportFieldRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -13,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
@@ -31,6 +35,8 @@ public class EventRepositoryTest {
     @Autowired
     private EventRepository eventRepository;
 
+    @Autowired
+    private SportFieldRepository sportFieldRepository;
     @Test
     public void testFind() throws Exception{
       Event event = new Event();
@@ -43,6 +49,7 @@ public class EventRepositoryTest {
       assertEquals(foundEvent.getId(), id);
     }
 
+    @Test
     public void deleteTest() throws Exception{
         Event event = new Event();
         event.setGender(Gender.MALE);
