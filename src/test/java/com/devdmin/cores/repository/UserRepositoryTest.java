@@ -1,10 +1,15 @@
 package com.devdmin.cores.repository;
 
+import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.Gender;
+import com.devdmin.core.model.util.SportFieldType;
+import com.devdmin.core.repository.SportFieldRepository;
 import com.devdmin.core.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -12,6 +17,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase.Replace.NONE;
 
 
@@ -19,7 +26,7 @@ import static org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureT
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = NONE)
 public class UserRepositoryTest {
-
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private TestEntityManager entityManager;
@@ -28,8 +35,21 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
-    public void testFind()
-    {
+    public void testFind() throws Exception{
+        User user = new User();
+        user.setUsername("Foo");
+        user.setGender(Gender.MALE);
+        user.setAge(20);
+        user.setPassword("password");
+        user.setEmail("email@email.email");
+        user.setSignUpDate(LocalDate.now());
+        Long id = this.entityManager.persistAndGetId(user, Long.class);
+        User foundUser = userRepository.findOne(id);
+        assertEquals(user.getUsername(), foundUser.getUsername());
+
+    }
+    @Test
+    public void testFindByUsername() throws Exception{
         User user = new User();
         user.setUsername("Foo");
         user.setGender(Gender.MALE);
@@ -41,4 +61,20 @@ public class UserRepositoryTest {
         User foundUser = userRepository.findByUsername("Foo");
         assertEquals(user.getUsername(), foundUser.getUsername());
     }
+
+    @Test
+    public void testDelete() throws Exception{
+        User user = new User();
+        user.setUsername("Foo");
+        user.setGender(Gender.MALE);
+        user.setAge(20);
+        user.setPassword("password");
+        user.setEmail("email@email.email");
+        user.setSignUpDate(LocalDate.now());
+        Long id = this.entityManager.persistAndGetId(user, Long.class);
+        userRepository.delete(id);
+        User foundUser = userRepository.findOne(id);
+        assertNull(foundUser);
+    }
+
 }
