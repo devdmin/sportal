@@ -87,6 +87,7 @@ public class SportFieldRepositoryTest {
         entityManager.refresh(sportField);
 
        Event foundEvent =sportFieldRepository.findOne(foundSportField.getId()).getEvents().get(0);
+
         assertEquals(event, foundEvent);
         assertEquals(event.getSportField(), foundSportField);
     }

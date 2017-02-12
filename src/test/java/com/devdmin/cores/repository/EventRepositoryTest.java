@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -60,5 +61,36 @@ public class EventRepositoryTest {
         eventRepository.delete(id);
         Event foundEvent = eventRepository.findOne(id);
         assertNull(foundEvent);
+    }
+    @Test
+    public void findBySportFieldIdTest() throws Exception{
+            SportField sportField = new SportField();
+            sportField.setLat(24.2444);
+            sportField.setLng(54.2555);
+            sportField.setType(SportFieldType.BASKETBALL);
+            sportField.setVerified(false);
+            sportField.setAddingDate(LocalDate.now());
+            SportField foundSportField = entityManager.persist(sportField);
+            Event event = new Event();
+            event.setGender(Gender.MALE);
+            event.setMinAge(10);
+            event.setMaxAge(20);
+            event.setDate(LocalDateTime.now());
+            event.setSportField(foundSportField);
+
+            Event event2 = new Event();
+            event2.setGender(Gender.MALE);
+            event2.setMinAge(15);
+            event2.setMaxAge(20);
+            event2.setDate(LocalDateTime.now());
+            event2.setSportField(foundSportField);
+
+            entityManager.persist(event);
+            entityManager.persist(event2);
+            entityManager.refresh(sportField);
+
+        List<Event> foundEvents = eventRepository.findBySportField_Id(foundSportField.getId());
+        assertEquals(event, foundEvents.get(0));
+        assertEquals(event2, foundEvents.get(1));
     }
 }
