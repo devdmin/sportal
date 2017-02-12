@@ -46,6 +46,7 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("permitAll")
     public ResponseEntity<Event> get(@PathVariable Long id){
         return Optional.ofNullable(eventService.find(id))
                 .map(event -> {
