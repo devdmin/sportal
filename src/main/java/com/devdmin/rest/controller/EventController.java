@@ -12,6 +12,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RequestMapping("api/events")
 @RestController
 public class EventController {
@@ -41,5 +43,34 @@ public class EventController {
     public ResponseEntity<EventList> findBySportFieldId(@PathVariable Long sportFieldId){
         EventList eventList = new EventList(eventService.findBySportFieldId(sportFieldId));
         return new ResponseEntity<EventList>(eventList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Event> get(@PathVariable Long id){
+        return Optional.ofNullable(eventService.find(id))
+                .map(event -> {
+                    return new ResponseEntity<Event>(event, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Event> update(@PathVariable Long id, @RequestBody Event sentEvent){
+        return Optional.ofNullable(eventService.find(id))
+                .map(event -> {
+                    Event updatedEvent = eventService.update(id,sentEvent);
+                    return new ResponseEntity<Event>(updatedEvent, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Event> delete(@PathVariable Long id){
+        return Optional.ofNullable(eventService.find(id))
+                .map(event -> {
+                    eventService.delete(event.getId());
+                    return new ResponseEntity<Event>(event, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
     }
 }

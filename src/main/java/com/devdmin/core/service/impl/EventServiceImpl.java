@@ -40,6 +40,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public Event delete(Long id) {
+        eventRepository.delete(id);
+        return find(id);
+    }
+
+    @Override
     public Event add(Event event, Long sportFieldId) {
         SportField sportField = sportFieldRepository.findOne(sportFieldId);
         event.setSportField(sportField);
@@ -54,4 +60,6 @@ public class EventServiceImpl implements EventService {
     public List<Event> findAll() {
         return eventRepository.findAll();
     }
+
+
 }

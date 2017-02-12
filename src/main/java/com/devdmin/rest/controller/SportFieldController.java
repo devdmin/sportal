@@ -46,7 +46,36 @@ public class SportFieldController {
 //            author.setSportFields(toAdd);
 //        }
 //        userService.save(author);
-        return new ResponseEntity<SportField>(sportField, HttpStatus.CREATED);
+        return new ResponseEntity<SportField>(addedSportfield, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SportField> get(@PathVariable Long id){
+        return Optional.ofNullable(sportFieldService.find(id))
+                .map(sportField -> {
+                    return new ResponseEntity<SportField>(sportField, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<SportField>(HttpStatus.NOT_FOUND));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<SportField> update(@PathVariable Long id, @RequestBody SportField sentSportField){
+        return Optional.ofNullable(sportFieldService.find(id))
+                .map(sportField -> {
+                    SportField updatedSportField = sportFieldService.update(id,sentSportField);
+                    return new ResponseEntity<SportField>(updatedSportField, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<SportField>(HttpStatus.NOT_FOUND));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<SportField> delete(@PathVariable Long id){
+        return Optional.ofNullable(sportFieldService.find(id))
+                .map(sportField -> {
+                    sportFieldService.delete(sportField.getId());
+                    return new ResponseEntity<SportField>(sportField, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<SportField>(HttpStatus.NOT_FOUND));
     }
 
     private String getAccountName(){
