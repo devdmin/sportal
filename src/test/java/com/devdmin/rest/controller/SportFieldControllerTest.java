@@ -14,16 +14,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class SportFieldControllerTest {
-
     @InjectMocks
     private SportFieldController controller;
 
@@ -40,6 +37,25 @@ public class SportFieldControllerTest {
     }
 
     @Test
+    public void addSportField() throws Exception{
+        SportField sportField = new SportField();
+        sportField.setLat(42.445);
+        sportField.setLng(13.335);
+        sportField.setType(SportFieldType.VOLLEYBALL);
+
+        when(service.add(any(SportField.class))).thenReturn(sportField);
+
+        mockMvc.perform(post("/api/sportField")
+                .content("{\"lat\":\"42.445\",\"type\":\"VOLLEYBALL\",\"lng\":13.335}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.lat", is(sportField.getLat())))
+                .andExpect(jsonPath("$.lng", is(sportField.getLng())))
+                .andExpect(jsonPath("$.type", is(sportField.getType().toString())))
+                .andExpect(status().isCreated());
+
+    }
+
+    @Test
     public void getSportField() throws Exception{
         SportField sportField = new SportField();
         sportField.setLat(42.445);
@@ -50,5 +66,51 @@ public class SportFieldControllerTest {
 
         mockMvc.perform(get("/api/sportField/1"))
                 .andExpect(status().isOk());
+
     }
+
+    @Test
+    public void updateSportField() throws Exception{
+        SportField sportFieldA = new SportField();
+
+        sportFieldA.setId(1L);
+        sportFieldA.setLat(42.445);
+        sportFieldA.setLng(13.335);
+        sportFieldA.setType(SportFieldType.BASKETBALL);
+
+        SportField sportFieldB = new SportField();
+
+        sportFieldB.setLat(24.445);
+        sportFieldB.setLng(31.335);
+        sportFieldB.setType(SportFieldType.VOLLEYBALL);
+
+        when(service.find(any(Long.class))).thenReturn(sportFieldA);
+        when(service.update(any(Long.class), any(SportField.class))).thenReturn(sportFieldB);
+
+        mockMvc.perform(put("/api/sportField/1")
+                .content("{\"lat\":\"24.445\",\"type\":\"VOLLEYBALL\",\"lng\":31.335}")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.lat", is(sportFieldB.getLat())))
+                .andExpect(jsonPath("$.lng", is(sportFieldB.getLng())))
+                .andExpect(jsonPath("$.type", is(sportFieldB.getType().toString())))
+                .andExpect(status().isOk()).andReturn();
+    }
+
+    @Test
+    public void deleteSportField() throws Exception{
+        SportField sportField = new SportField();
+        sportField.setLat(42.445);
+        sportField.setLng(13.335);
+        sportField.setType(SportFieldType.BASKETBALL);
+
+        when(service.find(1L)).thenReturn(sportField);
+
+        mockMvc.perform(delete("/api/sportField/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.lat", is(sportField.getLat())))
+                .andExpect(jsonPath("$.lng", is(sportField.getLng())))
+                .andExpect(jsonPath("$.type", is(sportField.getType().toString())))
+                .andExpect(status().isOk());
+    }
+
 }

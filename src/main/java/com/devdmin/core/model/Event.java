@@ -24,6 +24,7 @@ public class Event {
     private List<User> users;
 
     private LocalDateTime date;
+    private LocalDateTime endDate;
     private LocalDate addingDate;
     private int minAge;
     private int maxAge;
@@ -105,4 +106,11 @@ public class Event {
         this.addingDate = addingDate;
     }
 
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
 }
