@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 public class UserValidatorTest {
     @InjectMocks
-    UserValidator userValidator;
+    private UserValidator userValidator;
     @Mock
     private UserService service;
 

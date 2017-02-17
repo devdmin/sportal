@@ -5,9 +5,12 @@ import com.devdmin.core.model.SportField;
 import com.devdmin.core.repository.EventRepository;
 import com.devdmin.core.repository.SportFieldRepository;
 import com.devdmin.core.service.EventService;
+import com.devdmin.core.service.exceptions.DateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,7 +52,16 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event add(Event event, Long sportFieldId) {
         SportField sportField = sportFieldRepository.findOne(sportFieldId);
-        event.setSportField(sportField);
+        sportField.getEvents();
+        for (Event foundEvent : sportField.getEvents()) {
+            if(event.getDate().isBefore(foundEvent.getDate()) && event.getEndDate().isBefore(foundEvent.getDate()) ||
+                    event.getDate().isAfter(foundEvent.getEndDate()) && event.getEndDate().isAfter(foundEvent.getEndDate())){
+                event.setSportField(sportField);
+                event.setAddingDate(LocalDate.now());
+            }else{
+                throw new DateException();
+            }
+        }
         return eventRepository.save(event);
     }
 
