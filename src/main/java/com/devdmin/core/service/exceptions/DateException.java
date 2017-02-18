@@ -1,5 +1,6 @@
 package com.devdmin.core.service.exceptions;
 
+
 public class DateException extends RuntimeException  {
     public DateException(String message, Throwable cause) {
         super(message, cause);

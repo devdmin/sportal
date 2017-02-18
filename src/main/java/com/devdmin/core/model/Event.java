@@ -28,6 +28,7 @@ public class Event {
     private LocalDate addingDate;
     private int minAge;
     private int maxAge;
+    private int maxMembers;
     private Gender gender;
 
     @ManyToOne
@@ -112,5 +113,13 @@ public class Event {
 
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
+    }
+
+    public int getMaxMembers() {
+        return maxMembers;
+    }
+
+    public void setMaxMembers(int maxMembers) {
+        this.maxMembers = maxMembers;
     }
 }

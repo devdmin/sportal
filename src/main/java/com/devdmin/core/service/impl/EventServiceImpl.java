@@ -40,6 +40,7 @@ public class EventServiceImpl implements EventService {
         foundEvent.setMaxAge(event.getMaxAge());
         foundEvent.setGender(event.getGender());
         foundEvent.setEndDate(event.getEndDate());
+        foundEvent.setMaxMembers(event.getMaxMembers());
         return eventRepository.save(foundEvent);
     }
 
