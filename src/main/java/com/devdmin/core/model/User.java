@@ -29,6 +29,8 @@ public class User {
     @OneToMany
     @JoinColumn(name = "author_id")
     private List<SportField> sportFields;
+    private boolean isVerified;
+    private String token;
 
     public Long getId() {
         return id;
@@ -100,6 +102,22 @@ public class User {
 
     public void setSportFields(List<SportField> sportFields) {
         this.sportFields = sportFields;
+    }
+
+    public boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setVerified(boolean verified) {
+        isVerified = verified;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

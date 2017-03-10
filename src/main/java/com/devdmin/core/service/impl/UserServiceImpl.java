@@ -4,20 +4,27 @@ import com.devdmin.core.model.User;
 import com.devdmin.core.repository.UserRepository;
 import com.devdmin.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private JavaMailSender mailSender;
+
 
     @Override
     public User save(User user) {
+
         return repository.save(user);
     }
 
@@ -42,7 +49,19 @@ public class UserServiceImpl implements UserService{
     @Override
 
     public User addUser(User user) {
+        String token = UUID.randomUUID().toString();
         user.setSignUpDate(LocalDate.now());
+        user.setVerified(false);
+        user.setToken(token);
+
+        String recipientAddress = user.getEmail();
+        String subject = "Potwierdzenie rejestracji";
+        String confirmationUrl = "http://localhost:8080/token/" + token;
+        SimpleMailMessage email = new SimpleMailMessage();
+        email.setTo(recipientAddress);
+        email.setSubject(subject);
+        email.setText(confirmationUrl);
+        mailSender.send(email);
         return repository.save(user);
     }
 
