@@ -1,80 +1,77 @@
 <!DOCTYPE html>
 <html lang="pl" ng-app="sportal">
-    <head>
-        <meta charset="utf-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <title>Sportal!</title>
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<title>Sportal!</title>
 
 
-        <link rel="stylesheet" type="text/css" href="../resources/bootstrap-3.3.7/css/bootstrap.min.css"/>
-        <link rel="stylesheet" type="text/css" href="../resources/flat-ui/css/flat-ui.min.css"/>
-        <link rel="stylesheet" type="text/css" href="../resources/css/map.css"/>
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+		<link rel="stylesheet" type="text/css" href="../resources/bootstrap-3.3.7/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../resources/flat-ui/css/flat-ui.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../resources/css/map.css"/>
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-        <script src="../resources/js/angular.min.js"></script>
-        <script src="../resources/js/angular-resource.js"></script>
-        <script src="../resources/js/app.js"></script>
-    </head>
-    <body class="body" ng-controller="SportFieldCtrl">
-
-        <nav class="navbar navbar-inverse" role="navigation" style="border-radius:0">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
-                        <span class="sr-only">Nawigacja</span>
-                    </button>
-                    <a class="navbar-brand" href="#!">Sportal!</a>
-                </div>
-                <div class="collapse navbar-collapse" id="navbar-collapse-01">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="index.html">Strona główna</a></li>
-                        <li><a href="#!">Kontakt</a></li>
-                        <li><a href="#!">O nas</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Użytkownik <b class="caret"></b></a>
-                            <span class="dropdown-arrow"></span>
-                            <ul class="dropdown-menu">
-                                <li><a href="login.html">Zaloguj się</a></li>
-                                <li><a href="register.html">Zarejestruj</a></li>
-                            </ul>
-                        </li>
-                        <li></li>
-                    </ul>
-                </div>
-                <div class="container">
-                    <div class="col-md-4"></div>
-                    <div class="login-form col-md-4" style="margin-bottom:100px">
-                        <form ng-submit="add()">
-                            <input id="lat" type="hidden" />
-                            <input id="lng" type="hidden" />
-                            <select class="form-control" ng-model="sportField.type">
-                                <option value="FOOTBALL">Piłka nożna</option>
-                                <option value="VOLLEYBALL">Siatkówka</option>
-                                <option value="BASKETBALL">Koszykówka</option>
-                            </select><br/>
-                            <input type="submit" value="Dodaj!" class="btn btn-primary btn-lg btn-block"/>
-                        </form>
-                    </div>
-                    <div class="col-md-4"></div>
-                    <input id="pac-input" class="controls" type="text" placeholder="Wpisz nazwę twojej miejscowości">
-                </div>
-            </div>
-        </nav>
-
-        <div id="map"></div>
-        <script src="../resources/js/sportfield.js"></script>
-
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR8w97EFC1rgwwTg8tvxijf6wiD6t25nY&libraries=places&sensor=false&callback=initAutocomplete" type="text/javascript"></script>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
-        <script src="../resources/flat-ui/js/flat-ui.min.js"></script>
-        <script>map.checkResize();</script>
-    </body>
+		<script src="../resources/js/angular.min.js"></script>
+		<script src="../resources/js/angular-resource.js"></script>
+		<script src="../resources/js/app.js"></script>
+	</head>
+	<body class="body" ng-controller="SportFieldCtrl">
+		<nav class="navbar navbar-inverse" role="navigation" style="border-radius:0">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+						<span class="sr-only">Nawigacja</span>
+					</button>
+					<a class="navbar-brand" href="#!">Sportal!</a>
+				</div>
+				<div class="collapse navbar-collapse" id="navbar-collapse-01">
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="index.html">Strona główna</a></li>
+						<li><a href="#!">Kontakt</a></li>
+						<li><a href="#!">O nas</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Użytkownik <b class="caret"></b></a>
+							<span class="dropdown-arrow"></span>
+							<ul class="dropdown-menu">
+								<li><a href="login.html">Zaloguj się</a></li>
+								<li><a href="register.html">Zarejestruj</a></li>
+							</ul>
+						</li>
+						<li></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<main>
+			<aside>
+				<form class="map-search" autocomplete="off">
+					<input type="search" name="search" placeholder="Wpisz nazwę miejscowości" id="pac-input" required/>
+				</form>
+				<div class="login-form map-event-element map-event-hide">
+					<form ng-submit="add()" autocomplete="off">
+						<input id="lat" type="hidden" />
+						<input id="lng" type="hidden" />
+						<select class="form-control" ng-model="sportField.type" required>
+							<option disabled selected>Wybierz rodzaj</option>
+							<option value="FOOTBALL">Piłka nożna</option>
+							<option value="VOLLEYBALL">Siatkówka</option>
+							<option value="BASKETBALL">Koszykówka</option>
+						</select><br/>
+						<input type="submit" value="Dodaj!" class="btn btn-primary btn-lg btn-block"/>
+					</form>
+				</div>
+			</aside>
+			<div id="map"></div>
+		</main>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+		<script type="text/javascript" src="flat-ui/js/flat-ui.min.js"></script>
+		<script type="text/javascript" src="js/map.js"></script>
+		<script type="text/javascript" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR8w97EFC1rgwwTg8tvxijf6wiD6t25nY&libraries=places&callback=initAutocomplete"></script>
+	</body>
 </html>
