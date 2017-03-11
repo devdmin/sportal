@@ -13,4 +13,5 @@ public interface UserService {
     User update(Long id, User user);
     User delete(Long id);
     List<User> findAll();
+    void authorizeUser(String token);
 }

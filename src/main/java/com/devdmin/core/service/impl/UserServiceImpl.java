@@ -3,6 +3,8 @@ package com.devdmin.core.service.impl;
 import com.devdmin.core.model.User;
 import com.devdmin.core.repository.UserRepository;
 import com.devdmin.core.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,7 +17,6 @@ import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService{
-
     @Autowired
     private UserRepository repository;
     @Autowired
@@ -82,5 +83,12 @@ public class UserServiceImpl implements UserService{
     @Transactional(readOnly = true)
     public List<User> findAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public void authorizeUser(String token) {
+        User user = repository.findByToken(token);
+        user.setVerified(true);
+        repository.save(user);
     }
 }

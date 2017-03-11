@@ -16,6 +16,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
+import java.util.UUID;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -60,6 +62,23 @@ public class UserRepositoryTest {
         this.entityManager.persist(user);
         User foundUser = userRepository.findByUsername("Foo");
         assertEquals(user.getUsername(), foundUser.getUsername());
+    }
+
+    @Test
+    public void testFindByToken() throws Exception{
+        User user = new User();
+        user.setUsername("Foo");
+        user.setGender(Gender.MALE);
+        user.setAge(20);
+        user.setPassword("password");
+        user.setEmail("email@email.email");
+        user.setSignUpDate(LocalDate.now());
+        String token = UUID.randomUUID().toString();
+        user.setToken(token);
+        this.entityManager.persist(user);
+        User foundUser = userRepository.findByToken(token);
+        assertEquals(token, foundUser.getToken());
+
     }
 
     @Test

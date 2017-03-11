@@ -125,8 +125,16 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", signUpDate=" + signUpDate +
+                ", age=" + age +
+                ", gender=" + gender +
+                ", ownSportFields=" + ownSportFields +
+                ", events=" + events +
+                ", sportFields=" + sportFields +
+                ", isVerified=" + isVerified +
+                ", token='" + token + '\'' +
                 '}';
     }
 }
