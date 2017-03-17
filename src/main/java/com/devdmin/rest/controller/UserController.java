@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.DataBinder;
 import org.springframework.validation.ObjectError;
@@ -89,5 +91,19 @@ public class UserController {
                     return new ResponseEntity<User>(user, HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<User>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<User> currentUser(){
+        return new ResponseEntity<User>(userService.find(getAccountName()), HttpStatus.OK);
+    }
+
+    private String getAccountName(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            UserDetails details = (UserDetails) principal;
+            return details.getUsername();
         }
+        return null;
+    }
 }

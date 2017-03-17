@@ -81,12 +81,5 @@ public class SportFieldController {
                 .orElse(new ResponseEntity<SportField>(HttpStatus.NOT_FOUND));
     }
 
-    private String getAccountName(){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            UserDetails details = (UserDetails) principal;
-            return details.getUsername();
-        }
-        return null;
-    }
+
 }

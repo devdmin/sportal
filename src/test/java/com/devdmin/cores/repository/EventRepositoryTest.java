@@ -36,8 +36,6 @@ public class EventRepositoryTest {
     @Autowired
     private EventRepository eventRepository;
 
-    @Autowired
-    private SportFieldRepository sportFieldRepository;
     @Test
     public void testFind() throws Exception{
       Event event = new Event();
