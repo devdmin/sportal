@@ -20,6 +20,9 @@ var sportal = angular.module('sportal', ['ngResource'])
 		};
 		session.logout = function (data) {
 			localStorage.removeItem("session");
+            $http.get("/logout");
+            $window.location.href = '/';
+            
 		};
 		session.isLoggedIn = function () {
 			return localStorage.getItem("session") !== null;
@@ -40,6 +43,10 @@ var sportal = angular.module('sportal', ['ngResource'])
 			var User = $resource("/api/users");
 			User.save({}, user, success, failure);
 		};
+        service.find = function (username){
+            var User = $resource("/api/users/"+username);
+            return User.get();
+        }
 		return service;
 	})
 
@@ -59,6 +66,16 @@ var sportal = angular.module('sportal', ['ngResource'])
 
 .controller('AppCtrl', function AppCtrl ($scope) {
     
+})
+.controller('User', function($scope, $window, userService, sessionService){
+    var username = $window.location.pathname.split('/').pop();
+    console.log(username);
+    var user = userService.find(username);
+    console.log(user);
+    $scope.user = user;
+    $scope.logout = function(){
+        sessionService.logout();
+    }
 })
 
 .controller('RegisterCtrl', function($scope, sessionService, userService){
@@ -132,6 +149,7 @@ var sportal = angular.module('sportal', ['ngResource'])
 		$window.localStorage.clear();
 		$window.location.href = '/dashboard';
 	}
-});
+})
+;
 
 
