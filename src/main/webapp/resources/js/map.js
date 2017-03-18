@@ -8,6 +8,10 @@ function initAutocomplete() {
 		mapTypeId: 'roadmap'
 	});
 
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
 	// Bias the SearchBox results towards current map's viewport.
 	map.addListener('bounds_changed', function() {
 
@@ -17,9 +21,7 @@ function initAutocomplete() {
 
 	var sportFields = [];
 	sportFields = JSON.parse(localStorage.getItem("sportFields"));
-	console.log(sportFields);
 	var markers = [];
-
 	for (i = 0; i < sportFields.length; i++) {
 		markers.push(
 			new google.maps.Marker({

@@ -47,6 +47,10 @@ var sportal = angular.module('sportal', ['ngResource'])
             var User = $resource("/api/users/"+username);
             return User.get();
         }
+        service.currentUser = function(){
+            var User = $resource("/api/users/user");
+            return User.get();
+        }
 		return service;
 	})
 
@@ -103,7 +107,7 @@ var sportal = angular.module('sportal', ['ngResource'])
 	});
 })
 
-.controller('MapCtrl', function($scope, sportFieldService, $filter){
+.controller('MapCtrl', function($scope, sportFieldService, $filter, sessionService, userService){
 	var sportFields;
 	$scope.hide = false;
 	sportFieldService.findAll().$promise.then(function (result) {
@@ -113,6 +117,9 @@ var sportal = angular.module('sportal', ['ngResource'])
 		initAutocomplete();
 	});
 
+    userService.currentUser().$promise.then(function(data){
+		$scope.userPath = "/user/" + data.username;
+	});
 	$scope.show = function(sportFieldId){
 
 		$scope.hide = false;
@@ -124,6 +131,9 @@ var sportal = angular.module('sportal', ['ngResource'])
 		console.log($scope.sportField.addingDate);
 	}
 
+     $scope.logout = function(){
+        sessionService.logout();
+    }
 })
 
 .controller('LoginCtrl', function($scope, sessionService){

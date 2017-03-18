@@ -18,6 +18,7 @@ public class User {
     private String username;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String email;
     private LocalDate signUpDate;
     private int age;
@@ -30,6 +31,7 @@ public class User {
     @JoinColumn(name = "author_id")
     private List<SportField> sportFields;
     private boolean isVerified;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String token;
 
     public Long getId() {
