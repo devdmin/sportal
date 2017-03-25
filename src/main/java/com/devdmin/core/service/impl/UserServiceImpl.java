@@ -3,11 +3,8 @@ package com.devdmin.core.service.impl;
 import com.devdmin.core.model.User;
 import com.devdmin.core.repository.UserRepository;
 import com.devdmin.core.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.devdmin.core.service.util.VerificationLinksSender;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,9 +17,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository repository;
     @Autowired
-    private JavaMailSender mailSender;
-
-
+    private VerificationLinksSender sender;
     @Override
     public User save(User user) {
 
@@ -50,19 +45,11 @@ public class UserServiceImpl implements UserService{
     @Override
 
     public User addUser(User user) {
-        String token = UUID.randomUUID().toString();
+        UUID token = UUID.randomUUID();
         user.setSignUpDate(LocalDate.now());
         user.setVerified(false);
-        user.setToken(token);
-
-        String recipientAddress = user.getEmail();
-        String subject = "Potwierdzenie rejestracji";
-        String confirmationUrl = "http://localhost:8080/token/" + token;
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setTo(recipientAddress);
-        email.setSubject(subject);
-        email.setText(confirmationUrl);
-        mailSender.send(email);
+        user.setToken(token.toString());
+        sender.send(token, user.getEmail());
         return repository.save(user);
     }
 
