@@ -49,11 +49,15 @@
 			</div>
 		</nav>
 		<main>
+           
 			<aside>
 				<form class="map-search" autocomplete="off">
-					<input type="search" name="search" placeholder="Wpisz nazwę miejscowości" required/>
+					<input id="pac-input" type="search" name="search" placeholder="Wpisz nazwę miejscowości" required/>
+                     
 				</form>
-				<div class="login-form map-event-element map-event-hide">
+				
+			</aside>
+            
 					<form ng-submit="add()" autocomplete="off">
 						<input id="lat" type="hidden" />
 						<input id="lng" type="hidden" />
@@ -65,13 +69,12 @@
 						</select><br/>
 						<input type="submit" value="Dodaj!" class="btn btn-primary btn-lg btn-block"/>
 					</form>
-				</div>
-			</aside>
+				
 			<div id="map"></div>
 		</main>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		<script type="text/javascript" src="../resources/flat-ui/js/flat-ui.min.js"></script>
-		<script type="text/javascript" src="../resources/js/map.js"></script>
+		<script type="text/javascript" src="../resources/js/sportfield.js"></script>
 		<script type="text/javascript" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR8w97EFC1rgwwTg8tvxijf6wiD6t25nY&libraries=places&callback=initAutocomplete"></script>
 	</body>
 </html>
