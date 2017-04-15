@@ -21,9 +21,9 @@
 		<script src="../resources/js/angular-resource.js"></script>
 		<script src="../resources/js/app.js"></script>
 	</head>
-	<body class="body" ng-controller="User">
+	<body class="body">
 
-        <nav class="navbar navbar-inverse" role="navigation" style="border-radius:0">
+        <nav class="navbar navbar-inverse" role="navigation" style="border-radius:0" ng-controller="NavCtrl">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
@@ -44,17 +44,20 @@
                                 <li><a href={{userPath}}>Moje konto</a></li>
                             </ul>
                         </li>
-                        <li><a href="#!" ng-click="logout()">Wyloguj</a></li>
+                        <li><a href="/" ng-click="logout()">Wyloguj</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-  <div class="container">
+  <div class="container" ng-controller="UserCtrl">
       <div class="row">
+        <div class="col-md-2 text-center"><span style="font-size:5em;" class="glyphicon glyphicon-user"></span></div>
+        <div class="col-md-10">
           <h1>{{user.username}}</h1>
           <h3>Wiek: {{user.age}}</h3>
           <h3>Data rejestracji: {{user.signUpDate[2] +'-'+user.signUpDate[1] +'-'+ user.signUpDate[0]}}</h3>
           <h3>Płeć: {{user.gender}}</h3>
+        </div>
       </div>
   </div>
 

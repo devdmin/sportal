@@ -71,15 +71,10 @@ var sportal = angular.module('sportal', ['ngResource'])
 .controller('AppCtrl', function AppCtrl ($scope) {
     
 })
-.controller('User', function($scope, $window, userService, sessionService){
+.controller('UserCtrl', function($scope, $window, userService, sessionService){
     var username = $window.location.pathname.split('/').pop();
-    console.log(username);
     var user = userService.find(username);
-    console.log(user);
     $scope.user = user;
-    $scope.logout = function(){
-        sessionService.logout();
-    }
 })
 
 .controller('RegisterCtrl', function($scope, sessionService, userService){
@@ -107,6 +102,7 @@ var sportal = angular.module('sportal', ['ngResource'])
 	});
 })
 
+
 .controller('MapCtrl', function($scope, sportFieldService, $filter, sessionService, userService){
 	var sportFields;
 	$scope.hide = false;
@@ -117,9 +113,6 @@ var sportal = angular.module('sportal', ['ngResource'])
 		initAutocomplete();
 	});
 
-    userService.currentUser().$promise.then(function(data){
-		$scope.userPath = "/user/" + data.username;
-	});
 	$scope.show = function(sportFieldId){
 
 		$scope.hide = false;
@@ -130,17 +123,8 @@ var sportal = angular.module('sportal', ['ngResource'])
 		});
 		console.log($scope.sportField.addingDate);
 	}
-
-     $scope.logout = function(){
-        sessionService.logout();
-    }
 })
 
-.controller('LoginCtrl', function($scope, sessionService){
-	$scope.login = function(){
-		sessionService.login($scope.user)
-	}
-})
 
 .controller('SportFieldCtrl', function($scope, sportFieldService, $window){
 	var sportField;
@@ -158,6 +142,23 @@ var sportal = angular.module('sportal', ['ngResource'])
 							 );
 		$window.localStorage.clear();
 		$window.location.href = '/dashboard';
+	}
+})
+
+.controller('NavCtrl', function($scope,userService, sessionService){
+    userService.currentUser().$promise.then(function(data){
+		$scope.userPath = "/user/" + data.username;
+        console.log(data.username);
+	});
+    
+    $scope.logout = function(){
+        sessionService.logout();
+    }
+})
+
+.controller('LoginCtrl', function($scope, sessionService){
+	$scope.login = function(){
+		sessionService.login($scope.user)
 	}
 })
 ;

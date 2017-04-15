@@ -24,8 +24,8 @@
 		<script src="../resources/js/angular-resource.js"></script>
 		<script src="../resources/js/app.js"></script>
 	</head>
-	<body id="mainMap" class="body"  ng-controller="MapCtrl">
-        <nav class="navbar navbar-inverse" role="navigation" style="border-radius:0">
+	<body id="mainMap" class="body" ng-controller="MapCtrl">
+        <nav class="navbar navbar-inverse" role="navigation" style="border-radius:0" ng-controller="NavCtrl">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
@@ -51,7 +51,6 @@
                 </div>
             </div>
         </nav>      
-        
         <input id="pac-input" class="controls" type="text" placeholder="Wpisz nazwę twojej miejscowości">
         <div id="map"></div>
         
