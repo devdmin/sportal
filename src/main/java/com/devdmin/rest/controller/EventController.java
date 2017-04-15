@@ -38,7 +38,7 @@ public class EventController {
         return new ResponseEntity<EventList>(eventList, HttpStatus.OK);
     }
 
-    @GetMapping("/{sportFieldId}")
+    @GetMapping("/sportField/{sportFieldId}")
     @PreAuthorize("permitAll")
     public ResponseEntity<EventList> findBySportFieldId(@PathVariable Long sportFieldId){
         EventList eventList = new EventList(eventService.findBySportFieldId(sportFieldId));
