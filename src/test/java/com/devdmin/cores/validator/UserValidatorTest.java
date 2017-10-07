@@ -2,15 +2,19 @@ package com.devdmin.cores.validator;
 
 import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.Gender;
-import com.devdmin.core.repository.UserRepository;
 import com.devdmin.core.service.UserService;
-import com.devdmin.core.validator.UserValidator;
+import com.devdmin.core.validator.*;
+import com.devdmin.core.validator.rules.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.validation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -20,12 +24,24 @@ import static org.mockito.Mockito.when;
 public class UserValidatorTest {
     @InjectMocks
     private UserValidator userValidator;
+
+    @InjectMocks
+    private ExistingValidationRule existingValidationRule;
+
     @Mock
     private UserService service;
+
+    @Spy
+    private List<Rule<User>> rules = new ArrayList<Rule<User>>();
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+
+        rules.add(new EmailValidatationRule());
+        rules.add(existingValidationRule);
+        rules.add(new FilledFieldsRule());
+        rules.add(new UserValidationRule());
     }
 
     @Test

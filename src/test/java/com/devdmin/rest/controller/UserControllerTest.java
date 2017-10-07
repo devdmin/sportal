@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
@@ -63,13 +64,15 @@ public class UserControllerTest {
                 .content("{\"username\":\"test\",\"password\":\"testtest\",\"email\":\"test@test.test\",\"gender\":\"MALE\",\"age\":16}")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.username", is(createdUser.getUsername())))
-                .andExpect(jsonPath("$.email", is(createdUser.getEmail())))
                 .andExpect(jsonPath("$.gender", is(createdUser.getGender().toString())))
                 .andExpect(jsonPath("$.age", is(createdUser.getAge())))
                 .andExpect(status().isCreated());
+
         verify(service).addUser(userCaptor.capture());
         String password = userCaptor.getValue().getPassword();
+        String email = userCaptor.getValue().getEmail();
         assertEquals(createdUser.getPassword(),password);
+        assertEquals(createdUser.getEmail(),email);
     }
 
     @Test

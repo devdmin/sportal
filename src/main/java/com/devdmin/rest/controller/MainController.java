@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 @Controller
 public class MainController {
@@ -79,7 +80,8 @@ public class MainController {
     @GetMapping("/token/{token}")
     @PreAuthorize("permitAll")
     public String token(@PathVariable String token){
-        userService.authorizeUser(token);
+        UUID authToken = UUID.fromString(token);
+        userService.authorizeUser(authToken);
         return "index";
     }
 

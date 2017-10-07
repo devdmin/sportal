@@ -20,6 +20,7 @@
         <script src="../resources/js/angular.min.js"></script>
         <script src="../resources/js/angular-resource.js"></script>
         <script src="../resources/js/app.js"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body class="body"  ng-controller="RegisterCtrl">
 
@@ -57,9 +58,10 @@
                             <input ng-model="user.password" type="password" class="form-control login-field" id="inputPassword3" placeholder="Hasło" required/>
                             <label class="login-field-icon fui-lock" for="inputPassword3"></label>
                         </div>
+
                         <div class="form-group">
-                            <select ng-model="user.year" class="form-control login-field" id="years" required>
-                                <option selected disabled hidden value="">Wybierz rok urodzenia</option>
+                            <select ng-model="user.year" name="year" required>
+                                <option selected disabled hidden style='display: none' value=''></option>
                                 <option value="2010">2010</option>
                                 <option value="2009">2009</option>
                                 <option value="2008">2008</option>
@@ -172,8 +174,10 @@
                                 <option value="1901">1901</option>
                                 <option value="1900">1900</option>
                             </select>
+                            
                             <label class="login-field-icon fui-calendar" for="years"></label>
-                        </div>
+                        </div>         
+                        <h1>:D {{user.year}}</h1>
                         <div class="form-group">
                             <select id="gender" ng-model="user.gender" class="form-control login-field" required>
                                 <option selected disabled hidden value="">Wybierz płeć</option>
@@ -189,6 +193,7 @@
                                 &nbsp;Akceptuję <a href="../resources/rules.pdf" target="_blank">regulamin</a>
                             </label>
                         </label>
+                        <div class="g-recaptcha" data-sitekey="6LeQeTMUAAAAADdI8HE6dJlpnRIS3BcehcB-gSqB"></div>
                         <input class="btn btn-primary btn-lg btn-block" type="submit" value="Zarejestruj"/>
                         <br/>
                         <a class="btn btn-inverse btn-lg btn-block" href="login.html">Mam już konto</a>
@@ -202,7 +207,7 @@
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="../resources/flat-ui/js/flat-ui.min.js"></script>
         <script>
-            $("select").select2({dropdownCssClass: 'dropdown-inverse'});
+//            $("select").select2({dropdownCssClass: 'dropdown-inverse'});
         </script>
     </body>
 </html>

@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService{
         UUID token = UUID.randomUUID();
         user.setSignUpDate(LocalDate.now());
         user.setVerified(false);
-        user.setToken(token.toString());
+        user.setToken(token);
         sender.send(token, user.getEmail());
         return repository.save(user);
     }
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void authorizeUser(String token) {
+    public void authorizeUser(UUID token) {
         User user = repository.findByToken(token);
         user.setVerified(true);
         repository.save(user);

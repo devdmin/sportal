@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class User {
@@ -32,7 +33,7 @@ public class User {
     private List<SportField> sportFields;
     private boolean isVerified;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String token;
+    private UUID token;
 
     public Long getId() {
         return id;
@@ -114,11 +115,19 @@ public class User {
         isVerified = verified;
     }
 
-    public String getToken() {
+    public List<SportField> getOwnSportFields() {
+        return ownSportFields;
+    }
+
+    public void setOwnSportFields(List<SportField> ownSportFields) {
+        this.ownSportFields = ownSportFields;
+    }
+
+    public UUID getToken() {
         return token;
     }
 
-    public void setToken(String token) {
+    public void setToken(UUID token) {
         this.token = token;
     }
 

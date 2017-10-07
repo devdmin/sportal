@@ -79,7 +79,9 @@ var sportal = angular.module('sportal', ['ngResource'])
 
 .controller('RegisterCtrl', function($scope, sessionService, userService){
 	$scope.register = function(){
+        console.log($scope.user);
 		var user = $scope.user;
+        console.log(user.year);
 		user.age = (new Date().getFullYear())-$scope.user.year;
 		delete user.year;
 		userService.register(user,

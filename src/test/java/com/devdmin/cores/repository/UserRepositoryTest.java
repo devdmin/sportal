@@ -18,9 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase.Replace.NONE;
 
 
@@ -73,11 +71,14 @@ public class UserRepositoryTest {
         user.setPassword("password");
         user.setEmail("email@email.email");
         user.setSignUpDate(LocalDate.now());
-        String token = UUID.randomUUID().toString();
+        UUID token = UUID.randomUUID();
         user.setToken(token);
         this.entityManager.persist(user);
         User foundUser = userRepository.findByToken(token);
-        assertEquals(token, foundUser.getToken());
+
+        logger.info("XDD: " + token);
+        logger.info("XDD: " + foundUser.getToken());
+        assertTrue(token.equals(foundUser.getToken()));
 
     }
 

@@ -3,6 +3,7 @@ package com.devdmin.core.service;
 import com.devdmin.core.model.User;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface UserService {
     User save(User user);
@@ -13,5 +14,5 @@ public interface UserService {
     User update(Long id, User user);
     User delete(Long id);
     List<User> findAll();
-    void authorizeUser(String token);
+    void authorizeUser(UUID token);
 }

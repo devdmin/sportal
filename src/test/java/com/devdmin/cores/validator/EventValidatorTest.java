@@ -2,18 +2,26 @@ package com.devdmin.cores.validator;
 
 import com.devdmin.core.model.Event;
 import com.devdmin.core.model.SportField;
+import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.Gender;
 import com.devdmin.core.service.EventService;
 import com.devdmin.core.validator.EventValidator;
+import com.devdmin.core.validator.rules.EventAgeRule;
+import com.devdmin.core.validator.rules.EventFilledFieldsRule;
+import com.devdmin.core.validator.rules.EventTimeRule;
+import com.devdmin.core.validator.rules.Rule;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -26,10 +34,17 @@ public class EventValidatorTest {
     @Mock
     private EventService service;
 
+    @Spy
+    private List<Rule<Event>> rules = new ArrayList<Rule<Event>>();
+
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
+        rules.add(new EventAgeRule());
+        rules.add(new EventFilledFieldsRule());
+        rules.add(new EventTimeRule());
     }
+
 
     @Test
     public void testValidEvent() throws Exception{

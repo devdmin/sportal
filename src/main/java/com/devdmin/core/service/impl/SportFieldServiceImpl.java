@@ -29,8 +29,8 @@ public class SportFieldServiceImpl implements SportFieldService{
     @Override
     public SportField update(Long id, SportField sportField) {
         SportField sportFieldToUpdate = find(id);
-        sportField.setLat(sportField.getLat());
-        sportField.setLng(sportField.getLng());
+        sportFieldToUpdate.setLat(sportField.getLat());
+        sportFieldToUpdate.setLng(sportField.getLng());
         sportFieldToUpdate.setEvents(sportField.getEvents());
         sportFieldToUpdate.setType(sportField.getType());
         return repository.save(sportFieldToUpdate);
