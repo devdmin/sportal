@@ -2,8 +2,10 @@ package com.devdmin.core.validator;
 
 import com.devdmin.core.model.Event;
 import com.devdmin.core.model.SportField;
+import com.devdmin.core.model.User;
 import com.devdmin.core.service.EventService;
 import com.devdmin.core.service.SportFieldService;
+import com.devdmin.core.service.UserService;
 import com.devdmin.core.validator.rules.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,4 +34,6 @@ public class EventValidator implements Validator {
             rule.validate(event,errors);
         }
     }
+
+
 }

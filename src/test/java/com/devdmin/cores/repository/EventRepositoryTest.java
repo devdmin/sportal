@@ -27,6 +27,7 @@ import static org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureT
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = NONE)
+
 public class EventRepositoryTest {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

@@ -14,7 +14,8 @@ import java.util.List;
 public class UserValidator implements Validator {
     @Autowired
     private List<Rule<User>> rules;
-
+    @Autowired
+    private UserService service;
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -29,5 +30,8 @@ public class UserValidator implements Validator {
             rule.validate(user, errors);
         }
 
+    }
+    public static boolean validateAddingSportField(User user){
+        return false;
     }
 }

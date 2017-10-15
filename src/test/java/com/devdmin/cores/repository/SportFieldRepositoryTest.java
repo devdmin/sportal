@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -40,6 +41,8 @@ public class SportFieldRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+
+
     @Test
     public void testFind() throws Exception{
         SportField sportField = new SportField();
@@ -53,6 +56,7 @@ public class SportFieldRepositoryTest {
         assertEquals(foundSportField.getId(), id);
 
     }
+
 
     @Test
     public void testDelete() throws Exception{
@@ -100,20 +104,20 @@ public class SportFieldRepositoryTest {
         user.setPassword("password");
         user.setEmail("email@email.email");
         user.setSignUpDate(LocalDate.now());
-        User foundUser = entityManager.persist(user);
         SportField sportField = new SportField();
         sportField.setLat(24.2444);
         sportField.setLng(54.2555);
         sportField.setType(SportFieldType.BASKETBALL);
         sportField.setVerified(false);
         sportField.setAddingDate(LocalDate.now());
-        sportField.setAuthor(user);
+        List<SportField> list = new ArrayList<SportField>();
+        list.add(sportField);
+        user.setSportFields(list);
+        User foundUser = entityManager.persist(user);
+        entityManager.persist(foundUser);
         entityManager.persist(sportField);
-        entityManager.refresh(user);
 
         SportField foundSportField = userRepository.findOne(foundUser.getId()).getSportFields().get(0);
         assertEquals(foundSportField, sportField);
-        assertEquals(foundSportField.getAuthor(), user);
-
     }
 }

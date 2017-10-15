@@ -1,6 +1,7 @@
 package com.devdmin.rest.controller;
 
 import com.devdmin.core.model.SportField;
+import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.SportFieldType;
 import com.devdmin.core.service.SportFieldService;
 import com.devdmin.core.service.UserService;
@@ -43,7 +44,7 @@ public class SportFieldControllerTest {
         sportField.setLng(13.335);
         sportField.setType(SportFieldType.VOLLEYBALL);
 
-        when(service.add(any(SportField.class))).thenReturn(sportField);
+        when(service.add(any(SportField.class),any(User.class))).thenReturn(sportField);
 
         mockMvc.perform(post("/api/sportField")
                 .content("{\"lat\":\"42.445\",\"type\":\"VOLLEYBALL\",\"lng\":13.335}")

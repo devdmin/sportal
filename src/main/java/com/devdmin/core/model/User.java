@@ -24,12 +24,12 @@ public class User {
     private LocalDate signUpDate;
     private int age;
     private Gender gender;
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade =  {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<SportField> ownSportFields;
     @ManyToMany(mappedBy = "users")
     private List<Event> events;
-    @OneToMany
-    @JoinColumn(name = "author_id")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "member")
     private List<SportField> sportFields;
     private boolean isVerified;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

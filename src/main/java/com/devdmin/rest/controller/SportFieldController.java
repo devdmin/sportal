@@ -4,6 +4,7 @@ import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.SportFieldType;
 import com.devdmin.core.repository.SportFieldRepository;
+import com.devdmin.core.security.AccountUserDetails;
 import com.devdmin.core.service.SportFieldService;
 import com.devdmin.core.service.UserService;
 import com.devdmin.core.service.util.SportFieldList;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +39,7 @@ public class SportFieldController {
     @PreAuthorize("permitAll")
     public ResponseEntity<SportField> add(@RequestBody SportField sportField){
 //        User author = userService.find(getAccountName());
-        SportField addedSportfield = sportFieldService.add(sportField);
+        SportField addedSportfield = sportFieldService.add(sportField, getAccountName());
 //        if(author.getSportFields() == null){
 //            List<SportField> toAdd = new ArrayList<>();
 //            toAdd.add(addedSportfield);
@@ -82,4 +84,8 @@ public class SportFieldController {
     }
 
 
+    public User getAccountName() {
+        AccountUserDetails user = (AccountUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user.getUser();
+    }
 }

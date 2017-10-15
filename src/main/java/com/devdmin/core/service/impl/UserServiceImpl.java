@@ -1,15 +1,21 @@
 package com.devdmin.core.service.impl;
 
+import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
 import com.devdmin.core.repository.UserRepository;
+import com.devdmin.core.security.AccountUserDetails;
 import com.devdmin.core.service.UserService;
 import com.devdmin.core.service.util.VerificationLinksSender;
+import com.devdmin.core.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -18,6 +24,7 @@ public class UserServiceImpl implements UserService{
     private UserRepository repository;
     @Autowired
     private VerificationLinksSender sender;
+
     @Override
     public User save(User user) {
 
@@ -77,5 +84,23 @@ public class UserServiceImpl implements UserService{
         User user = repository.findByToken(token);
         user.setVerified(true);
         repository.save(user);
+    }
+
+    @Override
+    public SportField addSportField(SportField sportField, User user) {
+
+            User foundUser = repository.findOne(user.getId());
+            List<SportField> sportFields = Optional.ofNullable(foundUser.getOwnSportFields())
+                    .orElse(new ArrayList<SportField>());
+            sportFields.add(sportField);
+            repository.save(foundUser);
+            return sportField;
+
+    }
+
+    @Override
+     public User getLoggedUser() {
+        AccountUserDetails user = (AccountUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user.getUser();
     }
 }

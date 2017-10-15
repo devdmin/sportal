@@ -1,5 +1,6 @@
 package com.devdmin.core.service;
 
+import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface UserService {
     User delete(Long id);
     List<User> findAll();
     void authorizeUser(UUID token);
+    SportField addSportField(SportField sportField, User user);
+    User getLoggedUser();
 }
