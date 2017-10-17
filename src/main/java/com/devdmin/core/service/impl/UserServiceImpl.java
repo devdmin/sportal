@@ -92,9 +92,21 @@ public class UserServiceImpl implements UserService{
             User foundUser = repository.findOne(user.getId());
             List<SportField> sportFields = Optional.ofNullable(foundUser.getOwnSportFields())
                     .orElse(new ArrayList<SportField>());
+
+            Optional<SportField> todaysSportField = sportFields
+                                    .stream()
+                                    .filter(t -> t.getAddingDate().isEqual(LocalDate.now()))
+                                    .findAny();
+
+        if(todaysSportField.isPresent()) {
+            System.out.println("XDDD");
+
+        }else{
             sportFields.add(sportField);
             repository.save(foundUser);
-            return sportField;
+        }
+
+        return sportField;
 
     }
 

@@ -38,18 +38,9 @@ public class SportFieldController {
     @PostMapping
     @PreAuthorize("permitAll")
     public ResponseEntity<SportField> add(@RequestBody SportField sportField){
-//        User author = userService.find(getAccountName());
+
         SportField addedSportfield = sportFieldService.add(sportField, getAccountName());
-//        if(author.getSportFields() == null){
-//            List<SportField> toAdd = new ArrayList<>();
-//            toAdd.add(addedSportfield);
-//            author.setSportFields(toAdd);
-//        }else{
-//            List<SportField> toAdd = author.getSportFields();
-//            toAdd.add(addedSportfield);
-//            author.setSportFields(toAdd);
-//        }
-//        userService.save(author);
+
         return new ResponseEntity<SportField>(addedSportfield, HttpStatus.CREATED);
     }
 
