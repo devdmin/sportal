@@ -1,26 +1,62 @@
 package com.devdmin.cores.service;
 
+
+import com.devdmin.core.model.SportField;
+import com.devdmin.core.model.User;
+import com.devdmin.core.repository.UserRepository;
+import com.devdmin.core.service.impl.UserServiceImpl;
+import com.devdmin.core.service.util.VerificationLinksSender;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.chrono.ChronoLocalDate;
-import java.time.temporal.ChronoUnit;
+import java.util.UUID;
 
-import static org.junit.Assert.assertTrue;
-//
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@SpringBootTest
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+
+
+@RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceTest {
+    @Mock
+    UserRepository userRepository;
+
+    @Mock
+    VerificationLinksSender sender;
+
+    @InjectMocks
+    UserServiceImpl service;
 
     @Test
-    public void test(){
-        LocalDate l1 = LocalDate.of(2015,12,2);
-        System.out.println("XDD: " + ChronoUnit.DAYS.between(LocalDate.now(),l1));
+    public void findTest(){
+        when(userRepository.findOne(any(Long.class))).thenReturn(any(User.class));
+        service.find(1L);
+        Mockito.verify(userRepository, Mockito.times(1)).findOne(any(Long.class));
     }
+
+    @Test
+    public void addUserTest(){
+        User user = new User();
+        when(userRepository.save(any(User.class))).thenReturn(user);
+        doNothing().when(sender).send(any(UUID.class),any(String.class));
+        service.addUser(user);
+        Mockito.verify(userRepository, Mockito.times(1)).save(any(User.class));
+
+    }
+
+    @Test
+    public void addSportFieldTest(){
+        User user = new User();
+        SportField sportField = new SportField();
+        when(userRepository.save(any(User.class))).thenReturn(user);
+        when(userRepository.findOne(any(Long.class))).thenReturn(user);
+        service.addSportField(sportField, user);
+
+        Mockito.verify(userRepository, Mockito.times(1)).save(any(User.class));
+    }
+
 }
