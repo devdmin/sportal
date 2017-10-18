@@ -27,6 +27,7 @@ public class SportFieldServiceImpl implements SportFieldService{
 
     @Override
     public SportField add(SportField sportField, User user) {
+        sportField.setAddingDate(LocalDate.now());
         return userService.addSportField(sportField, user);
     }
 
