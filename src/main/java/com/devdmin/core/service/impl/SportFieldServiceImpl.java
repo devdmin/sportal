@@ -1,5 +1,6 @@
 package com.devdmin.core.service.impl;
 
+import com.devdmin.core.businessvalidator.BusinessRule;
 import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
 import com.devdmin.core.repository.SportFieldRepository;
@@ -19,6 +20,9 @@ public class SportFieldServiceImpl implements SportFieldService{
     private SportFieldRepository repository;
 
     @Autowired
+    private BusinessRule<SportField,User> validator;
+
+    @Autowired
     private UserService userService;
     @Override
     public SportField find(Long id) {
@@ -28,7 +32,10 @@ public class SportFieldServiceImpl implements SportFieldService{
     @Override
     public SportField add(SportField sportField, User user) {
         sportField.setAddingDate(LocalDate.now());
-        return userService.addSportField(sportField, user);
+        if(validator.validate(sportField, user))
+            return userService.addSportField(sportField, user);
+        else
+            return null;
     }
 
     @Override

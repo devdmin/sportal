@@ -90,24 +90,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public SportField addSportField(SportField sportField, User user) {
+        User foundUser = repository.findOne(user.getId());
+        List<SportField> sportFields = Optional.ofNullable(foundUser.getOwnSportFields())
+                .orElse(new ArrayList<SportField>());
 
-            User foundUser = repository.findOne(user.getId());
-            List<SportField> sportFields = Optional.ofNullable(foundUser.getOwnSportFields())
-                    .orElse(new ArrayList<SportField>());
-
-            Optional<SportField> todaysSportField = sportFields
-                                    .stream()
-                                    .filter(t -> ChronoUnit.DAYS.between(t.getAddingDate(),LocalDate.now())==0)
-                                    .findAny();
-
-        if(!todaysSportField.isPresent()) {
-            sportField.setAuthor(foundUser);
-            sportFields.add(sportField);
-            repository.save(foundUser);
-        }
-
+        sportField.setAuthor(foundUser);
+        sportFields.add(sportField);
+        repository.save(foundUser);
         return sportField;
-
     }
 
     @Override

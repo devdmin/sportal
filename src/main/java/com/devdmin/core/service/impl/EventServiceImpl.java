@@ -22,6 +22,7 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private SportFieldRepository sportFieldRepository;
 
+
     @Override
     public Event save(Event event) {
         return eventRepository.save(event);
