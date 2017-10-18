@@ -93,18 +93,19 @@ public class UserServiceImpl implements UserService{
             List<SportField> sportFields = Optional.ofNullable(foundUser.getOwnSportFields())
                     .orElse(new ArrayList<SportField>());
 
-            Optional<SportField> todaysSportField = sportFields
-                                    .stream()
-                                    .filter(t -> t.getAddingDate().isEqual(LocalDate.now()))
-                                    .findAny();
-
-        if(todaysSportField.isPresent()) {
-            System.out.println("XDDD");
-
-        }else{
+//            Optional<SportField> todaysSportField = sportFields
+//                                    .stream()
+//                                    .filter(t -> t.getAddingDate().isEqual(LocalDate.now()))
+//                                    .findAny();
+//
+//        if(todaysSportField.isPresent()) {
+//            System.out.println("XDDD");
+//
+//        }else{
+            sportField.setAuthor(foundUser);
             sportFields.add(sportField);
             repository.save(foundUser);
-        }
+        //}
 
         return sportField;
 

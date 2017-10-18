@@ -1,6 +1,7 @@
 package com.devdmin.core.model;
 
 import com.devdmin.core.model.util.SportFieldType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,8 +17,9 @@ public class SportField {
     private SportFieldType type;
     private boolean isVerified;
     private LocalDate addingDate;
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
+    @JsonBackReference
     private User author;
     @OneToMany(mappedBy = "sportField")
     private List<Event> events;

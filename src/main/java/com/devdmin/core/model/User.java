@@ -1,7 +1,9 @@
 package com.devdmin.core.model;
 
 import com.devdmin.core.model.util.Gender;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -24,7 +26,8 @@ public class User {
     private LocalDate signUpDate;
     private int age;
     private Gender gender;
-    @OneToMany(mappedBy = "author", cascade =  {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "author", cascade =  {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<SportField> ownSportFields;
     @ManyToMany(mappedBy = "users")
     private List<Event> events;
