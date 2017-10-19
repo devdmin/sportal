@@ -26,10 +26,8 @@ public class DailyLimitRule implements BusinessRule<SportField, User> {
         Optional<List<SportField>> sportFields = Optional.ofNullable(foundUser.getOwnSportFields());
 
         if(sportFields.isPresent()) {
-            Long todaysSportFields = sportFields.get()
-                    .stream()
-                    .filter(t -> ChronoUnit.DAYS.between(t.getAddingDate(), LocalDate.now()) == PERMISSIBLE_DAYS_BETWEEN_LAST_ADDING)
-                    .count();
+            Long todaysSportFields = countSportfieldsByPermissibleDaysBeetweenLastAddingAndToday(sportFields.get());
+
             if(todaysSportFields >= SPORTFIELDS_PER_DAY) {
                 return false;
             }
@@ -37,5 +35,12 @@ public class DailyLimitRule implements BusinessRule<SportField, User> {
             return true;
         }
         return true;
+    }
+
+    private Long countSportfieldsByPermissibleDaysBeetweenLastAddingAndToday(List<SportField> sportFields){
+        return sportFields
+                .stream()
+                .filter(t -> ChronoUnit.DAYS.between(t.getAddingDate(), LocalDate.now()) == PERMISSIBLE_DAYS_BETWEEN_LAST_ADDING)
+                .count();
     }
 }
