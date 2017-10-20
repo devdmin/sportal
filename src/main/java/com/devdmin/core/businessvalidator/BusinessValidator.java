@@ -9,9 +9,9 @@ public class BusinessValidator<T,R> implements ModelBusinessValidator<T, R>{
     private List<BusinessRule<T,R>> rules;
 
     @Override
-    public boolean validateAdding(T t, R r) {
+    public boolean validateAdding(R r) {
         for(BusinessRule<T, R> rule : rules){
-            if(rule.validate(t,r))
+            if(!rule.validateAdding(r))
                 return false;
         }
         return true;

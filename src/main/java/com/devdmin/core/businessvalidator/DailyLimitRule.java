@@ -21,11 +21,12 @@ public class DailyLimitRule implements BusinessRule<SportField, User> {
     private final long SPORTFIELDS_PER_DAY = 1;
 
     @Override
-    public boolean validateAdding(SportField sportField, User user) {
+    public boolean validateAdding(User user) {
         User foundUser = userService.find(user.getId());
         Optional<List<SportField>> sportFields = Optional.ofNullable(foundUser.getOwnSportFields());
 
         if(sportFields.isPresent()) {
+
             Long todaysSportFields = countSportfieldsByPermissibleDaysBeetweenLastAddingAndToday(sportFields.get());
 
             if(todaysSportFields >= SPORTFIELDS_PER_DAY) {
