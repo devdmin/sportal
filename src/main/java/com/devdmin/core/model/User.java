@@ -28,6 +28,9 @@ public class User {
     private Gender gender;
     @OneToMany(mappedBy = "author", cascade =  {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JsonManagedReference
+    private List<Event> ownEvents;
+    @OneToMany(mappedBy = "author", cascade =  {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<SportField> ownSportFields;
     @ManyToMany(mappedBy = "users")
     private List<Event> events;
@@ -132,6 +135,14 @@ public class User {
 
     public void setToken(UUID token) {
         this.token = token;
+    }
+
+    public List<Event> getOwnEvents() {
+        return ownEvents;
+    }
+
+    public void setOwnEvents(List<Event> ownEvents) {
+        this.ownEvents = ownEvents;
     }
 
     @Override

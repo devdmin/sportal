@@ -21,7 +21,7 @@ public class DailyLimitRule implements BusinessRule<SportField, User> {
     private final long SPORTFIELDS_PER_DAY = 1;
 
     @Override
-    public boolean validate(SportField sportField, User user) {
+    public boolean validateAdding(SportField sportField, User user) {
         User foundUser = userService.find(user.getId());
         Optional<List<SportField>> sportFields = Optional.ofNullable(foundUser.getOwnSportFields());
 
@@ -31,8 +31,6 @@ public class DailyLimitRule implements BusinessRule<SportField, User> {
             if(todaysSportFields >= SPORTFIELDS_PER_DAY) {
                 return false;
             }
-        }else {
-            return true;
         }
         return true;
     }

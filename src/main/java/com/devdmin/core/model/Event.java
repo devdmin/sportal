@@ -22,7 +22,6 @@ public class Event {
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "userId")
     private List<User> users;
-
     private LocalDateTime date;
     private LocalDateTime endDate;
     private LocalDate addingDate;
@@ -31,8 +30,8 @@ public class Event {
     private int maxMembers;
     private Gender gender;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "authorId")
     private User author;
 
     public void setId(Long id) {

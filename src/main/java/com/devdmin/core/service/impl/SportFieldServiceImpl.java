@@ -32,7 +32,7 @@ public class SportFieldServiceImpl implements SportFieldService{
     @Override
     public SportField add(SportField sportField, User user) {
         sportField.setAddingDate(LocalDate.now());
-        if(validator.validate(sportField, user))
+        if(validator.validateAdding(sportField, user))
             return userService.addSportField(sportField, user);
         else
             return null;
