@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class BusinessValidator<T,R> implements ModelBusinessValidator<T, R>{
+public abstract class BusinessValidator<T,R> implements ModelBusinessValidator<T, R>{
     @Autowired
     private List<BusinessRule<T,R>> rules;
 

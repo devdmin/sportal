@@ -95,29 +95,5 @@ public class SportFieldRepositoryTest {
         assertEquals(event, foundEvent);
         assertEquals(event.getSportField(), foundSportField);
     }
-    @Test
-    public void relationWithUserTest() throws Exception{
-        User user = new User();
-        user.setUsername("Foo");
-        user.setGender(Gender.MALE);
-        user.setAge(20);
-        user.setPassword("password");
-        user.setEmail("email@email.email");
-        user.setSignUpDate(LocalDate.now());
-        SportField sportField = new SportField();
-        sportField.setLat(24.2444);
-        sportField.setLng(54.2555);
-        sportField.setType(SportFieldType.BASKETBALL);
-        sportField.setVerified(false);
-        sportField.setAddingDate(LocalDate.now());
-        List<SportField> list = new ArrayList<SportField>();
-        list.add(sportField);
-        user.setSportFields(list);
-        User foundUser = entityManager.persist(user);
-        entityManager.persist(foundUser);
-        entityManager.persist(sportField);
 
-        SportField foundSportField = userRepository.findOne(foundUser.getId()).getSportFields().get(0);
-        assertEquals(foundSportField, sportField);
-    }
 }

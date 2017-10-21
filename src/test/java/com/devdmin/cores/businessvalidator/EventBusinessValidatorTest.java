@@ -1,11 +1,10 @@
 package com.devdmin.cores.businessvalidator;
 
 import com.devdmin.core.businessvalidator.BusinessRule;
-import com.devdmin.core.businessvalidator.DailyLimitRule;
-import com.devdmin.core.businessvalidator.SportFieldBusinessValidator;
-import com.devdmin.core.model.SportField;
+import com.devdmin.core.businessvalidator.EventBusinessValidator;
+import com.devdmin.core.businessvalidator.EventsDailyLimitRule;
+import com.devdmin.core.model.Event;
 import com.devdmin.core.model.User;
-import com.devdmin.core.service.SportFieldService;
 import com.devdmin.core.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,19 +24,18 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
-public class SportFieldsBusinessValidatorTest {
+public class EventBusinessValidatorTest {
+    @InjectMocks
+    private EventBusinessValidator eventBusinessValidator;
 
     @InjectMocks
-    private SportFieldBusinessValidator sportFieldValidator;
-
-    @InjectMocks
-    private DailyLimitRule limitRule;
+    private EventsDailyLimitRule limitRule;
 
     @Mock
     private UserService userService;
 
     @Spy
-    private List<BusinessRule<SportField, User>> rules = new ArrayList<BusinessRule<SportField,User>>();
+    private List<BusinessRule<Event, User>> rules = new ArrayList<BusinessRule<Event,User>>();
 
     @Before
     public void setup(){
@@ -49,20 +47,24 @@ public class SportFieldsBusinessValidatorTest {
     @Test
     public void testValidAddingSportField(){
         User user = new User();
-        SportField sportField = new SportField();
-        sportField.setAddingDate(LocalDate.of(1990,1,1));
-        user.setOwnSportFields(new HashSet<>(Arrays.asList(sportField)));
+        Event event = new Event();
+        event.setAddingDate(LocalDate.of(1990,1,1));
+        user.setOwnEvents(new HashSet<>(Arrays.asList(event)));
         when(userService.find(any(Long.class))).thenReturn(user);
-        assertTrue(sportFieldValidator.validateAdding(user));
+        assertTrue(eventBusinessValidator.validateAdding(user));
     }
 
     @Test
     public void testIvalidAddingSportField(){
         User user = new User();
-        SportField sportField = new SportField();
-        sportField.setAddingDate(LocalDate.now());
-        user.setOwnSportFields(new HashSet<>(Arrays.asList(sportField)));
+        Event event = new Event();
+        event.setAddingDate(LocalDate.now());
+        Event event2 = new Event();
+        event2.setAddingDate(LocalDate.now());
+        Event event3 = new Event();
+        event3.setAddingDate(LocalDate.now());
+        user.setOwnEvents(new HashSet<>(Arrays.asList(event,event2,event3)));
         when(userService.find(any(Long.class))).thenReturn(user);
-        assertFalse(sportFieldValidator.validateAdding(user));
+        assertFalse(eventBusinessValidator.validateAdding(user));
     }
 }

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -26,17 +27,14 @@ public class User {
     private LocalDate signUpDate;
     private int age;
     private Gender gender;
+    @OneToMany(mappedBy = "eventAuthor", cascade =  {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private Set<Event> ownEvents;
     @OneToMany(mappedBy = "author", cascade =  {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<Event> ownEvents;
-    @OneToMany(mappedBy = "author", cascade =  {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private List<SportField> ownSportFields;
+    private Set<SportField> ownSportFields;
     @ManyToMany(mappedBy = "users")
     private List<Event> events;
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "member")
-    private List<SportField> sportFields;
     private boolean isVerified;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UUID token;
@@ -105,14 +103,6 @@ public class User {
         this.gender = gender;
     }
 
-    public List<SportField> getSportFields() {
-        return sportFields;
-    }
-
-    public void setSportFields(List<SportField> sportFields) {
-        this.sportFields = sportFields;
-    }
-
     public boolean isVerified() {
         return isVerified;
     }
@@ -121,11 +111,11 @@ public class User {
         isVerified = verified;
     }
 
-    public List<SportField> getOwnSportFields() {
+    public Set<SportField> getOwnSportFields() {
         return ownSportFields;
     }
 
-    public void setOwnSportFields(List<SportField> ownSportFields) {
+    public void setOwnSportFields(Set<SportField> ownSportFields) {
         this.ownSportFields = ownSportFields;
     }
 
@@ -137,11 +127,11 @@ public class User {
         this.token = token;
     }
 
-    public List<Event> getOwnEvents() {
+    public Set<Event> getOwnEvents() {
         return ownEvents;
     }
 
-    public void setOwnEvents(List<Event> ownEvents) {
+    public void setOwnEvents(Set<Event> ownEvents) {
         this.ownEvents = ownEvents;
     }
 
@@ -157,7 +147,6 @@ public class User {
                 ", gender=" + gender +
                 ", ownSportFields=" + ownSportFields +
                 ", events=" + events +
-                ", sportFields=" + sportFields +
                 ", isVerified=" + isVerified +
                 ", token='" + token + '\'' +
                 '}';

@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class EventsDailyLimitRule implements BusinessRule<Event,User> {
@@ -22,7 +23,7 @@ public class EventsDailyLimitRule implements BusinessRule<Event,User> {
     @Override
     public boolean validateAdding(User user) {
         User foundUser = userService.find(user.getId());
-        Optional<List<Event>> events = Optional.ofNullable(foundUser.getOwnEvents());
+        Optional<Set<Event>> events = Optional.ofNullable(foundUser.getOwnEvents());
 
         if(events.isPresent()){
             Long todaysEvent = countEvetsByPermissibleDaysBeetweenLastAddingAndToday(events.get());
@@ -34,7 +35,7 @@ public class EventsDailyLimitRule implements BusinessRule<Event,User> {
         return true;
     }
 
-    private Long countEvetsByPermissibleDaysBeetweenLastAddingAndToday(List<Event> events){
+    private Long countEvetsByPermissibleDaysBeetweenLastAddingAndToday(Set<Event> events){
         return events
                 .stream()
                 .filter(t -> ChronoUnit.DAYS.between(t.getAddingDate(), LocalDate.now()) == PERMISSIBLE_DAYS_BETWEEN_LAST_ADDING)

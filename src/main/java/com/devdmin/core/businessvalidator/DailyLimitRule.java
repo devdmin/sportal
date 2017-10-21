@@ -11,6 +11,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 public class DailyLimitRule implements BusinessRule<SportField, User> {
@@ -23,7 +24,7 @@ public class DailyLimitRule implements BusinessRule<SportField, User> {
     @Override
     public boolean validateAdding(User user) {
         User foundUser = userService.find(user.getId());
-        Optional<List<SportField>> sportFields = Optional.ofNullable(foundUser.getOwnSportFields());
+        Optional<Set<SportField>> sportFields = Optional.ofNullable(foundUser.getOwnSportFields());
 
         if(sportFields.isPresent()) {
 
@@ -36,7 +37,7 @@ public class DailyLimitRule implements BusinessRule<SportField, User> {
         return true;
     }
 
-    private Long countSportfieldsByPermissibleDaysBeetweenLastAddingAndToday(List<SportField> sportFields){
+    private Long countSportfieldsByPermissibleDaysBeetweenLastAddingAndToday(Set<SportField> sportFields){
         return sportFields
                 .stream()
                 .filter(t -> ChronoUnit.DAYS.between(t.getAddingDate(), LocalDate.now()) == PERMISSIBLE_DAYS_BETWEEN_LAST_ADDING)
