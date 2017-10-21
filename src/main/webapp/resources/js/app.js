@@ -67,6 +67,31 @@ var sportal = angular.module('sportal', ['ngResource'])
 		};
 		return service;
 	})
+    .factory("translator", function($http){
+        "use strict";
+        var translator = {};
+        translator.translate = function(restObject){
+           
+    
+            
+       $http.get('resources/js/translations/pl_lang.json')
+            .then(function(res){   
+           angular.forEach(restObject, function(value, key){
+                
+                console.log(key + ":  " +value + ":::" + res.data[value])
+                value = res.data[value];
+               if(res.data[value] !== undefined){
+                restObject.key = res.data[value];
+                
+                   }
+               console.log(JSON.stringify(restObject));
+            });
+            });
+           
+            return null;
+        }
+        return translator;
+    })
 
 .controller('AppCtrl', function AppCtrl ($scope) {
     
@@ -79,9 +104,7 @@ var sportal = angular.module('sportal', ['ngResource'])
 
 .controller('RegisterCtrl', function($scope, sessionService, userService){
 	$scope.register = function(){
-        console.log($scope.user);
 		var user = $scope.user;
-        console.log(user.year);
 		user.age = (new Date().getFullYear())-$scope.user.year;
 		delete user.year;
 		userService.register(user,
@@ -105,23 +128,23 @@ var sportal = angular.module('sportal', ['ngResource'])
 })
 
 
-.controller('MapCtrl', function($scope, sportFieldService, $filter, sessionService, userService){
+.controller('MapCtrl', function($scope, sportFieldService, $filter, sessionService, userService, translator){
 	var sportFields;
 	$scope.hide = false;
 	sportFieldService.findAll().$promise.then(function (result) {
 		sportFields = result.sportFieldList;
-		console.log(sportFields);
 		localStorage.setItem("sportFields",  JSON.stringify(sportFields));
 		initAutocomplete();
+        
+        
 	});
 
 	$scope.show = function(sportFieldId){
 
 		$scope.hide = false;
-		console.log($scope.hide);
-		console.log(JSON.stringify($filter('filter')(sportFields, {id: sportFieldId})[0]));
 		$scope.$apply(function () {
 			$scope.sportField = $filter('filter')(sportFields, {id: sportFieldId})[0];
+            translator.translate($scope.sportField); 
 		});
 		console.log($scope.sportField.addingDate);
 	}
