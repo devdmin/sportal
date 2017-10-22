@@ -71,24 +71,17 @@ var sportal = angular.module('sportal', ['ngResource'])
         "use strict";
         var translator = {};
         translator.translate = function(restObject){
-           
-    
             
        $http.get('resources/js/translations/pl_lang.json')
-            .then(function(res){   
+            .then(function(res){  
            angular.forEach(restObject, function(value, key){
-                
-                console.log(key + ":  " +value + ":::" + res.data[value])
-                value = res.data[value];
-               if(res.data[value] !== undefined){
-                restObject.key = res.data[value];
-                
-                   }
-               console.log(JSON.stringify(restObject));
+               if(res.data[restObject[key]] != null){
+                   restObject[key] = res.data[restObject[key]];
+                }
             });
             });
            
-            return null;
+            return restObject;
         }
         return translator;
     })
@@ -144,7 +137,7 @@ var sportal = angular.module('sportal', ['ngResource'])
 		$scope.hide = false;
 		$scope.$apply(function () {
 			$scope.sportField = $filter('filter')(sportFields, {id: sportFieldId})[0];
-            translator.translate($scope.sportField); 
+            $scope.sportField = translator.translate($scope.sportField); 
 		});
 		console.log($scope.sportField.addingDate);
 	}
