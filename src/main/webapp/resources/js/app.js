@@ -22,7 +22,7 @@ var sportal = angular.module('sportal', ['ngResource'])
 			localStorage.removeItem("session");
             $http.get("/logout");
             $window.location.href = '/';
-            
+
 		};
 		session.isLoggedIn = function () {
 			return localStorage.getItem("session") !== null;
@@ -71,23 +71,23 @@ var sportal = angular.module('sportal', ['ngResource'])
         "use strict";
         var translator = {};
         translator.translate = function(restObject){
-            
+
        $http.get('resources/js/translations/pl_lang.json')
-            .then(function(res){  
+            .then(function(res){
            angular.forEach(restObject, function(value, key){
                if(res.data[restObject[key]] != null){
                    restObject[key] = res.data[restObject[key]];
                 }
             });
             });
-           
+
             return restObject;
         }
         return translator;
     })
 
 .controller('AppCtrl', function AppCtrl ($scope) {
-    
+
 })
 .controller('UserCtrl', function($scope, $window, userService, sessionService){
     var username = $window.location.pathname.split('/').pop();
@@ -128,8 +128,8 @@ var sportal = angular.module('sportal', ['ngResource'])
 		sportFields = result.sportFieldList;
 		localStorage.setItem("sportFields",  JSON.stringify(sportFields));
 		initAutocomplete();
-        
-        
+
+
 	});
 
 	$scope.show = function(sportFieldId){
@@ -137,7 +137,7 @@ var sportal = angular.module('sportal', ['ngResource'])
 		$scope.hide = false;
 		$scope.$apply(function () {
 			$scope.sportField = $filter('filter')(sportFields, {id: sportFieldId})[0];
-            $scope.sportField = translator.translate($scope.sportField); 
+            $scope.sportField = translator.translate($scope.sportField);
 		});
 		console.log($scope.sportField.addingDate);
 	}
@@ -168,7 +168,7 @@ var sportal = angular.module('sportal', ['ngResource'])
 		$scope.userPath = "/user/" + data.username;
         console.log(data.username);
 	});
-    
+
     $scope.logout = function(){
         sessionService.logout();
     }
@@ -179,6 +179,11 @@ var sportal = angular.module('sportal', ['ngResource'])
 		sessionService.login($scope.user)
 	}
 })
+.controller('AdminCtrl', function($scope, sportFieldService){
+	sportFieldService.findAll().$promise.then(function (result) {
+		$scope.sportFields = result.sportFieldList;
+		console.log(JSON.stringify($scope.sportFields));
+	});
+
+})
 ;
-
-

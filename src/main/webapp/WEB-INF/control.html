@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl" ng-app="sportal">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		<title>Sportal! - panel administratora</title>
+
+		<!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="../resources/bootstrap-3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../resources/flat-ui/css/flat-ui.min.css"/>
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+		<!-- AngularJS -->
+
+		<script src="../resources/js/angular.min.js"></script>
+		<script src="../resources/js/angular-resource.js"></script>
+		<script src="../resources/js/app.js"></script>
+	</head>
+	<body class="body">
+    <nav class="navbar navbar-inverse" role="navigation" style="border-radius:0" ng-controller="NavCtrl">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                    <span class="sr-only">Nawigacja</span>
+                </button>
+                <a class="navbar-brand" href="/">Sportal!</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+                <ul class="nav navbar-nav navbar-right">
+                     <li><a href="/">Strona główna</a></li>
+                    <li><a href="#!">Kontakt</a></li>
+                    <li><a href="#!">O nas</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opcje<b class="caret"></b></a>
+                        <span class="dropdown-arrow"></span>
+                        <ul class="dropdown-menu">
+                            <li><a href="/sportField">Dodaj boisko</a></li>
+                            <li><a href={{userPath}}>Moje konto</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/" ng-click="logout()">Wyloguj</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div ng-controller="AdminCtrl">
+        <h1>Panel administratora</h1>
+        <h3>Boiska</h3>
+
+				<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Dodano</th>
+      <th>Typ</th>
+      <th>Zweryfikowane</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr ng-repeat="sportField in sportFields">
+      <td>{{sportField.id}}</td>
+      <td>{{sportField.addingDate}}</td>
+      <td>{{sportField.type}}</td>
+      <td>{{sportField.verified}}</td>
+			<td><button type="button" class="btn btn-success btn-md">Zweryfikuj</button></td>
+			<td><button type="button" class="btn btn-danger btn-md">Usuń</button></td>
+    </tr>
+	</tbody>
+	</table>
+    </div>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="../resources/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+	</body>
+</html>

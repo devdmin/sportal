@@ -52,6 +52,11 @@ public class MainController {
         return "users";
     }
 
+    @RequestMapping(value = "/control", method = RequestMethod.GET)
+    public String adminController(){
+        return "control";
+    }
+
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_USER')")
     public String dashboard() {
