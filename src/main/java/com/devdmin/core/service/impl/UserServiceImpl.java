@@ -13,10 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.time.chrono.ChronoLocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -88,26 +87,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public SportField addSportField(SportField sportField, User user) {
+        User foundUser = repository.findOne(user.getId());
+        Set<SportField> sportFields = Optional.ofNullable(foundUser.getOwnSportFields())
+                .orElse(new HashSet<>());
 
-            User foundUser = repository.findOne(user.getId());
-            List<SportField> sportFields = Optional.ofNullable(foundUser.getOwnSportFields())
-                    .orElse(new ArrayList<SportField>());
-
-            Optional<SportField> todaysSportField = sportFields
-                                    .stream()
-                                    .filter(t -> t.getAddingDate().isEqual(LocalDate.now()))
-                                    .findAny();
-
-        if(todaysSportField.isPresent()) {
-            System.out.println("XDDD");
-
-        }else{
-            sportFields.add(sportField);
-            repository.save(foundUser);
-        }
-
+        sportField.setAuthor(foundUser);
+        sportFields.add(sportField);
+        repository.save(foundUser);
         return sportField;
-
     }
 
     @Override

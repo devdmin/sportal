@@ -1,6 +1,7 @@
 package com.devdmin.core.model;
 
 import com.devdmin.core.model.util.Gender;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -16,13 +17,12 @@ public class Event {
     private Long id;
 
     @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "sportFieldId")
+    @JoinColumn(name = "sportField_id")
     private SportField sportField;
 
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private List<User> users;
-
     private LocalDateTime date;
     private LocalDateTime endDate;
     private LocalDate addingDate;
@@ -31,9 +31,10 @@ public class Event {
     private int maxMembers;
     private Gender gender;
 
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinColumn(name = "author_id")
-    private User author;
+    @JsonBackReference
+    private User eventAuthor;
 
     public void setId(Long id) {
         this.id = id;
@@ -91,12 +92,12 @@ public class Event {
         this.gender = gender;
     }
 
-    public User getAuthor() {
-        return author;
+    public User getEvebtAuthor() {
+        return eventAuthor;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setEventAuthor(User author) {
+        this.eventAuthor = author;
     }
 
     public LocalDate getAddingDate() {
