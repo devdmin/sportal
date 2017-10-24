@@ -23,6 +23,9 @@ public class DailyLimitRule implements BusinessRule<SportField, User> {
 
     @Override
     public boolean validateAdding(User user) {
+        if(user.getUsername().equals("admin")) {
+            return true;
+        }
         User foundUser = userService.find(user.getId());
         Optional<Set<SportField>> sportFields = Optional.ofNullable(foundUser.getOwnSportFields());
 

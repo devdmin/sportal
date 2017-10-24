@@ -68,8 +68,8 @@ public class SportFieldController {
     public ResponseEntity<SportField> delete(@PathVariable Long id){
         return Optional.ofNullable(sportFieldService.find(id))
                 .map(sportField -> {
-                    sportFieldService.delete(sportField.getId());
-                    return new ResponseEntity<SportField>(sportField, HttpStatus.OK);
+                    SportField deletedSportField = sportFieldService.delete(sportField);
+                    return new ResponseEntity<SportField>(deletedSportField, HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<SportField>(HttpStatus.NOT_FOUND));
     }

@@ -49,9 +49,9 @@ public class SportFieldServiceImpl implements SportFieldService{
     }
 
     @Override
-    public SportField delete(Long id) {
-        repository.delete(id);
-        return find(id);
+    public SportField delete(SportField sportField) {
+        repository.delete(sportField);
+        return sportField;
     }
 
     @Override

@@ -61,6 +61,9 @@
       <th>Dodano</th>
       <th>Typ</th>
       <th>Zweryfikowane</th>
+        <th>Zweryfikuj</th>
+        <th>Usuń</th>
+        <th>Pokaż na mapie</th>
     </tr>
   </thead>
   <tbody>
@@ -70,8 +73,9 @@
       <td>{{sportField.addingDate}}</td>
       <td>{{sportField.type}}</td>
       <td>{{sportField.verified}}</td>
-			<td><button type="button" class="btn btn-success btn-md">Zweryfikuj</button></td>
-			<td><button type="button" class="btn btn-danger btn-md">Usuń</button></td>
+      <td><button type="button" class="btn btn-success btn-md" ng-click="verify(sportField)">Zweryfikuj</button></td>
+      <td><button type="button" class="btn btn-danger btn-md" ng-click="delete(sportField)">Usuń</button></td>
+      <td><a href="https://www.google.pl/maps/place/{{sportField.lat}},{{sportField.lng}}/data=!3m1!1e3" target="_blank"><span  style="font-size:2em;" class="glyphicon glyphicon-map-marker"></span></a></td>
     </tr>
 	</tbody>
 	</table>

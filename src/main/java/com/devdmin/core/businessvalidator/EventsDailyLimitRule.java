@@ -22,6 +22,9 @@ public class EventsDailyLimitRule implements BusinessRule<Event,User> {
 
     @Override
     public boolean validateAdding(User user) {
+        if(user.getUsername().equals("admin")) {
+            return true;
+        }
         User foundUser = userService.find(user.getId());
         Optional<Set<Event>> events = Optional.ofNullable(foundUser.getOwnEvents());
 

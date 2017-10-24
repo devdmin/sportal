@@ -65,6 +65,10 @@ var sportal = angular.module('sportal', ['ngResource'])
 			var SportFields = $resource("/api/sportField");
 			return SportFields.get();
 		};
+        service.delete = function(sportField){
+            var SportField = $resource("/api/sportField/" + sportField.id);
+            return SportField.delete();
+        };
 		return service;
 	})
     .factory("translator", function($http){
@@ -184,6 +188,20 @@ var sportal = angular.module('sportal', ['ngResource'])
 		$scope.sportFields = result.sportFieldList;
 		console.log(JSON.stringify($scope.sportFields));
 	});
+    
+    $scope.verify = function(sportField){
+        sportField.verified = true;
+        console.log("weryfikacja: " + sportField.id);
+    }
+    
+    $scope.delete = function(sportField){
+        var index = $scope.sportFields.indexOf(sportField);
+        $scope.sportFields.splice(index, 1);   
+        sportFieldService.delete(sportField).$promise.then(function (result) {
+		console.log(result);
+	    });
+        console.log("usuwanie: " + sportField.id);
+    }
 
 })
 ;

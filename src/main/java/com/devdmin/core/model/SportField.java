@@ -17,11 +17,11 @@ public class SportField {
     private SportFieldType type;
     private boolean isVerified;
     private LocalDate addingDate;
-    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "author_id")
     @JsonBackReference
     private User author;
-    @OneToMany(mappedBy = "sportField")
+    @OneToMany(mappedBy = "sportField", fetch=FetchType.EAGER)
     private List<Event> events;
 
     public void setId(Long id) {

@@ -30,7 +30,7 @@ public class User {
     @OneToMany(mappedBy = "eventAuthor", cascade =  {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
     @JsonManagedReference
     private Set<Event> ownEvents;
-    @OneToMany(mappedBy = "author", cascade =  {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JsonManagedReference
     private Set<SportField> ownSportFields;
     @ManyToMany(mappedBy = "users")
