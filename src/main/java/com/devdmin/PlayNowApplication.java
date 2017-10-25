@@ -7,10 +7,12 @@ import com.devdmin.core.service.impl.UserServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import java.time.LocalDate;
 
 @SpringBootApplication
+@EnableAspectJAutoProxy
 public class PlayNowApplication {
 
 	

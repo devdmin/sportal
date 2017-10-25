@@ -69,6 +69,13 @@ var sportal = angular.module('sportal', ['ngResource'])
             var SportField = $resource("/api/sportField/" + sportField.id);
             return SportField.delete();
         };
+		service.verify = function(sportField){
+			var SportField = $resource("/api/sportField/"+sportField.id+"/verify", null,
+			{
+	    	'update': { method:'PUT' }
+			});
+			return SportField.update();
+		}
 		return service;
 	})
     .factory("translator", function($http){
@@ -186,17 +193,20 @@ var sportal = angular.module('sportal', ['ngResource'])
 .controller('AdminCtrl', function($scope, sportFieldService){
 	sportFieldService.findAll().$promise.then(function (result) {
 		$scope.sportFields = result.sportFieldList;
-		console.log(JSON.stringify($scope.sportFields));
+
 	});
-    
+
     $scope.verify = function(sportField){
         sportField.verified = true;
         console.log("weryfikacja: " + sportField.id);
+				sportFieldService.verify(sportField).$promise.then(function (result) {
+					console.log(result);
+		    });
     }
-    
+
     $scope.delete = function(sportField){
         var index = $scope.sportFields.indexOf(sportField);
-        $scope.sportFields.splice(index, 1);   
+        $scope.sportFields.splice(index, 1);
         sportFieldService.delete(sportField).$promise.then(function (result) {
 		console.log(result);
 	    });

@@ -53,6 +53,16 @@ public class SportFieldController {
                 })
                 .orElse(new ResponseEntity<SportField>(HttpStatus.NOT_FOUND));
     }
+    @PutMapping("/{id}/verify")
+    @PreAuthorize("permitAll")
+    public ResponseEntity<SportField> verify(@PathVariable Long id){
+        return Optional.ofNullable(sportFieldService.find(id))
+                .map(sportField -> {
+                    SportField verifiedSportField = sportFieldService.verify(sportField);
+                    return new ResponseEntity<SportField>(verifiedSportField, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<SportField>(HttpStatus.NOT_FOUND));
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<SportField> update(@PathVariable Long id, @RequestBody SportField sentSportField){

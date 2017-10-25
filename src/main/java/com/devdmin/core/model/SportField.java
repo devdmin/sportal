@@ -17,7 +17,7 @@ public class SportField {
     private SportFieldType type;
     private boolean isVerified;
     private LocalDate addingDate;
-    @ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "author_id")
     @JsonBackReference
     private User author;

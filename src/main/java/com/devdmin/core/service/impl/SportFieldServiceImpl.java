@@ -50,8 +50,17 @@ public class SportFieldServiceImpl implements SportFieldService{
 
     @Override
     public SportField delete(SportField sportField) {
+        sportField.getAuthor().getOwnSportFields().remove(sportField);
+        sportField.setAuthor(null);
+
         repository.delete(sportField);
         return sportField;
+    }
+
+    @Override
+    public SportField verify(SportField sportField) {
+        sportField.setVerified(true);
+        return repository.save(sportField);
     }
 
     @Override
