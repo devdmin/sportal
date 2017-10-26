@@ -64,4 +64,5 @@ public class AccountUserDetails implements UserDetails {
     public User getUser() {
         return user;
     }
+
 }
