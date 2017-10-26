@@ -39,6 +39,9 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UUID token;
 
+    @OneToOne(mappedBy = "user")
+    private Logging logging;
+
     public Long getId() {
         return id;
     }
