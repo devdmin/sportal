@@ -63,6 +63,9 @@ public class MainController {
         return "dashboard";
     }
 
+    @RequestMapping(value = "/stats", method = RequestMethod.GET)
+    public String stats(){return "stats";}
+
     @RequestMapping(value = "/sportField", method = RequestMethod.GET)
     public String sportField() {
         return "sportfield";

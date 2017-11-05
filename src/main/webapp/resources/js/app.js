@@ -78,7 +78,7 @@ var sportal = angular.module('sportal', ['ngResource'])
 		}
 		return service;
 	})
-    .factory("translator", function($http){
+  .factory("translator", function($http){
         "use strict";
         var translator = {};
         translator.translate = function(restObject){
@@ -96,6 +96,17 @@ var sportal = angular.module('sportal', ['ngResource'])
         }
         return translator;
     })
+	.factory("statsService", function($resource, $http){
+		"use strict";
+		var service = {};
+
+		service.todayLoggings = function(){
+			var Loggings = $("/api/stats/logging/today");
+			return Loggings.get();
+		}
+		return service;
+	})
+
 
 .controller('AppCtrl', function AppCtrl ($scope) {
 
@@ -213,5 +224,11 @@ var sportal = angular.module('sportal', ['ngResource'])
         console.log("usuwanie: " + sportField.id);
     }
 
+})
+.controller('StatsCtrl', function($scope, statsService){
+		statsService.todayLoggings().$promise.then(function(data){
+			$scope.loggings = data;
+			console.log(data);
+		});
 })
 ;
