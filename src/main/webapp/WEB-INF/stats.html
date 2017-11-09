@@ -51,8 +51,24 @@
     </nav>
 
     <div ng-controller="StatsCtrl">
-        <h1>Statystki</h1>
-      
+        <h1>Statystki logowania</h1>
+        
+            <button type="button" class="btn btn-primary" ng-click="lastHour()">Last hour</button>
+            <button type="button" class="btn btn-primary" ng-click="searchToday()">Today</button>
+            <button type="button" class="btn btn-primary" ng-click="searchThisMonth()">This month</button>
+            <button type="button" class="btn btn-primary" ng-click="searchAll()">All</button>
+        
+          <input ng-model="searchText"></input>
+        <table id="searchTextResults" class="table">
+            <tr><th>Username</th><th>IP</th><th>Date</th><th>Time</th></tr>
+            <tr ng-repeat="log in loggings | filter:searchByTime(timeCriteria) | filter:searchText">
+            <td>{{log.user.username}}</td>
+            <td>{{log.ip}}</td>
+                
+            <td>{{log.date[2]+'-'+log.date[1]+'-'+log.date[0]}}</td>
+            <td>{{log.date[3]+':'+log.date[4]}}</td>
+            </tr>
+        </table>
     </div>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

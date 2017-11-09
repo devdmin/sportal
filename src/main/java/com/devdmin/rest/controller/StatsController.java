@@ -18,18 +18,7 @@ public class StatsController {
     @Autowired
     private LoggingService service;
 
-    @RequestMapping("/logging/today")
-    public ResponseEntity<List<Logging>> loggingsToday(){
-        return new ResponseEntity<List<Logging>>(service.getLoggings(Period.TODAY), HttpStatus.OK);
-    }
-    @RequestMapping("/logging/week")
-    public ResponseEntity<List<Logging>> loggingsWeek(){
-        return new ResponseEntity<List<Logging>>(service.getLoggings(Period.WEEK), HttpStatus.OK);
-    }
-    @RequestMapping("/logging/year")
-    public ResponseEntity<List<Logging>> loggingsYear(){
-        return new ResponseEntity<List<Logging>>(service.getLoggings(Period.YEAR), HttpStatus.OK);
-    }
+
     @RequestMapping("/logging/all")
     public ResponseEntity<List<Logging>> loggingsAll(){
         return new ResponseEntity<List<Logging>>(service.getLoggings(Period.ALL), HttpStatus.OK);

@@ -98,11 +98,12 @@ var sportal = angular.module('sportal', ['ngResource'])
     })
 	.factory("statsService", function($resource, $http){
 		"use strict";
+        
 		var service = {};
 
-		service.todayLoggings = function(){
-			var Loggings = $("/api/stats/logging/today");
-			return Loggings.get();
+		service.loggings = function(){
+			var Loggings = $resource("/api/stats/logging/all");
+			return Loggings.query();
 		}
 		return service;
 	})
@@ -225,10 +226,65 @@ var sportal = angular.module('sportal', ['ngResource'])
     }
 
 })
-.controller('StatsCtrl', function($scope, statsService){
-		statsService.todayLoggings().$promise.then(function(data){
+.controller('StatsCtrl', function($scope, statsService,$filter){
+   
+		statsService.loggings().$promise.then(function(data){
 			$scope.loggings = data;
-			console.log(data);
-		});
+		},function (data){
+            alert("Błąd danych");
+        });
+    
+    $scope.searchByTime = function( timeCriteria ) {
+        return function( item ) {
+       
+            
+            if (timeCriteria == null){ 
+                return item;
+            }else if(timeCriteria.hour !== null){
+                return item.date[3] === timeCriteria.hour && item.date[2] === timeCriteria.day 
+                    && item.date[1] === timeCriteria.month && item.date[0] === timeCriteria.year;
+            }else if(timeCriteria.day !== null){
+                return item.date[2] === timeCriteria.day 
+                    && item.date[1] === timeCriteria.month && item.date[0] === timeCriteria.year;
+            }else{
+                return item.date[1] === timeCriteria.month && item.date[0] === timeCriteria.year;
+            }
+            
+            
+        };
+    };
+    
+
+    $scope.lastHour = function(){
+        var date = new Date();
+        $scope.timeCriteria = {};
+        $scope.timeCriteria.hour = parseInt($filter('date')(date, 'H'));
+        $scope.timeCriteria.day = parseInt($filter('date')(date, 'd'));
+        $scope.timeCriteria.month = parseInt($filter('date')(date, 'M'));
+        $scope.timeCriteria.year = parseInt($filter('date')(date, 'yyyy'));
+    };
+    
+    $scope.searchToday = function(){
+        var date = new Date();
+        $scope.timeCriteria = {};
+        $scope.timeCriteria.hour = null;
+        $scope.timeCriteria.day = parseInt($filter('date')(date, 'd'));
+        $scope.timeCriteria.month = parseInt($filter('date')(date, 'M'));
+        $scope.timeCriteria.year = parseInt($filter('date')(date, 'yyyy'));
+    };
+    
+    $scope.searchThisMonth = function(){
+        var date = new Date();
+        $scope.timeCriteria = {};
+        $scope.timeCriteria.hour = null;
+        $scope.timeCriteria.day = null;
+        $scope.timeCriteria.month = parseInt($filter('date')(date, 'M'));
+        $scope.timeCriteria.year = parseInt($filter('date')(date, 'yyyy'));
+    };
+    
+    $scope.searchAll = function(){
+        $scope.timeCriteria = null;
+    };
+    
 })
 ;
