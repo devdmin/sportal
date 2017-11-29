@@ -11,8 +11,8 @@
 		<link rel="stylesheet" type="text/css" href="../resources/bootstrap-3.3.7/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="../resources/flat-ui/css/flat-ui.min.css"/>
 		<link rel="stylesheet" type="text/css" href="../resources/css/map.css"/>
-
-
+        <link rel="stylesheet" type="text/css" href="../resources/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css"/>
+        
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -23,6 +23,28 @@
 		<script src="../resources/js/angular.min.js"></script>
 		<script src="../resources/js/angular-resource.js"></script>
 		<script src="../resources/js/app.js"></script>
+        
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['timeline']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var container = document.getElementById('timeline');
+        var chart = new google.visualization.Timeline(container);
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn({ type: 'string', id: 'President' });
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTable.addRows([
+          [ 'MECZ A', new Date(2017, 11, 28, 19, 00), new Date(2017, 11, 28, 21, 30) ],
+          [ 'MECZ AB', new Date(2017, 11, 28, 18, 00), new Date(2017, 11, 28, 19, 00) ],
+          ]);
+
+        chart.draw(dataTable);
+      }
+    </script>
+
 	</head>
 	<body id="mainMap" class="body" ng-controller="MapCtrl">
         <nav class="navbar navbar-inverse" role="navigation" style="border-radius:0" ng-controller="NavCtrl">
@@ -67,11 +89,24 @@
 		</p>
 	</div>
 <div class="col-xs-6">
-	<h2>Najbliższe wydarzenia</h2></div>
+	<h2>Najbliższe wydarzenia</h2>
+     <div id="timeline" style="height: 180px;"></div>
+</div>
+    
 <a class="btn btn-primary btn-lg" ng-click="newEvent(); wydarzenie=true">Dodaj nowe</a>
 </div>
 <div ng-show="wydarzenie">
 	<h1>Nowe wydarzenie</h1>
+      <form ng-submit="addEvent(event)">
+                        <div class="form-group">
+                            <input ng-model="event.date" type="datetime-local" class="form-control login-field" id="datetimepicker" placeholder="Data wydarzenia" required/>
+                        </div>
+                        <div class="form-group">
+                            <input ng-model="event.minAge" type="number" class="form-control login-field" placeholder="Minimalny wiek" min="7" max="99" required/>
+                        </div>  
+                        <div class="form-group">
+                            <input ng-model="event.maxAge" type="number" class="form-control login-field" placeholder="Maksymalny wiek" min="7" max="99" required/>
+                       </div>
 </div>
 </div>
 <script src="../resources/js/map.js"></script>
@@ -82,5 +117,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="../resources/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="../resources/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../resources/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.pl.js" charset="UTF-8"></script>
+        <script>
+             
+            
+        $('#datetimepicker').datetimepicker({
+             format: 'yyyy-mm-dd hh:ii',
+            language: 'pl'
+        });
+        </script>
 </body>
 </html>
