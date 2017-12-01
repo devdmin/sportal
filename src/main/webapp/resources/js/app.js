@@ -2,7 +2,7 @@
 /*jslint node: true*/
 /*global angular,alert*/
 
-var sportal = angular.module('sportal', ['ngResource'])
+var sportal = angular.module('sportal', ['ngResource', 'ui.bootstrap.datetimepicker'])
 
 	.factory("sessionService", function ($http, $window) {
 		"use strict";
@@ -164,6 +164,10 @@ var sportal = angular.module('sportal', ['ngResource'])
 		});
 		console.log($scope.sportField.addingDate);
 	}
+    
+    $scope.addEvent = function(event){
+        console.log(event);
+    }
 })
 
 
