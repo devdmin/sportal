@@ -1,21 +1,25 @@
 package com.devdmin.rest.controller;
 
 import com.devdmin.core.model.SportField;
-import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.SportFieldType;
+import com.devdmin.core.security.AccountUserDetails;
 import com.devdmin.core.service.SportFieldService;
-import com.devdmin.core.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -30,22 +34,27 @@ public class SportFieldControllerTest {
 
     private MockMvc mockMvc;
 
+    private SportField sportField;
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .build();
+        sportField = new SportField();
+        sportField.setLat(42.445);
+        sportField.setLng(13.335);
+        sportField.setType(SportFieldType.BASKETBALL);
     }
 
     @Test
     public void addSportField() throws Exception{
-        SportField sportField = new SportField();
-        sportField.setLat(42.445);
-        sportField.setLng(13.335);
-        sportField.setType(SportFieldType.VOLLEYBALL);
-
-        when(service.add(any(SportField.class),any(User.class))).thenReturn(sportField);
-
+        AccountUserDetails applicationUser = mock(AccountUserDetails.class);
+        Authentication authentication = mock(Authentication.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+        when(service.add(any(SportField.class))).thenReturn(sportField);
+        when((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(applicationUser);
         mockMvc.perform(post("/api/sportField")
                 .content("{\"lat\":\"42.445\",\"type\":\"VOLLEYBALL\",\"lng\":13.335}")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -53,39 +62,25 @@ public class SportFieldControllerTest {
                 .andExpect(jsonPath("$.lng", is(sportField.getLng())))
                 .andExpect(jsonPath("$.type", is(sportField.getType().toString())))
                 .andExpect(status().isCreated());
-
     }
+
+
 
     @Test
     public void getSportField() throws Exception{
-        SportField sportField = new SportField();
-        sportField.setLat(42.445);
-        sportField.setLng(13.335);
-        sportField.setType(SportFieldType.BASKETBALL);
-
         when(service.find(1L)).thenReturn(sportField);
-
         mockMvc.perform(get("/api/sportField/1"))
                 .andExpect(status().isOk());
-
     }
 
     @Test
     public void updateSportField() throws Exception{
-        SportField sportFieldA = new SportField();
-
-        sportFieldA.setId(1L);
-        sportFieldA.setLat(42.445);
-        sportFieldA.setLng(13.335);
-        sportFieldA.setType(SportFieldType.BASKETBALL);
-
         SportField sportFieldB = new SportField();
-
         sportFieldB.setLat(24.445);
         sportFieldB.setLng(31.335);
         sportFieldB.setType(SportFieldType.VOLLEYBALL);
 
-        when(service.find(any(Long.class))).thenReturn(sportFieldA);
+        when(service.find(any(Long.class))).thenReturn(sportField);
         when(service.update(any(Long.class), any(SportField.class))).thenReturn(sportFieldB);
 
         mockMvc.perform(put("/api/sportField/1")
@@ -99,18 +94,9 @@ public class SportFieldControllerTest {
 
     @Test
     public void deleteSportField() throws Exception{
-        SportField sportField = new SportField();
-        sportField.setLat(42.445);
-        sportField.setLng(13.335);
-        sportField.setType(SportFieldType.BASKETBALL);
-
-        when(service.find(1L)).thenReturn(sportField);
-
+       when(service.find(1L)).thenReturn(sportField);
         mockMvc.perform(delete("/api/sportField/1")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.lat", is(sportField.getLat())))
-                .andExpect(jsonPath("$.lng", is(sportField.getLng())))
-                .andExpect(jsonPath("$.type", is(sportField.getType().toString())))
                 .andExpect(status().isOk());
     }
 

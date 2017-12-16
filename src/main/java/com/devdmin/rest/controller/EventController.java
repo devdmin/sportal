@@ -3,6 +3,8 @@ package com.devdmin.rest.controller;
 import com.devdmin.core.model.Event;
 
 
+import com.devdmin.core.model.User;
+import com.devdmin.core.security.AccountUserDetails;
 import com.devdmin.core.service.EventService;
 import com.devdmin.core.service.util.EventList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -27,6 +30,7 @@ public class EventController {
     @PostMapping("/{sportFieldId}")
     @PreAuthorize("permitAll")
     public ResponseEntity<Event> add(@PathVariable Long sportFieldId, @RequestBody Event sentEvent) {
+        sentEvent.setEventAuthor(getUser());
         Event event = eventService.add(sentEvent, sportFieldId);
         return new ResponseEntity<Event>(event, HttpStatus.CREATED);
     }
@@ -73,5 +77,10 @@ public class EventController {
                     return new ResponseEntity<Event>(event, HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
+    }
+
+    public User getUser() {
+        AccountUserDetails user = (AccountUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user.getUser();
     }
 }

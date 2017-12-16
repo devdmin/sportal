@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface SportFieldService {
     SportField find(Long id);
-    SportField add(SportField sportField, User author);
+    SportField add(SportField sportField);
     SportField update(Long id, SportField sportField);
     SportField delete(SportField sportField);
     SportField verify(SportField sportField);

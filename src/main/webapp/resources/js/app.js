@@ -2,7 +2,7 @@
 /*jslint node: true*/
 /*global angular,alert*/
 
-var sportal = angular.module('sportal', ['ngResource', 'ui.bootstrap.datetimepicker'])
+var sportal = angular.module('sportal', ['ngResource'])
 
 	.factory("sessionService", function ($http, $window) {
 		"use strict";
@@ -144,31 +144,31 @@ var sportal = angular.module('sportal', ['ngResource', 'ui.bootstrap.datetimepic
 })
 
 
-.controller('MapCtrl', function($scope, sportFieldService, $filter, sessionService, userService, translator){
-	var sportFields;
-	$scope.hide = false;
-	sportFieldService.findAll().$promise.then(function (result) {
-		sportFields = result.sportFieldList;
-		localStorage.setItem("sportFields",  JSON.stringify(sportFields));
-		initAutocomplete();
-
-
-	});
-
-	$scope.show = function(sportFieldId){
-
-		$scope.hide = false;
-		$scope.$apply(function () {
-			$scope.sportField = $filter('filter')(sportFields, {id: sportFieldId})[0];
-            $scope.sportField = translator.translate($scope.sportField);
-		});
-		console.log($scope.sportField.addingDate);
-	}
-    
-    $scope.addEvent = function(event){
-        console.log(event);
-    }
-})
+//.controller('MapCtrl', function($scope, sportFieldService, $filter, sessionService, userService, translator){
+//	var sportFields;
+//	$scope.hide = false;
+//	sportFieldService.findAll().$promise.then(function (result) {
+//		sportFields = result.sportFieldList;
+//		localStorage.setItem("sportFields",  JSON.stringify(sportFields));
+//		initAutocomplete();
+//
+//
+//	});
+//
+//	$scope.show = function(sportFieldId){
+//
+//		$scope.hide = false;
+//		$scope.$apply(function () {
+//			$scope.sportField = $filter('filter')(sportFields, {id: sportFieldId})[0];
+//            $scope.sportField = translator.translate($scope.sportField);
+//		});
+//		console.log($scope.sportField.addingDate);
+//	}
+//    
+//    $scope.addEvent = function(event){
+//        console.log(event);
+//    }
+//})
 
 
 .controller('SportFieldCtrl', function($scope, sportFieldService, $window){

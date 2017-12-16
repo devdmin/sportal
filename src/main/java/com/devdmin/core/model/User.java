@@ -27,8 +27,8 @@ public class User {
     private LocalDate signUpDate;
     private int age;
     private Gender gender;
-    @OneToMany(mappedBy = "eventAuthor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "eventAuthor", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @JsonManagedReference(value="user-movement")
     private Set<Event> ownEvents;
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     @JsonManagedReference
@@ -130,6 +130,7 @@ public class User {
         this.token = token;
     }
 
+    @JsonIgnore
     public Set<Event> getOwnEvents() {
         return ownEvents;
     }

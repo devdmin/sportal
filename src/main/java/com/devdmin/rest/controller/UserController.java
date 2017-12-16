@@ -46,7 +46,7 @@ public class UserController {
     }
 
 
-    @PostMapping
+    @PostMapping()
     @PreAuthorize("permitAll")
     public ResponseEntity<User> add(@RequestBody @Valid User sentUser, BindingResult result) {
         if (result.hasErrors()) {

@@ -16,8 +16,9 @@ public class Event {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "sportField_id")
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "sportfield_id")
+    @JsonBackReference
     private SportField sportField;
 
     @ManyToMany(cascade = {CascadeType.ALL})
@@ -31,9 +32,9 @@ public class Event {
     private int maxMembers;
     private Gender gender;
 
-    @ManyToOne(fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JsonBackReference(value="user-movement")
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "author_id")
-    @JsonBackReference
     private User eventAuthor;
 
     public void setId(Long id) {
@@ -92,7 +93,7 @@ public class Event {
         this.gender = gender;
     }
 
-    public User getEvebtAuthor() {
+    public User getEventAuthor() {
         return eventAuthor;
     }
 
@@ -122,5 +123,14 @@ public class Event {
 
     public void setMaxMembers(int maxMembers) {
         this.maxMembers = maxMembers;
+    }
+
+    public void update(Event event){
+        this.date = event.getDate();
+        this.minAge = event.getMinAge();
+        this.maxAge = event.getMaxAge();
+        this.gender = event.getGender();
+        this.endDate = event.getEndDate();
+        this.maxMembers = event.getMaxMembers();
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" ng-app="sportal">
+<html lang="pl" ng-app="dashboard">
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,10 +8,10 @@
 		<title>Sportal!</title>
 
 
-		<link rel="stylesheet" type="text/css" href="../resources/bootstrap-3.3.7/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="../resources/bootstrap-3.3.7/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="../resources/flat-ui/css/flat-ui.min.css"/>
 		<link rel="stylesheet" type="text/css" href="../resources/css/map.css"/>
-        <link rel="../resources/angular-bootstrap-datetimepicker-1.1.4/src/css/datetimepicker.css" />
+        <link rel="stylesheet" type="text/css"href="../resources/angular-bootstrap-datetimepicker-1.1.4/src/css/datetimepicker.css" />
         
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,6 +23,7 @@
 		<script src="../resources/js/angular.min.js"></script>
 		<script src="../resources/js/angular-resource.js"></script>
 		<script src="../resources/js/app.js"></script>
+        <script src="../resources/js/dashboard.js"></script>
         <script src="../resources/angular-bootstrap-datetimepicker-1.1.4/src/js/datetimepicker.js"></script>
 <script src="../resources/angular-bootstrap-datetimepicker-1.1.4/src/js/datetimepicker.templates.js"></script>
         
@@ -46,6 +47,8 @@
 
         chart.draw(dataTable);
       }
+        
+       
     </script>
 
 	</head>
@@ -101,27 +104,33 @@
 </div>
 <div ng-show="wydarzenie" class="col-xs-6">
 	<h1>Nowe wydarzenie</h1>
-      <form ng-submit="addEvent(event)">
+      <form ng-submit="addEvent(event,data.dateDropDownInput)">
 
- 
-Selected Date: 
-<div class="dropdown">
-  <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
-    <div class="input-group"><input type="text" class="form-control" data-ng-model="data.dateDropDownInput"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-    </div>
-  </a>
-  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-    <datetimepicker data-ng-model="data.dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
-  </ul>
-</div>
-<!--
+                    
+                        <div class="form-group">
+                            <p>Data rozpoczęcia wydarzenia:</p>
+                            <input class="form-control" type="datetime-local" ng-model="event.date" ngChange="date=true">
+                        </div> 
+                        <div class="form-group">
+                            <p>Czas zakończenia wydarzenia:</p>
+                            <input class="form-control" type="time" ng-model="event.endDate" min="{{event.date.toTimeString().substr(0,5)}}" ng-change="compare()" required>
+                        </div>
+                        <p>Czas trwania wydarzenia: {{diffMins}} minut</p>
                         <div class="form-group">
                             <input ng-model="event.minAge" type="number" class="form-control login-field" placeholder="Minimalny wiek" min="7" max="99" required/>
                         </div>  
                         <div class="form-group">
                             <input ng-model="event.maxAge" type="number" class="form-control login-field" placeholder="Maksymalny wiek" min="7" max="99" required/>
                        </div>
--->
+                      <div class="form-group">
+                            <input ng-model="event.maxMembers" type="number" class="form-control login-field" placeholder="Maksymalna ilość uczestników" min="2" max="50" required/>
+                       </div>
+                        <div class="form-group">
+                            <p>Preferowana płeć:</p>
+                            <label class="radio-inline"><input type="radio" name="radio" value="MALE" ng-model="event.gender">Mężczyzna</label>
+                            <label class="radio-inline"><input type="radio" name="radio" value="FEMALE" ng-model="event.gender">Kobieta</label>
+                            <label class="radio-inline"><input type="radio" name="radio" value="NULL" ng-model="event.gender">Brak</label>
+                        </div>
                        <div class="form-group">
                          <input class="btn btn-primary btn-lg btn-block" type="submit" value="Dodaj"/>   
                         </div>

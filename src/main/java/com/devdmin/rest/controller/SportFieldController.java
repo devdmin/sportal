@@ -38,8 +38,8 @@ public class SportFieldController {
     @PostMapping
     @PreAuthorize("permitAll")
     public ResponseEntity<SportField> add(@RequestBody SportField sportField){
-
-        SportField addedSportfield = sportFieldService.add(sportField, getAccountName());
+        sportField.setAuthor(getUser());
+        SportField addedSportfield = sportFieldService.add(sportField);
 
         return new ResponseEntity<SportField>(addedSportfield, HttpStatus.CREATED);
     }
@@ -85,7 +85,7 @@ public class SportFieldController {
     }
 
 
-    public User getAccountName() {
+    public User getUser() {
         AccountUserDetails user = (AccountUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user.getUser();
     }

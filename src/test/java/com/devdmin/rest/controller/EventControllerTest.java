@@ -4,6 +4,7 @@ import com.devdmin.core.model.Event;
 import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.util.Gender;
 import com.devdmin.core.model.util.SportFieldType;
+import com.devdmin.core.security.AccountUserDetails;
 import com.devdmin.core.service.EventService;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -22,6 +27,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.mockito.Matchers.any;
 
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
@@ -46,6 +52,13 @@ public class EventControllerTest {
 
     @Test
     public void addEvent() throws Exception{
+
+        AccountUserDetails applicationUser = mock(AccountUserDetails.class);
+        Authentication authentication = mock(Authentication.class);
+        SecurityContext securityContext = mock(SecurityContext.class);
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
+
         SportField sportField = new SportField();
         sportField.setId(2L);
         sportField.setLat(42.445);
@@ -60,6 +73,7 @@ public class EventControllerTest {
         event.setMaxMembers(23);
 
         when(service.add(any(Event.class),any(Long.class))).thenReturn(event);
+        when((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(applicationUser);
 
         mockMvc.perform(post("/api/events/2")
                 .content("{\"gender\":\"MALE\",\"minAge\":\"10\",\"maxAge\":20}")

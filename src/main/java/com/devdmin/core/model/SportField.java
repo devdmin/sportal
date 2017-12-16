@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class SportField {
@@ -21,8 +22,8 @@ public class SportField {
     @JoinColumn(name = "author_id")
     @JsonBackReference
     private User author;
-    @OneToMany(mappedBy = "sportField", fetch=FetchType.EAGER)
-    private List<Event> events;
+    @OneToMany(mappedBy = "sportField", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    private Set<Event> events;
 
     public void setId(Long id) {
         this.id = id;
@@ -55,11 +56,11 @@ public class SportField {
         this.type = type;
     }
 
-    public List<Event> getEvents() {
+    public Set<Event> getEvents() {
         return events;
     }
 
-    public void setEvents(List<Event> events) {
+    public void setEvents(Set<Event> events) {
         this.events = events;
     }
 

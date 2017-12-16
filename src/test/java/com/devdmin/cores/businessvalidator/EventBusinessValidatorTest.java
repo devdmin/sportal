@@ -49,6 +49,7 @@ public class EventBusinessValidatorTest {
         User user = new User();
         Event event = new Event();
         event.setAddingDate(LocalDate.of(1990,1,1));
+        user.setUsername("user");
         user.setOwnEvents(new HashSet<>(Arrays.asList(event)));
         when(userService.find(any(Long.class))).thenReturn(user);
         assertTrue(eventBusinessValidator.validateAdding(user));
@@ -57,6 +58,7 @@ public class EventBusinessValidatorTest {
     @Test
     public void testIvalidAddingSportField(){
         User user = new User();
+        user.setUsername("user");
         Event event = new Event();
         event.setAddingDate(LocalDate.now());
         Event event2 = new Event();
