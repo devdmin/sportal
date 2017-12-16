@@ -5,6 +5,7 @@ import com.devdmin.core.businessvalidator.DailyLimitRule;
 import com.devdmin.core.businessvalidator.SportFieldBusinessValidator;
 import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
+import com.devdmin.core.model.util.Gender;
 import com.devdmin.core.service.SportFieldService;
 import com.devdmin.core.service.UserService;
 import org.junit.Before;
@@ -39,17 +40,17 @@ public class SportFieldsBusinessValidatorTest {
     @Spy
     private List<BusinessRule<SportField, User>> rules = new ArrayList<BusinessRule<SportField,User>>();
 
+    private User user;
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
         rules.add(limitRule);
-
+        user = new User("username","pass",24, Gender.MALE,"mail@mail.pl");
     }
 
     @Test
     public void testValidAddingSportField(){
-        User user = new User();
-        user.setUsername("user");
+
         SportField sportField = new SportField();
         sportField.setAddingDate(LocalDate.of(1990,1,1));
         user.setOwnSportFields(new HashSet<>(Arrays.asList(sportField)));
@@ -59,8 +60,7 @@ public class SportFieldsBusinessValidatorTest {
 
     @Test
     public void testIvalidAddingSportField(){
-        User user = new User();
-        user.setUsername("user");
+
         SportField sportField = new SportField();
         sportField.setAddingDate(LocalDate.now());
         user.setOwnSportFields(new HashSet<>(Arrays.asList(sportField)));

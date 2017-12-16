@@ -22,7 +22,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,13 +58,8 @@ public class UserControllerTest {
 
     @Test
     public void createUser() throws Exception {
-        User createdUser = new User();
 
-        createdUser.setUsername("test");
-        createdUser.setEmail("test@test.test");
-        createdUser.setPassword("testtest");
-        createdUser.setGender(Gender.MALE);
-        createdUser.setAge(16);
+        User createdUser = new User("test","testtest",16, Gender.MALE,"test@test.test");
 
         when(service.addUser(any(User.class))).thenReturn(createdUser);
 
@@ -87,13 +81,7 @@ public class UserControllerTest {
 
     @Test
     public void getUser() throws Exception{
-        User user = new User();
-
-        user.setUsername("test");
-        user.setEmail("test@test.test");
-        user.setPassword("testtest");
-        user.setAge(16);
-
+        User user = new User("test","testtest",24, Gender.MALE,"mail@mail.pl");
 
         when(service.find("test")).thenReturn(user);
 
@@ -105,23 +93,13 @@ public class UserControllerTest {
 
     @Test
     public void updateUser() throws Exception{
-        User userA = new User();
 
-        userA.setId(1L);
-        userA.setUsername("testA");
-        userA.setEmail("testA@test.test");
-        userA.setPassword("testtestA");
-        userA.setAge(16);
 
-        User userB = new User();
-
-        userB.setUsername("testA");
-        userB.setEmail("testB@test.test");
-        userB.setPassword("testtestB");
-        userB.setAge(20);
+        User userA = new User("testA","testtestA",16, Gender.MALE,"testA@test.test");
+        User userB = new User("testA","testtestB",20, Gender.MALE,"testB@test.test");
 
         when(service.find("testA")).thenReturn(userA);
-        when(service.update(1L,userB)).thenReturn(userB);
+        when(service.update(any(Long.class),any(User.class))).thenReturn(userB);
 
         mockMvc.perform(put("/api/users/testA")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -132,19 +110,8 @@ public class UserControllerTest {
 
     @Test
     public void getAllUsers() throws Exception{
-        User userA = new User();
-
-        userA.setUsername("testA");
-        userA.setEmail("testA@test.test");
-        userA.setPassword("testtestA");
-        userA.setAge(16);
-
-        User userB = new User();
-
-        userB.setUsername("testB");
-        userB.setEmail("testB@test.test");
-        userB.setPassword("testtestB");
-        userB.setAge(20);
+        User userA = new User("testA","testtestA",16, Gender.MALE,"testA@test.test");
+        User userB = new User("testB","testtestB",20, Gender.MALE,"testB@test.test");
 
         List<User> users = new ArrayList<>();
         users.add(userA);

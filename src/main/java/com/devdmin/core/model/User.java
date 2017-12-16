@@ -46,19 +46,11 @@ public class User {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
+     public String getEmail() {
         return email;
     }
 
@@ -137,6 +129,27 @@ public class User {
 
     public void setOwnEvents(Set<Event> ownEvents) {
         this.ownEvents = ownEvents;
+    }
+
+    public void update(User user) {
+        this.age = user.getAge();
+        this.email = user.getEmail();
+        this.gender = user.getGender();
+        this.password = user.getPassword();
+    }
+
+    public User(){
+
+    }
+    public User(String username, String password, int age, Gender gender, String email){
+        this.username = username;
+        this.password = password;
+        this.age = age;
+        this.gender = gender;
+        this.email = email;
+        this.signUpDate = LocalDate.now();
+        this.token = UUID.randomUUID();
+        this.isVerified = false;
     }
 
     @Override

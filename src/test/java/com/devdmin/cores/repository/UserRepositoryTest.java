@@ -6,6 +6,7 @@ import com.devdmin.core.model.util.Gender;
 import com.devdmin.core.model.util.SportFieldType;
 import com.devdmin.core.repository.SportFieldRepository;
 import com.devdmin.core.repository.UserRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -34,15 +35,15 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    private User user;
+
+    @Before
+    public void setup(){
+        user = new User("username","pass",24, Gender.MALE,"mail@mail.pl");
+    }
     @Test
     public void testFind() throws Exception{
-        User user = new User();
-        user.setUsername("Foo");
-        user.setGender(Gender.MALE);
-        user.setAge(20);
-        user.setPassword("password");
-        user.setEmail("email@email.email");
-        user.setSignUpDate(LocalDate.now());
+
         Long id = this.entityManager.persistAndGetId(user, Long.class);
         User foundUser = userRepository.findOne(id);
         assertEquals(user.getUsername(), foundUser.getUsername());
@@ -50,47 +51,20 @@ public class UserRepositoryTest {
     }
     @Test
     public void testFindByUsername() throws Exception{
-        User user = new User();
-        user.setUsername("Foo");
-        user.setGender(Gender.MALE);
-        user.setAge(20);
-        user.setPassword("password");
-        user.setEmail("email@email.email");
-        user.setSignUpDate(LocalDate.now());
         this.entityManager.persist(user);
-        User foundUser = userRepository.findByUsername("Foo");
+        User foundUser = userRepository.findByUsername(user.getUsername());
         assertEquals(user.getUsername(), foundUser.getUsername());
     }
 
     @Test
     public void testFindByToken() throws Exception{
-        User user = new User();
-        user.setUsername("Foo");
-        user.setGender(Gender.MALE);
-        user.setAge(20);
-        user.setPassword("password");
-        user.setEmail("email@email.email");
-        user.setSignUpDate(LocalDate.now());
-        UUID token = UUID.randomUUID();
-        user.setToken(token);
         this.entityManager.persist(user);
-        User foundUser = userRepository.findByToken(token);
-
-        logger.info("XDD: " + token);
-        logger.info("XDD: " + foundUser.getToken());
-        assertTrue(token.equals(foundUser.getToken()));
-
+        User foundUser = userRepository.findByToken(user.getToken());
+        assertTrue(user.getToken().equals(foundUser.getToken()));
     }
 
     @Test
     public void testDelete() throws Exception{
-        User user = new User();
-        user.setUsername("Foo");
-        user.setGender(Gender.MALE);
-        user.setAge(20);
-        user.setPassword("password");
-        user.setEmail("email@email.email");
-        user.setSignUpDate(LocalDate.now());
         Long id = this.entityManager.persistAndGetId(user, Long.class);
         userRepository.delete(id);
         User foundUser = userRepository.findOne(id);

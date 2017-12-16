@@ -46,12 +46,8 @@ public class UserValidatorTest {
 
     @Test
     public void testValidUser() throws Exception{
-        User createdUser = new User();
-        createdUser.setUsername("test");
-        createdUser.setEmail("test@test.test");
-        createdUser.setPassword("testtest");
-        createdUser.setAge(16);
-        createdUser.setGender(Gender.MALE);
+
+        User createdUser = new User("test","testtest",24, Gender.MALE,"mail@mail.pl");
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
 
         userValidator.validate(createdUser,errors);
@@ -60,11 +56,7 @@ public class UserValidatorTest {
 
     @Test
     public void testValidationWithoutGender() throws Exception{
-        User createdUser = new User();
-        createdUser.setUsername("test");
-        createdUser.setEmail("test@test.test");
-        createdUser.setPassword("testtest");
-        createdUser.setAge(16);
+        User createdUser = new User("test","testtest",24, null,"mail@mail.pl");
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
 
         userValidator.validate(createdUser,errors);
@@ -73,11 +65,7 @@ public class UserValidatorTest {
 
     @Test
     public void testValidationWithoutUsername() throws Exception{
-        User createdUser = new User();
-        createdUser.setUsername("");
-        createdUser.setEmail("test@test.test");
-        createdUser.setPassword("testtest");
-        createdUser.setAge(16);
+        User createdUser = new User("","testtest",24, Gender.MALE,"mail@mail.pl");
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
 
         userValidator.validate(createdUser,errors);
@@ -86,11 +74,7 @@ public class UserValidatorTest {
 
     @Test
     public void testValidationWithoutEmail() throws Exception{
-        User createdUser = new User();
-        createdUser.setUsername("test");
-        createdUser.setEmail("");
-        createdUser.setPassword("password");
-        createdUser.setAge(16);
+        User createdUser = new User("test","testtest",24, Gender.MALE,"");
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
 
         userValidator.validate(createdUser,errors);
@@ -99,11 +83,7 @@ public class UserValidatorTest {
 
     @Test
     public void testValidationWithoutPassword() throws Exception{
-        User createdUser = new User();
-        createdUser.setUsername("test");
-        createdUser.setEmail("test@test.test");
-        createdUser.setPassword("");
-        createdUser.setAge(16);
+        User createdUser = new User("test",null,24, Gender.MALE,"mail@mail.pl");
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
 
         userValidator.validate(createdUser,errors);
@@ -111,11 +91,7 @@ public class UserValidatorTest {
     }
     @Test
     public void testValidationWithExistingUsername() throws Exception{
-        User createdUser = new User();
-        createdUser.setUsername("test");
-        createdUser.setEmail("test@test.test");
-        createdUser.setPassword("testtest");
-        createdUser.setAge(16);
+        User createdUser = new User("test","testtest",24, Gender.MALE,"mail@mail.pl");
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
         when(service.find(any(String.class))).thenReturn(createdUser);
 
@@ -126,11 +102,8 @@ public class UserValidatorTest {
 
     @Test
     public void testValidationWithInvalidUsername() throws Exception{
-        User createdUser = new User();
-        createdUser.setUsername("qwertyuiopasdfghjklzxcvbnm");
-        createdUser.setEmail("test@test.test");
-        createdUser.setPassword("testtest");
-        createdUser.setAge(16);
+
+        User createdUser = new User("qwertyuiopasdfghjklzxcvbnm","testtest",24, Gender.MALE,"mail@mail.pl");
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
 
         userValidator.validate(createdUser, errors);
@@ -139,11 +112,7 @@ public class UserValidatorTest {
 
     @Test
     public void testValidationWithExistingEmail() throws Exception{
-        User createdUser = new User();
-        createdUser.setUsername("test");
-        createdUser.setEmail("test@test.test");
-        createdUser.setPassword("testtest");
-        createdUser.setAge(16);
+        User createdUser = new User("test","testtest",24, Gender.MALE,"mail@mail.pl");
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
         when(service.findByEmail(any(String.class))).thenReturn(createdUser);
 
@@ -153,11 +122,7 @@ public class UserValidatorTest {
 
     @Test
     public void testValidationWithIvalidEmail() throws Exception{
-        User createdUser = new User();
-        createdUser.setUsername("test");
-        createdUser.setEmail("mail.mail.pl");
-        createdUser.setPassword("testtest");
-        createdUser.setAge(16);
+        User createdUser = new User("test","testtest",24, Gender.MALE,"mail.mail.pl");
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
 
 
@@ -167,11 +132,7 @@ public class UserValidatorTest {
 
     @Test
     public void testValidationWithIvalidAge1() throws Exception{
-        User createdUser = new User();
-        createdUser.setUsername("test");
-        createdUser.setEmail("test@test.test");
-        createdUser.setPassword("testtest");
-        createdUser.setAge(5);
+        User createdUser = new User("test","testtest",5, Gender.MALE,"mail@mail.pl");
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
 
 
@@ -180,11 +141,7 @@ public class UserValidatorTest {
     }
     @Test
     public void testValidationWithIvalidAge2() throws Exception{
-        User createdUser = new User();
-        createdUser.setUsername("test");
-        createdUser.setEmail("test@test.test");
-        createdUser.setPassword("testtest");
-        createdUser.setAge(101);
+        User createdUser = new User("test","testtest",102, Gender.MALE,"mail@mail.pl");
         Errors errors = new BeanPropertyBindingResult(createdUser, "createdUser");
 
 

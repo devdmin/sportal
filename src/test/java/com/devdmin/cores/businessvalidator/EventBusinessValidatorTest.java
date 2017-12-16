@@ -5,6 +5,7 @@ import com.devdmin.core.businessvalidator.EventBusinessValidator;
 import com.devdmin.core.businessvalidator.EventsDailyLimitRule;
 import com.devdmin.core.model.Event;
 import com.devdmin.core.model.User;
+import com.devdmin.core.model.util.Gender;
 import com.devdmin.core.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,19 +38,18 @@ public class EventBusinessValidatorTest {
     @Spy
     private List<BusinessRule<Event, User>> rules = new ArrayList<BusinessRule<Event,User>>();
 
+    private User user;
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
         rules.add(limitRule);
-
+        user = new User("username","pass",24, Gender.MALE,"mail@mail.pl");
     }
 
     @Test
     public void testValidAddingSportField(){
-        User user = new User();
         Event event = new Event();
-        event.setAddingDate(LocalDate.of(1990,1,1));
-        user.setUsername("user");
+
         user.setOwnEvents(new HashSet<>(Arrays.asList(event)));
         when(userService.find(any(Long.class))).thenReturn(user);
         assertTrue(eventBusinessValidator.validateAdding(user));
@@ -57,8 +57,6 @@ public class EventBusinessValidatorTest {
 
     @Test
     public void testIvalidAddingSportField(){
-        User user = new User();
-        user.setUsername("user");
         Event event = new Event();
         event.setAddingDate(LocalDate.now());
         Event event2 = new Event();
