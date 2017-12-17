@@ -1,14 +1,12 @@
 package com.devdmin.cores.validator;
 
 import com.devdmin.core.model.Event;
-import com.devdmin.core.model.SportField;
-import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.Gender;
 import com.devdmin.core.service.EventService;
 import com.devdmin.core.validator.EventValidator;
-import com.devdmin.core.validator.rules.EventAgeRule;
-import com.devdmin.core.validator.rules.EventFilledFieldsRule;
-import com.devdmin.core.validator.rules.EventTimeRule;
+import com.devdmin.core.validator.rules.event.EventAgeRule;
+import com.devdmin.core.validator.rules.event.EventFilledFieldsRule;
+import com.devdmin.core.validator.rules.event.EventTimeRule;
 import com.devdmin.core.validator.rules.Rule;
 import org.junit.Before;
 import org.junit.Test;

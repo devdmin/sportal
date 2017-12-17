@@ -51,11 +51,7 @@ public class UserServiceImpl implements UserService{
     @Override
 
     public User addUser(User user) {
-        UUID token = UUID.randomUUID();
-        user.setSignUpDate(LocalDate.now());
-        user.setVerified(false);
-        user.setToken(token);
-        sender.send(token, user.getEmail());
+        sender.send(user.getToken(), user.getEmail());
         return repository.save(user);
     }
 

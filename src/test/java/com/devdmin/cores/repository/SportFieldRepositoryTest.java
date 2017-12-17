@@ -45,12 +45,7 @@ public class SportFieldRepositoryTest {
 
     @Test
     public void testFind() throws Exception{
-        SportField sportField = new SportField();
-        sportField.setLat(24.2444);
-        sportField.setLng(54.2555);
-        sportField.setType(SportFieldType.BASKETBALL);
-        sportField.setVerified(false);
-        sportField.setAddingDate(LocalDate.now());
+        SportField sportField = new SportField(24.2444, 54.2555, SportFieldType.BASKETBALL);
         Long id = entityManager.persistAndGetId(sportField, Long.class);
         SportField foundSportField = sportFieldRepository.findOne(id);
         assertEquals(foundSportField.getId(), id);
@@ -60,12 +55,7 @@ public class SportFieldRepositoryTest {
 
     @Test
     public void testDelete() throws Exception{
-        SportField sportField = new SportField();
-        sportField.setLat(24.2444);
-        sportField.setLng(54.2555);
-        sportField.setType(SportFieldType.BASKETBALL);
-        sportField.setVerified(false);
-        sportField.setAddingDate(LocalDate.now());
+        SportField sportField = new SportField(24.2444, 54.2555, SportFieldType.BASKETBALL);
         Long id = entityManager.persistAndGetId(sportField, Long.class);
         sportFieldRepository.delete(id);
         SportField foundSportField = sportFieldRepository.findOne(id);
@@ -74,12 +64,7 @@ public class SportFieldRepositoryTest {
 
 
     public void relationWithEventTest() throws Exception{
-        SportField sportField = new SportField();
-        sportField.setLat(24.2444);
-        sportField.setLng(54.2555);
-        sportField.setType(SportFieldType.BASKETBALL);
-        sportField.setVerified(false);
-        sportField.setAddingDate(LocalDate.now());
+        SportField sportField = new SportField(24.2444, 54.2555, SportFieldType.BASKETBALL);
         SportField foundSportField = entityManager.persist(sportField);
         Event event = new Event();
         event.setGender(Gender.MALE);

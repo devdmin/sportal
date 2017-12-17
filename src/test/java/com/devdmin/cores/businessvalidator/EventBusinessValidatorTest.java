@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -48,8 +49,8 @@ public class EventBusinessValidatorTest {
 
     @Test
     public void testValidAddingSportField(){
-        Event event = new Event();
-
+        Event event  = new Event(LocalDateTime.of(2017,11,13,14,15), LocalDateTime.of(2017,11,13,15,15), 20, 30, Gender.MALE, 22, new User());
+        event.setAddingDate(LocalDate.now());
         user.setOwnEvents(new HashSet<>(Arrays.asList(event)));
         when(userService.find(any(Long.class))).thenReturn(user);
         assertTrue(eventBusinessValidator.validateAdding(user));

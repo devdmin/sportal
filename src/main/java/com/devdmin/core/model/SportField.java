@@ -25,9 +25,7 @@ public class SportField {
     @OneToMany(mappedBy = "sportField", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<Event> events;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+
     public Long getId() {
         return id;
     }
@@ -36,25 +34,16 @@ public class SportField {
         return lat;
     }
 
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
 
     public double getLng() {
         return lng;
     }
 
-    public void setLng(double lng) {
-        this.lng = lng;
-    }
 
     public SportFieldType getType() {
         return type;
     }
 
-    public void setType(SportFieldType type) {
-        this.type = type;
-    }
 
     public Set<Event> getEvents() {
         return events;
@@ -76,15 +65,31 @@ public class SportField {
         return addingDate;
     }
 
-    public void setAddingDate(LocalDate addingDate) {
-        this.addingDate = addingDate;
-    }
-
     public User getAuthor() {
         return author;
     }
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public SportField() {
+        this.addingDate = LocalDate.now();
+        this.isVerified = false;
+    }
+
+    public SportField(double lat, double lng, SportFieldType type) {
+        this.lat = lat;
+        this.lng = lng;
+        this.type = type;
+        this.addingDate = LocalDate.now();
+        this.isVerified = false;
+    }
+
+    public void update(SportField sportField) {
+        this.lat = sportField.getLat();
+        this.lng = sportField.getLng();
+        this.events = sportField.getEvents();
+        this.type = sportField.getType();
     }
 }

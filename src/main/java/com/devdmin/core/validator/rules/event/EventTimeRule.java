@@ -1,6 +1,7 @@
-package com.devdmin.core.validator.rules;
+package com.devdmin.core.validator.rules.event;
 
 import com.devdmin.core.model.Event;
+import com.devdmin.core.validator.rules.Rule;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 

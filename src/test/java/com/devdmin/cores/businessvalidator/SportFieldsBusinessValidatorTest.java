@@ -50,10 +50,6 @@ public class SportFieldsBusinessValidatorTest {
 
     @Test
     public void testValidAddingSportField(){
-
-        SportField sportField = new SportField();
-        sportField.setAddingDate(LocalDate.of(1990,1,1));
-        user.setOwnSportFields(new HashSet<>(Arrays.asList(sportField)));
         when(userService.find(any(Long.class))).thenReturn(user);
         assertTrue(sportFieldValidator.validateAdding(user));
     }
@@ -62,7 +58,6 @@ public class SportFieldsBusinessValidatorTest {
     public void testIvalidAddingSportField(){
 
         SportField sportField = new SportField();
-        sportField.setAddingDate(LocalDate.now());
         user.setOwnSportFields(new HashSet<>(Arrays.asList(sportField)));
         when(userService.find(any(Long.class))).thenReturn(user);
         assertFalse(sportFieldValidator.validateAdding(user));

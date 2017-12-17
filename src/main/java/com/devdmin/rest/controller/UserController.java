@@ -1,30 +1,24 @@
 package com.devdmin.rest.controller;
 
-import com.devdmin.core.businessvalidator.BusinessValidator;
-import com.devdmin.core.model.SportField;
+
 import com.devdmin.core.model.User;
-import com.devdmin.core.model.util.Gender;
-import com.devdmin.core.repository.UserRepository;
 
 import com.devdmin.core.service.UserService;
 import com.devdmin.core.service.util.UserList;
-import com.devdmin.core.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.DataBinder;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.List;
+
 import java.util.Optional;
 
 
@@ -34,6 +28,7 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
+    @Qualifier("userValidator")
     private Validator userValidator;
 
     @Autowired

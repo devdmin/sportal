@@ -3,6 +3,7 @@ package com.devdmin.core.model;
 import com.devdmin.core.model.util.Gender;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -124,7 +125,20 @@ public class Event {
     public void setMaxMembers(int maxMembers) {
         this.maxMembers = maxMembers;
     }
+    public Event(){
+        this.addingDate = LocalDate.now();
+    }
 
+    public Event(LocalDateTime date, LocalDateTime endDate, int minAge, int maxAge, Gender gender, int maxMembers, User author){
+        this.date = date;
+        this.endDate = endDate;
+        this.minAge = minAge;
+        this.maxAge = maxAge;
+        this.gender = gender;
+        this.maxMembers = maxMembers;
+        this.addingDate = LocalDate.now();
+        this.eventAuthor = author;
+    }
     public void update(Event event){
         this.date = event.getDate();
         this.minAge = event.getMinAge();

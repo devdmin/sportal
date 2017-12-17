@@ -40,10 +40,7 @@ public class SportFieldControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .build();
-        sportField = new SportField();
-        sportField.setLat(42.445);
-        sportField.setLng(13.335);
-        sportField.setType(SportFieldType.BASKETBALL);
+        sportField = new SportField(42.445, 13.335, SportFieldType.BASKETBALL);
     }
 
     @Test
@@ -75,11 +72,7 @@ public class SportFieldControllerTest {
 
     @Test
     public void updateSportField() throws Exception{
-        SportField sportFieldB = new SportField();
-        sportFieldB.setLat(24.445);
-        sportFieldB.setLng(31.335);
-        sportFieldB.setType(SportFieldType.VOLLEYBALL);
-
+        SportField sportFieldB = new SportField(24.445, 31.335, SportFieldType.VOLLEYBALL);
         when(service.find(any(Long.class))).thenReturn(sportField);
         when(service.update(any(Long.class), any(SportField.class))).thenReturn(sportFieldB);
 

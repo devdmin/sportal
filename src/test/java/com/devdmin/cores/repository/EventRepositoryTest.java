@@ -2,10 +2,12 @@ package com.devdmin.cores.repository;
 
 import com.devdmin.core.model.Event;
 import com.devdmin.core.model.SportField;
+import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.Gender;
 import com.devdmin.core.model.util.SportFieldType;
 import com.devdmin.core.repository.EventRepository;
 import com.devdmin.core.repository.SportFieldRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -37,13 +39,15 @@ public class EventRepositoryTest {
     @Autowired
     private EventRepository eventRepository;
 
+    private Event event;
+
+    @Before
+    public void setup(){
+        event = new Event(LocalDateTime.of(2017,11,13,14,15), LocalDateTime.of(2017,11,13,15,15), 20, 30, Gender.MALE, 22, new User());
+    }
+
     @Test
     public void testFind() throws Exception{
-      Event event = new Event();
-      event.setGender(Gender.MALE);
-      event.setMinAge(10);
-      event.setMaxAge(20);
-      event.setDate(LocalDateTime.now());
       Long id = this.entityManager.persistAndGetId(event, Long.class);
       Event foundEvent = eventRepository.findOne(id);
       assertEquals(foundEvent.getId(), id);
@@ -51,11 +55,7 @@ public class EventRepositoryTest {
 
     @Test
     public void deleteTest() throws Exception{
-        Event event = new Event();
-        event.setGender(Gender.MALE);
-        event.setMinAge(10);
-        event.setMaxAge(20);
-        event.setDate(LocalDateTime.now());
+
         Long id = this.entityManager.persistAndGetId(event, Long.class);
         eventRepository.delete(id);
         Event foundEvent = eventRepository.findOne(id);
@@ -63,12 +63,7 @@ public class EventRepositoryTest {
     }
     @Test
     public void findBySportFieldIdTest() throws Exception{
-            SportField sportField = new SportField();
-            sportField.setLat(24.2444);
-            sportField.setLng(54.2555);
-            sportField.setType(SportFieldType.BASKETBALL);
-            sportField.setVerified(false);
-            sportField.setAddingDate(LocalDate.now());
+             SportField sportField = new SportField(24.2444, 54.2555, SportFieldType.BASKETBALL);
             SportField foundSportField = entityManager.persist(sportField);
             Event event = new Event();
             event.setGender(Gender.MALE);

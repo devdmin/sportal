@@ -31,7 +31,6 @@ public class SportFieldServiceImpl implements SportFieldService{
 
     @Override
     public SportField add(SportField sportField) {
-        sportField.setAddingDate(LocalDate.now());
         if(validator.validateAdding(sportField.getAuthor()))
             return userService.addSportField(sportField, sportField.getAuthor());
         else
@@ -41,10 +40,7 @@ public class SportFieldServiceImpl implements SportFieldService{
     @Override
     public SportField update(Long id, SportField sportField) {
         SportField sportFieldToUpdate = find(id);
-        sportFieldToUpdate.setLat(sportField.getLat());
-        sportFieldToUpdate.setLng(sportField.getLng());
-        sportFieldToUpdate.setEvents(sportField.getEvents());
-        sportFieldToUpdate.setType(sportField.getType());
+        sportFieldToUpdate.update(sportField);
         return repository.save(sportFieldToUpdate);
     }
 

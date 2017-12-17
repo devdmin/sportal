@@ -54,24 +54,12 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public LocalDate getSignUpDate() {
         return signUpDate;
     }
 
-    public void setSignUpDate(LocalDate signUpDate) {
-        this.signUpDate = signUpDate;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public List<Event> getEvents() {
@@ -86,16 +74,8 @@ public class User {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public Gender getGender() {
         return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     public boolean isVerified() {
@@ -118,10 +98,6 @@ public class User {
         return token;
     }
 
-    public void setToken(UUID token) {
-        this.token = token;
-    }
-
     @JsonIgnore
     public Set<Event> getOwnEvents() {
         return ownEvents;
@@ -139,7 +115,9 @@ public class User {
     }
 
     public User(){
-
+        this.signUpDate = LocalDate.now();
+        this.token = UUID.randomUUID();
+        this.isVerified = false;
     }
     public User(String username, String password, int age, Gender gender, String email){
         this.username = username;
@@ -152,20 +130,4 @@ public class User {
         this.isVerified = false;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", signUpDate=" + signUpDate +
-                ", age=" + age +
-                ", gender=" + gender +
-                ", ownSportFields=" + ownSportFields +
-                ", events=" + events +
-                ", isVerified=" + isVerified +
-                ", token='" + token + '\'' +
-                '}';
-    }
 }
