@@ -25,7 +25,6 @@ public class SportFieldValidator implements Validator {
 
     @Override
     public void validate(Object o, Errors errors) {
-        System.out.println("WALIDACJA");
         SportField sportField = (SportField) o;
 
         for(Rule<SportField> rule : rules){
