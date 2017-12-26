@@ -2,6 +2,7 @@ package com.devdmin.core.service;
 
 import com.devdmin.core.model.Event;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventService {
@@ -12,4 +13,5 @@ public interface EventService {
     Event add(Event event, Long sportFieldId);
     List<Event> findBySportFieldId(Long sportFieldId);
     List<Event> findAll();
+    //List<Event> findEventsByDateTimeBetween(LocalDateTime date, LocalDateTime endDate);
 }

@@ -147,4 +147,21 @@ public class Event {
         this.endDate = event.getEndDate();
         this.maxMembers = event.getMaxMembers();
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", sportField=" + sportField +
+                ", users=" + users +
+                ", date=" + date +
+                ", endDate=" + endDate +
+                ", addingDate=" + addingDate +
+                ", minAge=" + minAge +
+                ", maxAge=" + maxAge +
+                ", maxMembers=" + maxMembers +
+                ", gender=" + gender +
+                ", eventAuthor=" + eventAuthor +
+                '}';
+    }
 }

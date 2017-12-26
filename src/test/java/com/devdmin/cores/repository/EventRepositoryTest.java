@@ -21,8 +21,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase.Replace.NONE;
 
@@ -86,5 +88,25 @@ public class EventRepositoryTest {
         List<Event> foundEvents = eventRepository.findBySportField_Id(foundSportField.getId());
         assertEquals(event, foundEvents.get(0));
         assertEquals(event2, foundEvents.get(1));
+    }
+
+    @Test
+    public void findEventsBetweenTwoDates() {
+        Event event = new Event();
+        Event event2 = new Event();
+        event.setDate(LocalDateTime.now());
+        event2.setDate(LocalDateTime.now().minusHours(1));
+
+        entityManager.persist(event);
+        entityManager.persist(event2);
+
+        List<Event> foundEvents = eventRepository.findByDateBetween(event.getDate().minusDays(10),event.getDate().plusDays(10));
+        //List<Event> foundEvents = eventRepository.findAll();
+        logger.info("XD: " + foundEvents.size());
+
+        //List<Event> event1 = eventRepository.findByDate(event.getDate());
+       // logger.info("XD: " + event1.get(0).toString());
+        //assertEquals(event, foundEvents.get(0));
+        //assertEquals(event2, foundEvents.get(1));
     }
 }

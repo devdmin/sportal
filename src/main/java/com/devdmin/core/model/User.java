@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class User {
     private String password;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String email;
+
     private LocalDate signUpDate;
     private int age;
     private Gender gender;
@@ -50,7 +52,7 @@ public class User {
         return username;
     }
 
-     public String getEmail() {
+    public String getEmail() {
         return email;
     }
 
