@@ -77,6 +77,14 @@ public class EventServiceImpl implements EventService {
         return eventRepository.findAll();
     }
 
+    @Override
+    public boolean existingCollision(Event event) {
+        if(eventRepository.findByDateBetween(event.getDate(), event.getEndDate()).size() != 0 || eventRepository.findByEndDateBetween(event.getDate(), event.getEndDate()).size() != 0){
+            return true;
+        }
+        return false;
+    }
+
 //    @Override
 //    public List<Event> findEventsByDateTimeBetween(LocalDateTime date, LocalDateTime endDate) {
 //        return eventRepository.findByDateTimeBetween(date, endDate);

@@ -13,5 +13,5 @@ public interface EventService {
     Event add(Event event, Long sportFieldId);
     List<Event> findBySportFieldId(Long sportFieldId);
     List<Event> findAll();
-    //List<Event> findEventsByDateTimeBetween(LocalDateTime date, LocalDateTime endDate);
+    boolean existingCollision(Event event);
 }

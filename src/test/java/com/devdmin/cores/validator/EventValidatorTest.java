@@ -8,12 +8,14 @@ import com.devdmin.core.validator.rules.event.EventAgeRule;
 import com.devdmin.core.validator.rules.event.EventFilledFieldsRule;
 import com.devdmin.core.validator.rules.event.EventTimeRule;
 import com.devdmin.core.validator.rules.Rule;
+import com.devdmin.core.validator.rules.event.ExistingEventValidationRule;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
+import org.mockito.internal.exceptions.ExceptionIncludingMockitoWarnings;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
@@ -23,11 +25,16 @@ import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
 
 
 public class EventValidatorTest {
     @InjectMocks
     private EventValidator eventValidator;
+
+    @InjectMocks
+    private ExistingEventValidationRule existingEventValidationRule;
 
     @Mock
     private EventService service;
@@ -41,6 +48,8 @@ public class EventValidatorTest {
         rules.add(new EventAgeRule());
         rules.add(new EventFilledFieldsRule());
         rules.add(new EventTimeRule());
+        rules.add(existingEventValidationRule);
+
     }
 
 
@@ -118,6 +127,22 @@ public class EventValidatorTest {
 
     @Test
     public void testValidationWithIllegalEndMinutes() throws Exception{
+        Event createdEvent = new Event();
+        createdEvent.setMaxMembers(10);
+        createdEvent.setGender(Gender.MALE);
+        createdEvent.setMinAge(10);
+        createdEvent.setMaxAge(15);
+        createdEvent.setDate(LocalDateTime.of(2017,01,01,10,00));
+        createdEvent.setEndDate(LocalDateTime.of(2017,01,01,01,02));
+        Errors errors = new BeanPropertyBindingResult(createdEvent, "createdEvent");
+
+        eventValidator.validate(createdEvent, errors);
+        assertTrue(errors.hasErrors());
+    }
+
+    @Test
+    public void testCollision() throws Exception{
+        when(service.existingCollision(any(Event.class))).thenReturn(true);
         Event createdEvent = new Event();
         createdEvent.setMaxMembers(10);
         createdEvent.setGender(Gender.MALE);
