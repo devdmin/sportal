@@ -50,6 +50,8 @@ public class SportFieldControllerTest {
         SecurityContext securityContext = mock(SecurityContext.class);
         when(securityContext.getAuthentication()).thenReturn(authentication);
         SecurityContextHolder.setContext(securityContext);
+
+
         when(service.add(any(SportField.class))).thenReturn(sportField);
         when((UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).thenReturn(applicationUser);
         mockMvc.perform(post("/api/sportField")

@@ -21,7 +21,9 @@ import javax.validation.Valid;
 
 import java.util.Optional;
 
-
+/**
+ * @author Damian Ujma
+*/
 @RequestMapping("api/users")
 @RestController
 public class UserController {
@@ -94,7 +96,11 @@ public class UserController {
     public ResponseEntity<User> currentUser(){
         return new ResponseEntity<User>(userService.find(getAccountName()), HttpStatus.OK);
     }
-
+    /**
+     * Custom handler for displaying an account name.
+     *
+     * @return a String with current username
+     */
     private String getAccountName(){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {

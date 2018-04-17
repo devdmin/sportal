@@ -12,7 +12,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-
+/**
+ * Simple JavaBean domain object representing a user.
+ *
+ * @author Damian Ujma
+ */
 @Entity
 public class User {
 

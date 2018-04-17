@@ -24,7 +24,9 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * @author Damian Ujma
+ */
 @RequestMapping("api/sportField")
 @RestController
 public class SportFieldController {

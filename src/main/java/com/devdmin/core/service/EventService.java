@@ -13,5 +13,5 @@ public interface EventService {
     Event add(Event event, Long sportFieldId);
     List<Event> findBySportFieldId(Long sportFieldId);
     List<Event> findAll();
-    boolean existingCollision(Event event);
+   // boolean existingCollision(Event event);
 }

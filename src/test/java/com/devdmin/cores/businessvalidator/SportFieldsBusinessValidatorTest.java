@@ -1,12 +1,11 @@
 package com.devdmin.cores.businessvalidator;
 
 import com.devdmin.core.businessvalidator.BusinessRule;
-import com.devdmin.core.businessvalidator.DailyLimitRule;
-import com.devdmin.core.businessvalidator.SportFieldBusinessValidator;
+import com.devdmin.core.businessvalidator.sportfield.DailyLimitRule;
+import com.devdmin.core.businessvalidator.sportfield.SportFieldBusinessValidator;
 import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.Gender;
-import com.devdmin.core.service.SportFieldService;
 import com.devdmin.core.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;

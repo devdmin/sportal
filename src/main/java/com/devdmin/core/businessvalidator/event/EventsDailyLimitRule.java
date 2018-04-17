@@ -1,5 +1,6 @@
-package com.devdmin.core.businessvalidator;
+package com.devdmin.core.businessvalidator.event;
 
+import com.devdmin.core.businessvalidator.BusinessRule;
 import com.devdmin.core.model.Event;
 import com.devdmin.core.model.User;
 import com.devdmin.core.service.UserService;

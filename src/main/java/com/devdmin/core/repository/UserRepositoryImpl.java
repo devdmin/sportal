@@ -14,7 +14,12 @@ import java.util.List;
 import java.util.UUID;
 
 
-
+/**
+ * Implementation of custom repository interface for <code>User</code> domain objects All method names are compliant with Spring Data naming
+ * conventions so this interface can easily be extended for Spring Data See here: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-creation
+ *
+ * @author Damian Ujma
+ */
 @Transactional(readOnly = true)
 public class UserRepositoryImpl implements UserRepositoryCustom {
 

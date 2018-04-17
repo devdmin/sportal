@@ -10,6 +10,12 @@ import org.springframework.validation.Validator;
 
 import java.util.List;
 
+/**
+ * This class provides a implementation of the {@link Validator}
+ * interface for {@link User} forms
+ *
+ * @author Damian Ujma
+ */
 @Component
 public class UserValidator implements Validator {
     @Autowired

@@ -142,7 +142,7 @@ public class EventValidatorTest {
 
     @Test
     public void testCollision() throws Exception{
-        when(service.existingCollision(any(Event.class))).thenReturn(true);
+        //when(service.existingCollision(any(Event.class))).thenReturn(true);
         Event createdEvent = new Event();
         createdEvent.setMaxMembers(10);
         createdEvent.setGender(Gender.MALE);

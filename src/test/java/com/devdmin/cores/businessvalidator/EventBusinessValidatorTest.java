@@ -1,8 +1,8 @@
 package com.devdmin.cores.businessvalidator;
 
 import com.devdmin.core.businessvalidator.BusinessRule;
-import com.devdmin.core.businessvalidator.EventBusinessValidator;
-import com.devdmin.core.businessvalidator.EventsDailyLimitRule;
+import com.devdmin.core.businessvalidator.event.EventBusinessValidator;
+import com.devdmin.core.businessvalidator.event.EventsDailyLimitRule;
 import com.devdmin.core.model.Event;
 import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.Gender;

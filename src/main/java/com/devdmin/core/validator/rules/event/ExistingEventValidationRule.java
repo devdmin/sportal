@@ -13,7 +13,6 @@ public class ExistingEventValidationRule implements Rule<Event> {
     private EventService service;
     @Override
     public void validate(Event regData, Errors errors) {
-        if(service.existingCollision(regData))
-            errors.rejectValue("date", "negativvalue");
+
     }
 }

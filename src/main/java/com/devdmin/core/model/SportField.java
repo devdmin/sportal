@@ -7,7 +7,11 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
-
+/**
+ * Simple JavaBean domain object representing a sportfield.
+ *
+ * @author Damian Ujma
+ */
 @Entity
 public class SportField {
     @Id
@@ -25,6 +29,9 @@ public class SportField {
     @OneToMany(mappedBy = "sportField", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
     private Set<Event> events;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getId() {
         return id;

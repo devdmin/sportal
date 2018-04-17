@@ -10,6 +10,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Simple JavaBean domain object representing an event.
+ *
+ * @author Damian Ujma
+ */
 @Entity
 public class Event {
 

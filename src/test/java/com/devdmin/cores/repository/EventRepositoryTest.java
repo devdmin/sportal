@@ -90,23 +90,63 @@ public class EventRepositoryTest {
         assertEquals(event2, foundEvents.get(1));
     }
 
+
+
     @Test
     public void findEventsBetweenTwoDates() {
+        SportField sportField = new SportField(24.2444, 54.2555, SportFieldType.BASKETBALL);
+        sportField.setId(1L);
+        SportField foundSportField = entityManager.persist(sportField);
+        Event event = new Event();
+        event.setGender(Gender.MALE);
+        event.setMinAge(10);
+        event.setMaxAge(20);
+        event.setDate(LocalDateTime.now());
+        event.setSportField(foundSportField);
+
+        Event event2 = new Event();
+        event2.setGender(Gender.MALE);
+        event2.setMinAge(15);
+        event2.setMaxAge(20);
+        event2.setDate(LocalDateTime.now());
+        event2.setSportField(foundSportField);
+
+        entityManager.persist(sportField);
+        entityManager.persist(event);
+        entityManager.persist(event2);
+        entityManager.refresh(sportField);
+
+        List<Event> foundEvents = eventRepository.findEventBetweenTwoDates(LocalDateTime.MIN, LocalDateTime.MAX, sportField.getId());
+        logger.info("XD" + foundEvents.toString());
+    }
+
+    @Test
+    public void findEventsBetweenTwoEndDates() {
         Event event = new Event();
         Event event2 = new Event();
-        event.setDate(LocalDateTime.now());
-        event2.setDate(LocalDateTime.now().minusHours(1));
+        event.setEndDate(LocalDateTime.now());
+        event2.setEndDate(LocalDateTime.now().plusHours(1));
 
         entityManager.persist(event);
         entityManager.persist(event2);
 
-        List<Event> foundEvents = eventRepository.findByDateBetween(event.getDate().minusDays(10),event.getDate().plusDays(10));
-        //List<Event> foundEvents = eventRepository.findAll();
-        logger.info("XD: " + foundEvents.size());
+      //  List<Event> foundEvents = eventRepository.findByEndDateBetween(event.getEndDate().minusDays(10),event.getEndDate().plusDays(10));
+     //   assertEquals(foundEvents.size(), 2);
+    }
 
-        //List<Event> event1 = eventRepository.findByDate(event.getDate());
-       // logger.info("XD: " + event1.get(0).toString());
-        //assertEquals(event, foundEvents.get(0));
-        //assertEquals(event2, foundEvents.get(1));
+    @Test
+    public void collisionTest(){
+        Event event = new Event();
+        event.setDate(LocalDateTime.of(2017,8,7,12,40));
+        event.setEndDate(LocalDateTime.of(2017,8,7,12,50));
+        Event event2 = new Event();
+        event2.setDate(LocalDateTime.of(2017,8,7,12,30));
+        event2.setEndDate(LocalDateTime.of(2017,8,7,13,30));
+
+        entityManager.persist(event2);
+
+
+
+        //assertFalse(eventRepository.findByDateBetween(event.getDate().minusMinutes(1), event.getDate().plusMinutes(1)).size() != 0|| eventRepository.findByEndDateBetween(event.getEndDate().minusMinutes(1), event.getEndDate().plusMinutes(1)).size() != 0);
     }
 }

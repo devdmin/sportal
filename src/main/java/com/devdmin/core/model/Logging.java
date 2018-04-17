@@ -3,6 +3,11 @@ package com.devdmin.core.model;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Simple JavaBean domain object representing a logging.
+ *
+ * @author Damian Ujma
+ */
 @Entity
 public class Logging {
 

@@ -5,6 +5,7 @@ import com.devdmin.core.validator.rules.Rule;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
+
 @Component
 public class UserValidationRule implements Rule<User> {
 

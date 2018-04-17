@@ -15,6 +15,12 @@ import org.springframework.validation.Validator;
 
 import java.util.List;
 
+/**
+ * This class provides a implementation of the {@link Validator}
+ * interface for {@link Event} forms
+ *
+ * @author Damian Ujma
+ */
 @Component
 public class EventValidator implements Validator {
 

@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
-
+/**
+ * @author Damian Ujma
+ */
 @Controller
 public class MainController {
     private final UserService userService;

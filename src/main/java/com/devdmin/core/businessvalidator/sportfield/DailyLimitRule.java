@@ -1,5 +1,6 @@
-package com.devdmin.core.businessvalidator;
+package com.devdmin.core.businessvalidator.sportfield;
 
+import com.devdmin.core.businessvalidator.BusinessRule;
 import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
 import com.devdmin.core.service.UserService;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
 
 @Component
 public class DailyLimitRule implements BusinessRule<SportField, User> {

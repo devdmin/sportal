@@ -16,7 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
-
+/**
+ * @author Damian Ujma
+ */
 @RequestMapping("api/events")
 @RestController
 public class EventController {
