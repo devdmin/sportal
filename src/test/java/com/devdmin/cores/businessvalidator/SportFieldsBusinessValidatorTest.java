@@ -49,15 +49,14 @@ public class SportFieldsBusinessValidatorTest {
     @Test
     public void testValidAddingSportField(){
         when(userService.find(any(Long.class))).thenReturn(user);
-        assertTrue(sportFieldValidator.validateAdding(user));
+        assertTrue(sportFieldValidator.validateAdding(null,user));
     }
 
     @Test
     public void testIvalidAddingSportField(){
-
         SportField sportField = new SportField();
         user.setOwnSportFields(new HashSet<>(Arrays.asList(sportField)));
         when(userService.find(any(Long.class))).thenReturn(user);
-        assertFalse(sportFieldValidator.validateAdding(user));
+        assertFalse(sportFieldValidator.validateAdding(null,user));
     }
 }

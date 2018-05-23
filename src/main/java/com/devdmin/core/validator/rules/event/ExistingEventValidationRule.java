@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Set;
+
 @Component
 public class ExistingEventValidationRule implements Rule<Event> {
     @Autowired

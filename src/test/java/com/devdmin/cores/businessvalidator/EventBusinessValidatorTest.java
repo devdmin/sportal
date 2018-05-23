@@ -2,8 +2,10 @@ package com.devdmin.cores.businessvalidator;
 
 import com.devdmin.core.businessvalidator.BusinessRule;
 import com.devdmin.core.businessvalidator.event.EventBusinessValidator;
+import com.devdmin.core.businessvalidator.event.EventCollisionValidation;
 import com.devdmin.core.businessvalidator.event.EventsDailyLimitRule;
 import com.devdmin.core.model.Event;
+import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.Gender;
 import com.devdmin.core.service.UserService;
@@ -36,6 +38,8 @@ public class EventBusinessValidatorTest {
     @Mock
     private UserService userService;
 
+    private SportField busySportField;
+    private Event event;
     @Spy
     private List<BusinessRule<Event, User>> rules = new ArrayList<BusinessRule<Event,User>>();
 
@@ -44,16 +48,19 @@ public class EventBusinessValidatorTest {
     public void setup(){
         MockitoAnnotations.initMocks(this);
         rules.add(limitRule);
+        rules.add(new EventCollisionValidation());
+
         user = new User("username","pass",24, Gender.MALE,"mail@mail.pl");
+        user.setOwnEvents(new HashSet<>());
+        when(userService.find(any(Long.class))).thenReturn(user);
+        event = makeValidEvent();
+        busySportField = createSportFieldWithEvent();
+        event.setSportField(busySportField);
     }
 
     @Test
     public void testValidAddingEvents(){
-        Event event  = new Event(LocalDateTime.of(2017,11,13,14,15), LocalDateTime.of(2017,11,13,15,15), 20, 30, Gender.MALE, 22, new User());
-        event.setAddingDate(LocalDate.now());
-        user.setOwnEvents(new HashSet<>(Arrays.asList(event)));
-        when(userService.find(any(Long.class))).thenReturn(user);
-        assertTrue(eventBusinessValidator.validateAdding(user));
+        assertTrue(eventBusinessValidator.validateAdding(event,user));
     }
 
     @Test
@@ -68,8 +75,67 @@ public class EventBusinessValidatorTest {
         event3.setMaxAge(25);
         event3.setAddingDate(LocalDate.now());
         user.setOwnEvents(new HashSet<>(Arrays.asList(event,event2,event3)));
-        when(userService.find(any(Long.class))).thenReturn(user);
 
-        assertFalse(eventBusinessValidator.validateAdding(user));
+        assertFalse(eventBusinessValidator.validateAdding(event, user));
+    }
+
+    //Busy SportField 2017-01-01 10:00 - 12:00
+    @Test
+    public void testEventWithBusySportField(){
+        event.setDate(LocalDateTime.of(2017,01,01,10,00));
+        event.setEndDate(LocalDateTime.of(2017,01,01,11,59));
+
+        assertFalse(eventBusinessValidator.validateAdding(event,user));
+    }
+
+    @Test
+    public void testEventWithBusySportField2(){
+
+        event.setDate(LocalDateTime.of(2017,01,01,9,00));
+        event.setEndDate(LocalDateTime.of(2017,01,01,10,59));
+        assertFalse(eventBusinessValidator.validateAdding(event,user));
+    }
+
+    @Test
+    public void testEventWithBusySportField3(){
+        event.setDate(LocalDateTime.of(2017,01,01,11,00));
+        event.setEndDate(LocalDateTime.of(2017,01,01,13,00));
+        assertFalse(eventBusinessValidator.validateAdding(event,user));
+    }
+
+    @Test
+    public void testEventWithFreeSportField(){
+        event.setDate(LocalDateTime.of(2017,01,01,12,00));
+        event.setEndDate(LocalDateTime.of(2017,01,01,13,00));
+        assertTrue(eventBusinessValidator.validateAdding(event,user));
+    }
+
+    @Test
+    public void testEventWithFreeSportField2(){
+
+        event.setDate(LocalDateTime.of(2017,01,01,9,00));
+        event.setEndDate(LocalDateTime.of(2017,01,01,10,00));
+        assertTrue(eventBusinessValidator.validateAdding(event,user));
+    }
+
+    public Event makeValidEvent(){
+        Event event = new Event();
+        event.setMaxMembers(10);
+        event.setGender(Gender.MALE);
+        event.setMinAge(10);
+        event.setMaxAge(15);
+        event.setDate(LocalDateTime.of(2017,01,02,9,00));
+        event.setEndDate(LocalDateTime.of(2017,01,02,12,00));
+        return event;
+    }
+
+    public SportField createSportFieldWithEvent(){
+        SportField sportField = new SportField();
+        Event anotherEvent = new Event();
+        anotherEvent.setDate(LocalDateTime.of(2017,01,01,10,00));
+        anotherEvent.setEndDate(LocalDateTime.of(2017,01,01,12,00));
+        sportField.setEvents(new HashSet<Event>(Arrays.asList(anotherEvent)));
+        anotherEvent.setSportField(sportField);
+        return sportField;
     }
 }

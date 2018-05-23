@@ -14,9 +14,9 @@ public abstract class BusinessValidator<T,R> implements ModelBusinessValidator<T
     @Autowired
     private List<BusinessRule<T,R>> rules;
 
-    public boolean validateAdding(R r) {
+    public boolean validateAdding(T t, R r) {
         for(BusinessRule<T, R> rule : rules){
-            if(!rule.validateAdding(r))
+            if(!rule.validateAdding(t, r))
                 return false;
         }
         return true;

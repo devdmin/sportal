@@ -33,18 +33,19 @@ public class SportFieldValidatorTest {
     private List<Rule<SportField>> rules = new ArrayList<>();
 
     private Errors errors;
+    private SportField sportField;
     @Before
     public void setup(){
         MockitoAnnotations.initMocks(this);
         rules.add(new SportFieldFilledFieldsRule());
         rules.add(new CoordsValidationRule());
-
+        sportField = new SportField(52.782831, 21.972656, SportFieldType.BASKETBALL);
+        errors = new BeanPropertyBindingResult(sportField, "sportField");
     }
 
     @Test
     public void testValidSportField(){
-        SportField sportField = new SportField(52.782831, 21.972656, SportFieldType.BASKETBALL);
-        Errors errors = new BeanPropertyBindingResult(sportField, "sportField");
+        sportField = new SportField(52.782831, 21.972656, SportFieldType.BASKETBALL);
 
         sportFieldValidator.validate(sportField, errors);
         assertFalse(errors.hasErrors());
@@ -52,8 +53,7 @@ public class SportFieldValidatorTest {
 
     @Test
     public void testValidationWithoutFilledFields(){
-        SportField sportField = new SportField(52.782831, 21.972656, null);
-        Errors errors = new BeanPropertyBindingResult(sportField, "sportField");
+       sportField = new SportField(52.782831, 21.972656, null);
 
         sportFieldValidator.validate(sportField, errors);
         assertTrue(errors.hasErrors());
@@ -62,8 +62,7 @@ public class SportFieldValidatorTest {
     //Illegal Coords from France
     @Test
     public void testValidationWithIllegalCoords(){
-        SportField sportField = new SportField(46.897739, 1.230469, SportFieldType.BASKETBALL);
-        Errors errors = new BeanPropertyBindingResult(sportField, "sportField");
+         sportField = new SportField(46.897739, 1.230469, SportFieldType.BASKETBALL);
 
         sportFieldValidator.validate(sportField, errors);
         assertTrue(errors.hasErrors());

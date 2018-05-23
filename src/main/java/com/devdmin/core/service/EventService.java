@@ -4,6 +4,7 @@ import com.devdmin.core.model.Event;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public interface EventService {
     Event save(Event event);

@@ -31,7 +31,7 @@ public class SportFieldServiceImpl implements SportFieldService{
 
     @Override
     public SportField add(SportField sportField) {
-        if(validator.validateAdding(sportField.getAuthor()))
+        if(validator.validateAdding(sportField, sportField.getAuthor()))
             return userService.addSportField(sportField, sportField.getAuthor());
         else
             return null;

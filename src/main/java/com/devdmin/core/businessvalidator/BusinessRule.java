@@ -8,5 +8,6 @@ package com.devdmin.core.businessvalidator;
  * @author Damian Ujma
  */
 public interface BusinessRule<T,R> {
-    boolean validateAdding(R r);
+    boolean validateAdding(T t, R r);
+
 }

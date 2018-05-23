@@ -46,6 +46,7 @@ public class UserValidatorTest {
         rules.add(existingValidationRule);
         rules.add(new FilledFieldsRule());
         rules.add(new UserValidationRule());
+
     }
 
     @Test

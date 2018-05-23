@@ -24,7 +24,7 @@ public class DailyLimitRule implements BusinessRule<SportField, User> {
     private final long SPORTFIELDS_PER_DAY = 1;
 
     @Override
-    public boolean validateAdding(User user) {
+    public boolean validateAdding(SportField sportField, User user) {
         if(user.getUsername().equals("admin")) {
             return true;
         }

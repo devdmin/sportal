@@ -22,7 +22,7 @@ public class EventsDailyLimitRule implements BusinessRule<Event,User> {
     private final long EVENTS_PER_DAY = 2;
 
     @Override
-    public boolean validateAdding(User user) {
+    public boolean validateAdding(Event event, User user) {
         if(user.getUsername().equals("admin")) {
             return true;
         }

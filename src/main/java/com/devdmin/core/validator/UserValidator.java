@@ -37,7 +37,4 @@ public class UserValidator implements Validator {
         }
 
     }
-    public static boolean validateAddingSportField(User user){
-        return false;
-    }
 }

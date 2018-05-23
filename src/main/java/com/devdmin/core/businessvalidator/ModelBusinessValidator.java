@@ -6,5 +6,5 @@ package com.devdmin.core.businessvalidator;
  * @author Damian Ujma
  */
 public interface ModelBusinessValidator<T,R> {
-    boolean validateAdding(R r);
+    boolean validateAdding(T t, R r);
 }
