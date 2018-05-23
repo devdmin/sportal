@@ -48,7 +48,7 @@ public class EventBusinessValidatorTest {
     }
 
     @Test
-    public void testValidAddingSportField(){
+    public void testValidAddingEvents(){
         Event event  = new Event(LocalDateTime.of(2017,11,13,14,15), LocalDateTime.of(2017,11,13,15,15), 20, 30, Gender.MALE, 22, new User());
         event.setAddingDate(LocalDate.now());
         user.setOwnEvents(new HashSet<>(Arrays.asList(event)));
@@ -57,15 +57,19 @@ public class EventBusinessValidatorTest {
     }
 
     @Test
-    public void testIvalidAddingSportField(){
+    public void testIvalidAddingEvents(){
         Event event = new Event();
         event.setAddingDate(LocalDate.now());
+        event.setMaxAge(23);
         Event event2 = new Event();
         event2.setAddingDate(LocalDate.now());
+        event2.setMaxAge(24);
         Event event3 = new Event();
+        event3.setMaxAge(25);
         event3.setAddingDate(LocalDate.now());
         user.setOwnEvents(new HashSet<>(Arrays.asList(event,event2,event3)));
         when(userService.find(any(Long.class))).thenReturn(user);
+
         assertFalse(eventBusinessValidator.validateAdding(user));
     }
 }

@@ -21,6 +21,7 @@ public class VerificationLinksSender {
         email.setTo(recipientAddress);
         email.setSubject(SUBJECT);
         email.setText(TEXT + token.toString());
+
         mailSender.send(email);
     }
 }

@@ -41,7 +41,6 @@ public class SportFieldController {
 
     @InitBinder
     public void dataBinding(WebDataBinder binder) {
-        System.out.println("HERE");
         binder.setValidator(sportFieldValidator);
     }
 

@@ -49,7 +49,6 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-
     public User addUser(User user) {
         sender.send(user.getToken(), user.getEmail());
         return repository.save(user);

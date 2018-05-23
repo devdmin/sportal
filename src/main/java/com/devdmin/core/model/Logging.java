@@ -51,4 +51,5 @@ public class Logging {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
 }

@@ -4,5 +4,4 @@ public enum SportFieldType {
     VOLLEYBALL,
     FOOTBALL,
     BASKETBALL
-
 }

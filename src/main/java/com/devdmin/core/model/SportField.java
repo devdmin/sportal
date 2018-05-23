@@ -22,11 +22,11 @@ public class SportField {
     private SportFieldType type;
     private boolean isVerified;
     private LocalDate addingDate;
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "author_id")
     @JsonBackReference
     private User author;
-    @OneToMany(mappedBy = "sportField", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true)
+    @OneToMany(mappedBy = "sportField", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
     private Set<Event> events;
 
     public void setId(Long id) {
@@ -98,5 +98,38 @@ public class SportField {
         this.lng = sportField.getLng();
         this.events = sportField.getEvents();
         this.type = sportField.getType();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SportField that = (SportField) o;
+
+        if (Double.compare(that.lat, lat) != 0) return false;
+        if (Double.compare(that.lng, lng) != 0) return false;
+        if (isVerified != that.isVerified) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (type != that.type) return false;
+        if (addingDate != null ? !addingDate.equals(that.addingDate) : that.addingDate != null) return false;
+        return author != null ? author.equals(that.author) : that.author == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id != null ? id.hashCode() : 0;
+        temp = Double.doubleToLongBits(lat);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(lng);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (isVerified ? 1 : 0);
+        result = 31 * result + (addingDate != null ? addingDate.hashCode() : 0);
+        result = 31 * result + (author != null ? author.hashCode() : 0);
+        return result;
     }
 }

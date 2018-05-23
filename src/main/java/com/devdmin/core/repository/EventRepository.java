@@ -5,6 +5,7 @@ import com.devdmin.core.model.SportField;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,6 +18,6 @@ import java.util.List;
  */
 public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findBySportField_Id(Long Id);
-    @Query(value = "SELECT e FROM Event e WHERE e.date BETWEEN ?1 AND ?2 OR e.endDate BETWEEN ?1 AND ?2 AND e.sportField = ?3")
+    @Query(value = "SELECT e FROM Event e WHERE e.date BETWEEN ?1 AND ?2 OR e.endDate BETWEEN ?1 AND ?2 AND e.sportField.id = ?3")
     List<Event> findEventBetweenTwoDates(LocalDateTime date, LocalDateTime endDate, Long sportFieldId);
 }
