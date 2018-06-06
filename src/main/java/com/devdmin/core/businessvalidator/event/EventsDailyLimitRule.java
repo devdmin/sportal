@@ -19,7 +19,7 @@ public class EventsDailyLimitRule implements BusinessRule<Event,User> {
     private UserService userService;
 
     private final long PERMISSIBLE_DAYS_BETWEEN_LAST_ADDING = 0;
-    private final long EVENTS_PER_DAY = 2;
+    private final long MAX_EVENTS_PER_DAY = 2;
 
     @Override
     public boolean validateAdding(Event event, User user) {
@@ -28,12 +28,13 @@ public class EventsDailyLimitRule implements BusinessRule<Event,User> {
         }
         User foundUser = userService.find(user.getId());
         Optional<Set<Event>> events = Optional.ofNullable(foundUser.getOwnEvents());
-
         if(events.isPresent()){
             Long todaysEvent = countEvetsByPermissibleDaysBeetweenLastAddingAndToday(events.get());
+            if (todaysEvent > MAX_EVENTS_PER_DAY) {
 
-            if (todaysEvent > EVENTS_PER_DAY) {
                 return false;
+            }else{
+                return true;
             }
         }
         return true;

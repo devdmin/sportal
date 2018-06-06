@@ -5,11 +5,14 @@ import com.devdmin.core.model.Event;
 import com.devdmin.core.model.User;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Stream;
+
 @Component
-public class EventCollisionValidation implements BusinessRule<Event, User> {
+public class EventCollisionRule implements BusinessRule<Event, User> {
     @Override
     public boolean validateAdding(Event event, User user) {
         if (event.getSportField() != null && event.getSportField().getEvents() != null) {
+
             long eventsAmount = event.getSportField().getEvents()
                     .stream()
                     .filter(t -> t.getDate().isBefore(event.getDate().plusMinutes(1)))
@@ -37,5 +40,6 @@ public class EventCollisionValidation implements BusinessRule<Event, User> {
             }
         }
         return false;
+
     }
 }

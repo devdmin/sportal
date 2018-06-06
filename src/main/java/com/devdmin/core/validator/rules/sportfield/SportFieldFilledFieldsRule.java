@@ -10,8 +10,10 @@ import org.springframework.validation.ValidationUtils;
 public class SportFieldFilledFieldsRule implements Rule<SportField> {
     @Override
     public void validate(SportField regData, Errors errors) {
-        ValidationUtils.rejectIfEmpty(errors, "lat", "sportfield.lat");
-        ValidationUtils.rejectIfEmpty(errors, "lng", "sportfield.empty");
-        ValidationUtils.rejectIfEmpty(errors, "type", "sportfield.type");
+        ValidationUtils.rejectIfEmpty(errors, "lat", "sportField.empty");
+        ValidationUtils.rejectIfEmpty(errors, "lng", "sportField.empty");
+        ValidationUtils.rejectIfEmpty(errors, "type", "sportField.empty");
+
+        System.out.println(errors.getFieldValue("lat"));
     }
 }

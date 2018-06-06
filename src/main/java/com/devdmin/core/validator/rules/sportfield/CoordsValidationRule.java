@@ -15,5 +15,7 @@ public class CoordsValidationRule implements Rule<SportField> {
             errors.rejectValue("lng", "negativevalue");
         }
 
+
+
     }
 }
