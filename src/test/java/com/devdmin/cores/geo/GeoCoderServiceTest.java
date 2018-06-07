@@ -5,14 +5,21 @@ import com.devdmin.core.geo.GeoService;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class GeoCoderServiceTest {
     @Test
     public void findCountryName(){
-        GeoService geoService = new GeoCoderService();
-        String countryName = geoService.countryName(52.240688, 21.031488);
+        GeoService geoService = GeoCoderService.newInstance(52.240688, 21.031488);
+        String countryName = geoService.getCountryName();
 
         assertEquals("Poland", countryName);
+    }
+
+    @Test
+    public void findCityName(){
+        GeoService geoService = GeoCoderService.newInstance(52.240688, 21.031488);
+        String cityName = geoService.getCityName();
+
+        assertEquals("Warszawa", cityName);
     }
 }

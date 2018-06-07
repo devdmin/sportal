@@ -4,14 +4,20 @@ import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
 import com.google.code.geocoder.model.GeocodeResponse;
 import com.google.code.geocoder.model.GeocoderRequest;
+import com.google.code.geocoder.model.GeocoderResult;
 import com.google.code.geocoder.model.LatLng;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 
 public class GeoCoderService implements GeoService {
-    @Override
-    public String countryName(double lat, double lng) {
+    private GeocoderResult result;
+
+    public GeoCoderService(GeocoderResult result) {
+        this.result = result;
+    }
+
+    public static GeoService newInstance(double lat, double lng) {
         final Geocoder geocoder = new Geocoder();
         GeocoderRequest geocoderRequest =
                 new GeocoderRequestBuilder()
@@ -24,6 +30,16 @@ public class GeoCoderService implements GeoService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return geocoderResponse.getResults().get(0).getAddressComponents().get(5).getLongName();
+
+        return new GeoCoderService(geocoderResponse.getResults().get(0));
     }
+
+    public String getCountryName() {
+        return result.getAddressComponents().get(5).getLongName();
+    }
+
+    public String getCityName(){
+        return result.getAddressComponents().get(3).getLongName();
+    }
+
 }
