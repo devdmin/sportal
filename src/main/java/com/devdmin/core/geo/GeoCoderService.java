@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 public class GeoCoderService implements GeoService {
-    private GeocoderResult result;
+    private  String[] formattedAddress;
 
-    public GeoCoderService(GeocoderResult result) {
-        this.result = result;
+    public GeoCoderService(String[] formattedAddress) {
+        this.formattedAddress = formattedAddress;
     }
 
     public static GeoService newInstance(double lat, double lng) {
@@ -30,16 +30,16 @@ public class GeoCoderService implements GeoService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return new GeoCoderService(geocoderResponse.getResults().get(0));
+        String[] formattedAddress = geocoderResponse.getResults().get(0).getFormattedAddress().split(", ");
+        return new GeoCoderService(formattedAddress);
     }
 
     public String getCountryName() {
-        return result.getAddressComponents().get(5).getLongName();
+        return formattedAddress[formattedAddress.length-1];
     }
 
     public String getCityName(){
-        return result.getAddressComponents().get(3).getLongName();
+        return formattedAddress[formattedAddress.length-2];
     }
 
 }

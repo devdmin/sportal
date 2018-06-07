@@ -22,4 +22,5 @@ public class GeoCoderServiceTest {
 
         assertEquals("Warszawa", cityName);
     }
+
 }

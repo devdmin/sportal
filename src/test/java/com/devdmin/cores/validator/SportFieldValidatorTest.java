@@ -62,7 +62,7 @@ public class SportFieldValidatorTest {
     //Illegal Coords from France
     @Test
     public void testValidationWithIllegalCoords(){
-         sportField = new SportField(46.897739, 1.230469, SportFieldType.BASKETBALL);
+         sportField = new SportField(47.380700, 5.879242, SportFieldType.BASKETBALL);
 
         sportFieldValidator.validate(sportField, errors);
         assertTrue(errors.hasErrors());
