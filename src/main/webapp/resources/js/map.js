@@ -23,12 +23,31 @@ function initAutocomplete() {
 	sportFields = JSON.parse(localStorage.getItem("sportFields"));
 	var markers = [];
 	for (i = 0; i < sportFields.length; i++) {
+        
+        var icon = {
+            scaledSize: new google.maps.Size(15, 15),
+        };
+      
+        
+        switch(sportFields[i].type){
+            case 'FOOTBALL':
+                icon.url = '../resources/img/icons/svg/soccer-ball-variant.svg';
+                break;
+            case 'VOLLEYBALL':
+                icon.url = '../resources/img/icons/svg/volleyball.svg';
+                break;
+            case 'BASKETBALL':
+                icon.url = '../resources/img/icons/svg/basketball.svg';
+                break;
+        }
+        
 		markers.push(
 			new google.maps.Marker({
 				position: new google.maps.LatLng(sportFields[i].lat,sportFields[i].lng),
 				map: map,
 				title: 'Hello World!',
-				id: sportFields[i].id
+				id: sportFields[i].id,
+                icon: icon
 			}));
 	}
 

@@ -1,10 +1,12 @@
 package com.devdmin.rest.controller;
 
+import com.devdmin.core.model.Event;
 import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.SportFieldType;
 import com.devdmin.core.repository.SportFieldRepository;
 import com.devdmin.core.security.AccountUserDetails;
+import com.devdmin.core.service.EventService;
 import com.devdmin.core.service.SportFieldService;
 import com.devdmin.core.service.UserService;
 import com.devdmin.core.service.util.SportFieldList;
@@ -36,6 +38,9 @@ public class SportFieldController {
     private UserService userService;
 
     @Autowired
+    private EventService eventService;
+
+    @Autowired
     @Qualifier("sportFieldValidator")
     private Validator sportFieldValidator;
 
@@ -48,6 +53,16 @@ public class SportFieldController {
     public ResponseEntity<SportFieldList> findAll(){
         SportFieldList sportFieldList = new SportFieldList(sportFieldService.findAll());
         return new ResponseEntity<SportFieldList>(sportFieldList, HttpStatus.OK);
+    }
+
+    @GetMapping("event/{id}")
+    @PreAuthorize("permitAll")
+    public ResponseEntity<SportField> findSportFieldByEventId(@PathVariable Long id){
+        return Optional.ofNullable(eventService.find(id))
+                .map(event -> {
+                    return new ResponseEntity<SportField>(event.getSportField(), HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<SportField>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping

@@ -3,5 +3,7 @@
     "BASKETBALL": "Koszykówka",
     "VOLLEYBALL": "Siatkówka",
     "true": "Tak",
-    "false": "Nie"
+    "false": "Nie",
+    "MALE": "Mężczyzna",
+    "FEMALE": "Kobieta"
 }

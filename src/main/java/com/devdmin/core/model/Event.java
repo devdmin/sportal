@@ -26,7 +26,7 @@ public class Event {
 
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "sportfield_id")
-    @JsonBackReference
+    @JsonBackReference(value="sportfield-movement")
     private SportField sportField;
 
     @ManyToMany(cascade = {CascadeType.ALL})

@@ -33,7 +33,7 @@ public class EventTimeRule implements Rule<Event> {
       */
     private void checkIfStartDateIsBeforeTheEnd(Event event, Errors errors){
         if (event.getDate().isAfter(event.getEndDate())) {
-            errors.reject("date", "negativevalue");
+            errors.reject("date", "Start time is before end time");
         }
     }
 
@@ -46,7 +46,7 @@ public class EventTimeRule implements Rule<Event> {
                 (event.getEndDate().getMinute() == 30 || event.getEndDate().getMinute() == 0)){
 
         }else{
-            errors.reject("date", "negativevalue");
+            errors.reject("date", "Date has invalid minutes");
         }
     }
 
@@ -59,7 +59,7 @@ public class EventTimeRule implements Rule<Event> {
         long hoursLength = ChronoUnit.HOURS.between(event.getDate(),event.getEndDate());
 
         if(minutesLength < 30 || hoursLength > 4){
-            errors.reject("date", "negativevalue");
+            errors.reject("date", "Duration has ivalid length");
         }
     }
 }

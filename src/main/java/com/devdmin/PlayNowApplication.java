@@ -18,9 +18,9 @@ public class PlayNowApplication {
 	
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(PlayNowApplication.class, args);
-		User user = new User("admin","admin",18,Gender.MALE,"email@email.com");
+		//User user = new User("admin","admin",18,Gender.MALE,"email@email.com");
 
-		context.getBean(UserService.class).addUser(user);
+		//context.getBean(UserService.class).addUser(user);
 
 	}
 

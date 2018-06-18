@@ -65,6 +65,7 @@ public class EventServiceImpl implements EventService {
         events.add(event);
         userEvents.add(event);
         event.setEventAuthor(foundUser);
+        event.setSportField(foundSportField);
         return eventRepository.save(event);
     }
 

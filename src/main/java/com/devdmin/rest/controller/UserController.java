@@ -47,6 +47,7 @@ public class UserController {
     @PreAuthorize("permitAll")
     public ResponseEntity<User> add(@RequestBody @Valid User sentUser, BindingResult result) {
         if (result.hasErrors()) {
+
             return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
         } else {
             userService.addUser(sentUser);

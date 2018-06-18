@@ -4,6 +4,7 @@ import com.devdmin.core.model.Event;
 import com.devdmin.core.validator.rules.Rule;
 import com.devdmin.core.validator.rules.event.EventTimeRule;
 import org.junit.Test;
+import org.springframework.validation.BeanPropertyBindingResult;
 
 import java.time.LocalDateTime;
 

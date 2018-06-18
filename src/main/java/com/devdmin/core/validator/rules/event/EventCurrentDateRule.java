@@ -12,7 +12,7 @@ public class EventCurrentDateRule implements Rule<Event> {
     @Override
     public void validate(Event regData, Errors errors) {
         if(regData.getDate().isBefore(LocalDateTime.now()) || regData.getEndDate().isBefore(LocalDateTime.now())){
-            errors.reject("date", "negativevalue");
+            errors.reject("date", "Date must be in the future");
         }
     }
 }

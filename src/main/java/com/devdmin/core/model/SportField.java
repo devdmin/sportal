@@ -2,6 +2,7 @@ package com.devdmin.core.model;
 
 import com.devdmin.core.model.util.SportFieldType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class SportField {
     @JsonBackReference
     private User author;
     @OneToMany(mappedBy = "sportField", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+    @JsonManagedReference(value="sportfield-movement")
     private Set<Event> events;
 
     public void setId(Long id) {

@@ -45,8 +45,7 @@ public class User {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UUID token;
 
-    @OneToOne(mappedBy = "user")
-    private Logging logging;
+
 
     public Long getId() {
         return id;
@@ -136,6 +135,7 @@ public class User {
         this.isVerified = false;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -151,9 +151,11 @@ public class User {
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (signUpDate != null ? !signUpDate.equals(user.signUpDate) : user.signUpDate != null) return false;
         if (gender != user.gender) return false;
+        if (ownEvents != null ? !ownEvents.equals(user.ownEvents) : user.ownEvents != null) return false;
+        if (ownSportFields != null ? !ownSportFields.equals(user.ownSportFields) : user.ownSportFields != null)
+            return false;
         if (events != null ? !events.equals(user.events) : user.events != null) return false;
-        if (token != null ? !token.equals(user.token) : user.token != null) return false;
-        return logging != null ? logging.equals(user.logging) : user.logging == null;
+        return token != null ? token.equals(user.token) : user.token == null;
 
     }
 
@@ -169,7 +171,6 @@ public class User {
         result = 31 * result + (events != null ? events.hashCode() : 0);
         result = 31 * result + (isVerified ? 1 : 0);
         result = 31 * result + (token != null ? token.hashCode() : 0);
-        result = 31 * result + (logging != null ? logging.hashCode() : 0);
         return result;
     }
 }
