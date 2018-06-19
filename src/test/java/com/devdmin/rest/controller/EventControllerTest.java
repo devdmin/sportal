@@ -18,10 +18,12 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -114,9 +116,34 @@ public class EventControllerTest {
     public void getEvent() throws Exception{
 
         when(service.find(any(Long.class))).thenReturn(event);
+        event.setMaxAge(12);
+        event.setMinAge(20);
         mockMvc.perform(get("/api/events/1"))
                 .andExpect(jsonPath("$.maxAge", is(event.getMaxAge())))
                 .andExpect(jsonPath("$.minAge", is(event.getMinAge())))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    public void joinEventTest() throws Exception{
+        User user = new User("user", "password", 20, Gender.MALE, "mail@mail.pl");
+        event.setUsers(new HashSet<User>());
+        when(controller.getUser()).thenReturn(user);
+
+        mockMvc.perform(post("/api/events/1/join"))
+                .andExpect(jsonPath("$.users[*].username", hasItems("username")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void signOutEventTest() throws Exception{
+        User user = new User("user", "password", 20, Gender.MALE, "mail@mail.pl");
+        event.setUsers(new HashSet<User>());
+        when(controller.getUser()).thenReturn(user);
+
+        mockMvc.perform(delete("/api/events/1/join"))
+                .andExpect(jsonPath("$.users[*].username", hasItems("username")))
                 .andExpect(status().isOk());
     }
 }

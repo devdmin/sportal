@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Simple JavaBean domain object representing an event.
@@ -31,7 +32,7 @@ public class Event {
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id")
-    private List<User> users;
+    private Set<User> users;
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     private LocalDateTime date;
     @Convert(converter = LocalDateTimeAttributeConverter.class)
@@ -72,11 +73,11 @@ public class Event {
         this.date = date;
     }
     @JsonIgnore
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 

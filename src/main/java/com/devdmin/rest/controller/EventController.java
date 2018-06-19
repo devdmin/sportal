@@ -75,7 +75,6 @@ public class EventController {
     public ResponseEntity<Event> get(@PathVariable Long id){
         return Optional.ofNullable(eventService.find(id))
                 .map(event -> {
-                    System.out.println(event.getSportField().toString());
                     return new ResponseEntity<Event>(event, HttpStatus.OK);
                 })
                 .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
