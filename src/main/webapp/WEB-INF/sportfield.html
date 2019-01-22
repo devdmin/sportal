@@ -22,45 +22,52 @@
 		<script src="../resources/js/app.js"></script>
 	</head>
 	<body class="body" ng-controller="SportFieldCtrl">
-		<nav class="navbar navbar-inverse" role="navigation" style="border-radius:0" ng-controller="NavCtrl">
-			<div class="container">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
-						<span class="sr-only">Nawigacja</span>
-					</button>
-					<a class="navbar-brand" href="/">Sportal!</a>
-				</div>
-				<div class="collapse navbar-collapse" id="navbar-collapse-01">
-					<ul class="nav navbar-nav navbar-right">
-						 <li><a href="/">Strona główna</a></li>
-                        <li><a href="#!">Kontakt</a></li>
-                        <li><a href="#!">O nas</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opcje<b class="caret"></b></a>
-                            <span class="dropdown-arrow"></span>
-                            <ul class="dropdown-menu">
-                                <li><a href="/sportField">Dodaj boisko</a></li>
-                                <li><a href={{userPath}}>Moje konto</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="/" ng-click="logout()">Wyloguj</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+    <nav class="navbar navbar-inverse" role="navigation" style="border-radius:0" ng-controller="NavCtrl">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+                        <span class="sr-only">Nawigacja</span>
+                    </button>
+                <a class="navbar-brand" href="/">Sportal!</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse-01">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Strona główna</a></li>
+                    <li><a href={{userPath}}>Moje konto</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opcje<b class="caret"></b></a>
+                        <span class="dropdown-arrow"></span>
+                        <ul class="dropdown-menu">
+                            <li><a href="/sportField">Dodaj boisko</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#!" ng-click="logout()">Wyloguj</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
 		<main>
            
-			<aside>
+			
+                <div id="divCheckbox" style="display: none;">
 				<form class="map-search" autocomplete="off">
 					<input id="pac-input" type="search" name="search" placeholder="Wpisz nazwę miejscowości" required/>
                      
 				</form>
-				
-			</aside>
+                </div>
+			
             
-					<form ng-submit="add()" autocomplete="off">
+					
+				
+			<div class="row" id="map"></div>
+            <div class="row ">
+                <div class="col-sm-4"></div>
+                   <div class="col-sm-4">
+            <form class="row" ng-submit="add()" autocomplete="off">
 						<input id="lat" type="hidden" />
 						<input id="lng" type="hidden" />
+                        <h4>Wybierz rodzaj boiska</h4>
 						<select class="form-control" ng-model="sportField.type" required>
 							<option disabled selected>Wybierz rodzaj</option>
 							<option value="FOOTBALL">Piłka nożna</option>
@@ -68,9 +75,9 @@
 							<option value="BASKETBALL">Koszykówka</option>
 						</select><br/>
 						<input type="submit" value="Dodaj!" class="btn btn-primary btn-lg btn-block"/>
-					</form>
-				
-			<div id="map"></div>
+            </form></div>
+                 <div class="col-sm-4"></div>
+                </div>
 		</main>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 		<script type="text/javascript" src="../resources/flat-ui/js/flat-ui.min.js"></script>

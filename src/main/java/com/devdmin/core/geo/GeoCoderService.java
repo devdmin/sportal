@@ -1,46 +1,26 @@
 package com.devdmin.core.geo;
 
-import com.google.code.geocoder.Geocoder;
-import com.google.code.geocoder.GeocoderRequestBuilder;
-import com.google.code.geocoder.model.GeocodeResponse;
-import com.google.code.geocoder.model.GeocoderRequest;
-import com.google.code.geocoder.model.GeocoderResult;
-import com.google.code.geocoder.model.LatLng;
-import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.math.BigDecimal;
 
 public class GeoCoderService implements GeoService {
-    private  String[] formattedAddress;
+    private  String countryName;
 
-    public GeoCoderService(String[] formattedAddress) {
-        this.formattedAddress = formattedAddress;
+    public GeoCoderService(String countryName) {
+        this.countryName = countryName;
     }
 
     public static GeoService newInstance(double lat, double lng) {
-        final Geocoder geocoder = new Geocoder();
-        GeocoderRequest geocoderRequest =
-                new GeocoderRequestBuilder()
-                        .setLocation(new LatLng(BigDecimal.valueOf(lat), BigDecimal.valueOf(lng)))
-                        .setLanguage("en")
-                        .getGeocoderRequest();
-        GeocodeResponse geocoderResponse = null;
-        try {
-            geocoderResponse = geocoder.geocode(geocoderRequest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String[] formattedAddress = geocoderResponse.getResults().get(0).getFormattedAddress().split(", ");
-        return new GeoCoderService(formattedAddress);
+
+        String countryName =  io.restassured.RestAssured.get("http://geonames.org/findNearbyPlaceName?lat={lat}&lng={long}&username=sportalactivation", lat, lng).
+                xmlPath().getString("geonames.geoname.countryName");
+        return new GeoCoderService(countryName);
     }
 
     public String getCountryName() {
-        return formattedAddress[formattedAddress.length-1];
+        return countryName;
     }
 
     public String getCityName(){
-        return formattedAddress[formattedAddress.length-2];
+        return countryName;
     }
 
 }

@@ -9,6 +9,7 @@ import com.devdmin.core.service.util.VerificationLinksSender;
 import com.devdmin.core.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,9 @@ public class UserServiceImpl implements UserService{
     private UserRepository repository;
     @Autowired
     private VerificationLinksSender sender;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User save(User user) {
@@ -51,6 +55,8 @@ public class UserServiceImpl implements UserService{
     @Override
     public User addUser(User user) {
         sender.send(user.getToken(), user.getEmail());
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
 
@@ -70,8 +76,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> findAll() {
-        return repository.findAll();
+    public Set<User> findAll() {
+        return new HashSet<>(repository.findAll());
     }
 
     @Override

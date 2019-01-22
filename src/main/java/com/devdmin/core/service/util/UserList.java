@@ -4,20 +4,22 @@ import com.devdmin.core.model.User;
 import com.devdmin.core.model.util.SportFieldType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserList {
-    private List<User> userList = new ArrayList<User>();
+    private Set<User> userList = new HashSet<User>();
 
-    public UserList(List<User> userList) {
+    public UserList(Set<User> userList) {
         this.userList = userList;
     }
 
-    public List<User> getUserList() {
+    public Set<User> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
+    public void setUserList(Set<User> userList) {
         this.userList = userList;
     }
 }

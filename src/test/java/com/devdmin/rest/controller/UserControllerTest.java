@@ -24,7 +24,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
@@ -113,7 +115,7 @@ public class UserControllerTest {
         User userA = new User("testA","testtestA",16, Gender.MALE,"testA@test.test");
         User userB = new User("testB","testtestB",20, Gender.MALE,"testB@test.test");
 
-        List<User> users = new ArrayList<>();
+        Set<User> users = new HashSet<>();
         users.add(userA);
         users.add(userB);
 

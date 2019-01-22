@@ -31,6 +31,7 @@ public class EventsDailyLimitRule implements BusinessRule<Event,User> {
         if(events.isPresent()){
             Long todaysEvent = countEvetsByPermissibleDaysBeetweenLastAddingAndToday(events.get());
             if (todaysEvent > MAX_EVENTS_PER_DAY) {
+                System.out.println("Limit");
 
                 return false;
             }else{

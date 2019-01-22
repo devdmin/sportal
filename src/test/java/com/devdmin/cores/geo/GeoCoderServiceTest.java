@@ -16,11 +16,11 @@ public class GeoCoderServiceTest {
     }
 
     @Test
-    public void findCityName(){
-        GeoService geoService = GeoCoderService.newInstance(52.240688, 21.031488);
-        String cityName = geoService.getCityName();
+    public void findCountryName2(){
+        GeoService geoService = GeoCoderService.newInstance(51.349869, 12.009523);
+        String countryName = geoService.getCountryName();
 
-        assertEquals("Warszawa", cityName);
+        assertEquals("Germany", countryName);
     }
 
 }

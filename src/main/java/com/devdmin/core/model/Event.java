@@ -5,6 +5,7 @@ import com.devdmin.core.LocalDateTimeAttributeConverter;
 import com.devdmin.core.model.util.Gender;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
@@ -30,8 +31,8 @@ public class Event {
     @JsonBackReference(value="sportfield-movement")
     private SportField sportField;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "user_id")
+    @ManyToMany(mappedBy = "events",  cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<User> users;
     @Convert(converter = LocalDateTimeAttributeConverter.class)
     private LocalDateTime date;
@@ -43,6 +44,10 @@ public class Event {
     private int maxAge;
     private int maxMembers;
     private Gender gender;
+
+    @OneToMany(mappedBy = "event",  cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Post> posts;
 
     @JsonBackReference(value="user-movement")
     @ManyToOne(fetch=FetchType.EAGER)
@@ -56,7 +61,6 @@ public class Event {
         return id;
     }
 
-    @JsonIgnore
     public SportField getSportField() {
         return sportField;
     }
@@ -72,7 +76,7 @@ public class Event {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
-    @JsonIgnore
+
     public Set<User> getUsers() {
         return users;
     }
@@ -136,6 +140,15 @@ public class Event {
     public void setMaxMembers(int maxMembers) {
         this.maxMembers = maxMembers;
     }
+
+    public Set<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
+
     public Event(){
         this.addingDate = LocalDate.now();
     }

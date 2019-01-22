@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 public class EventCollisionRule implements BusinessRule<Event, User> {
     @Override
     public boolean validateAdding(Event event, User user) {
-        if (event.getSportField() != null && event.getSportField().getEvents() != null) {
+        if (event.getSportField() != null) {
 
             long eventsAmount = event.getSportField().getEvents()
                     .stream()
@@ -38,7 +38,11 @@ public class EventCollisionRule implements BusinessRule<Event, User> {
             } else {
                 return false;
             }
+
+        }else if(event.getSportField().getEvents() == null){
+            return true;
         }
+        System.out.println("Kolizja");
         return false;
 
     }

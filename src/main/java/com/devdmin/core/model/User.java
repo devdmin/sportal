@@ -35,17 +35,24 @@ public class User {
     private Gender gender;
     @OneToMany(mappedBy = "eventAuthor", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
     @JsonManagedReference(value="user-movement")
+    @JsonIgnore
     private Set<Event> ownEvents;
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
     @JsonManagedReference
     private Set<SportField> ownSportFields;
-    @ManyToMany(mappedBy = "users")
-    private List<Event> events;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "event_user",
+            joinColumns = {@JoinColumn(name = "event_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    private Set<Event> events;
     private boolean isVerified;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private UUID token;
 
-
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
+    @JsonManagedReference(value="author-movement")
+    @JsonIgnore
+    private Set<Post> ownPosts;
 
     public Long getId() {
         return id;
@@ -67,11 +74,11 @@ public class User {
         return password;
     }
 
-    public List<Event> getEvents() {
+    public Set<Event> getEvents() {
         return events;
     }
 
-    public void setEvents(List<Event> events) {
+    public void setEvents(Set<Event> events) {
         this.events = events;
     }
 
@@ -102,6 +109,18 @@ public class User {
     public UUID getToken() {
         return token;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+//
+//    public Set<Post> getOwnPosts() {
+//        return ownPosts;
+//    }
+//
+//    public void setOwnPosts(Set<Post> ownPosts) {
+//        this.ownPosts = ownPosts;
+//    }
 
     @JsonIgnore
     public Set<Event> getOwnEvents() {
@@ -154,7 +173,6 @@ public class User {
         if (ownEvents != null ? !ownEvents.equals(user.ownEvents) : user.ownEvents != null) return false;
         if (ownSportFields != null ? !ownSportFields.equals(user.ownSportFields) : user.ownSportFields != null)
             return false;
-        if (events != null ? !events.equals(user.events) : user.events != null) return false;
         return token != null ? token.equals(user.token) : user.token == null;
 
     }
@@ -168,7 +186,6 @@ public class User {
         result = 31 * result + (signUpDate != null ? signUpDate.hashCode() : 0);
         result = 31 * result + age;
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        result = 31 * result + (events != null ? events.hashCode() : 0);
         result = 31 * result + (isVerified ? 1 : 0);
         result = 31 * result + (token != null ? token.hashCode() : 0);
         return result;

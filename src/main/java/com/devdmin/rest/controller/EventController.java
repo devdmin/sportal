@@ -3,10 +3,13 @@ package com.devdmin.rest.controller;
 import com.devdmin.core.model.Event;
 
 
+import com.devdmin.core.model.Post;
 import com.devdmin.core.model.User;
 import com.devdmin.core.security.AccountUserDetails;
 import com.devdmin.core.service.EventService;
+import com.devdmin.core.service.UserService;
 import com.devdmin.core.service.util.EventList;
+import com.devdmin.core.service.util.UserList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,7 @@ import java.util.Optional;
 @RestController
 public class EventController {
     private final EventService eventService;
+    private final UserService userService;
 
     @Autowired
     @Qualifier("eventValidator")
@@ -39,15 +43,15 @@ public class EventController {
     }
 
     @Autowired
-    public EventController(EventService eventService) {
+    public EventController(EventService eventService, UserService userService) {
         this.eventService = eventService;
+        this.userService = userService;
     }
 
     @PostMapping("/{sportFieldId}")
     @PreAuthorize("permitAll")
     public ResponseEntity<Event> add(@PathVariable Long sportFieldId, @RequestBody @Valid Event sentEvent, BindingResult result) {
         if(result.hasErrors()){
-            System.out.println(result.toString());
             return new ResponseEntity<Event>(HttpStatus.BAD_REQUEST);
         }else {
             sentEvent.setEventAuthor(getUser());
@@ -80,6 +84,26 @@ public class EventController {
                 .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
     }
 
+
+    @GetMapping("/{id}/author")
+    @PreAuthorize("permitAll")
+    public ResponseEntity<User> getAuthor(@PathVariable Long id){
+        return Optional.ofNullable(eventService.find(id))
+                .map(event -> {
+                    return new ResponseEntity<User>(event.getEventAuthor(), HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<User>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/{id}/participants")
+    public ResponseEntity<UserList> getParticipants(@PathVariable Long id) {
+        return Optional.ofNullable(eventService.find(id))
+                .map(event -> {
+                    return new ResponseEntity<UserList>(new UserList(event.getUsers()), HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<UserList>(HttpStatus.NOT_FOUND));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Event> update(@PathVariable Long id, @RequestBody Event sentEvent){
         return Optional.ofNullable(eventService.find(id))
@@ -100,8 +124,32 @@ public class EventController {
                 .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
     }
 
+    @PostMapping("/{id}/join")
+    @PreAuthorize("permitAll")
+    public ResponseEntity<Event> join(@PathVariable Long id){
+        return Optional.ofNullable(eventService.find(id))
+                .map(event -> {
+                    System.out.println(event);
+                    event = eventService.join(event, userService.find(getUser().getUsername()));
+                    return new ResponseEntity<Event>(event, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
+    }
+
+    @DeleteMapping("/{id}/join")
+    @PreAuthorize("permitAll")
+    public ResponseEntity<Event> signOut(@PathVariable Long id){
+        return Optional.ofNullable(eventService.find(id))
+                .map(event -> {
+                    event = eventService.signOut(event, userService.find(getUser().getUsername()));
+                    return new ResponseEntity<Event>(event, HttpStatus.OK);
+                })
+                .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
+    }
+
+
     public User getUser() {
-        AccountUserDetails user = (AccountUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AccountUserDetails user = (AccountUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user.getUser();
     }
 }

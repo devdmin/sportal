@@ -25,53 +25,54 @@ public class EventCollisionRuleTest {
     private SportField sportField = new SportField();
 
     @Before
-    public void setUp(){
+    public void setUp() {
         Event addedEvent = new Event();
-        addedEvent.setDate(LocalDateTime.of(2018,02,02,12,00));
-        addedEvent.setEndDate(LocalDateTime.of(2018,02,02,14,00));
+        addedEvent.setDate(LocalDateTime.of(2018, 02, 02, 12, 00));
+        addedEvent.setEndDate(LocalDateTime.of(2018, 02, 02, 14, 00));
         sportField.setEvents(new HashSet<Event>(Arrays.asList(addedEvent)));
         event.setSportField(sportField);
     }
 
     @Test
-    public void testWithoutCollision(){
-        event.setDate(LocalDateTime.of(2018,02,02,14,00));
-        event.setEndDate(LocalDateTime.of(2018,02,02,16,00));
+    public void testWithoutCollision() {
+        event.setDate(LocalDateTime.of(2018, 02, 02, 14, 00));
+        event.setEndDate(LocalDateTime.of(2018, 02, 02, 16, 00));
 
         assertTrue(rule.validateAdding(event, user));
 
-        event.setDate(LocalDateTime.of(2018,02,02,10,00));
-        event.setEndDate(LocalDateTime.of(2018,02,02,12,00));
+        event.setDate(LocalDateTime.of(2018, 02, 02, 10, 00));
+        event.setEndDate(LocalDateTime.of(2018, 02, 02, 12, 00));
 
         assertTrue(rule.validateAdding(event, user));
 
-        event.setDate(LocalDateTime.of(2018,02,02,18,00));
-        event.setEndDate(LocalDateTime.of(2018,02,02,20,00));
+        event.setDate(LocalDateTime.of(2018, 02, 02, 18, 00));
+        event.setEndDate(LocalDateTime.of(2018, 02, 02, 20, 00));
 
         assertTrue(rule.validateAdding(event, user));
     }
 
     @Test
-    public void testWithCollision(){
-        event.setDate(LocalDateTime.of(2018,02,02,12,00));
-        event.setEndDate(LocalDateTime.of(2018,02,02,16,00));
+    public void testWithCollision() {
+        event.setDate(LocalDateTime.of(2018, 02, 02, 12, 00));
+        event.setEndDate(LocalDateTime.of(2018, 02, 02, 16, 00));
 
         assertFalse(rule.validateAdding(event, user));
 
-        event.setDate(LocalDateTime.of(2018,02,02,10,00));
-        event.setEndDate(LocalDateTime.of(2018,02,02,12,30));
+        event.setDate(LocalDateTime.of(2018, 02, 02, 10, 00));
+        event.setEndDate(LocalDateTime.of(2018, 02, 02, 12, 30));
 
         assertFalse(rule.validateAdding(event, user));
 
-        event.setDate(LocalDateTime.of(2018,02,02,12,00));
-        event.setEndDate(LocalDateTime.of(2018,02,02,14,30));
+        event.setDate(LocalDateTime.of(2018, 02, 02, 12, 00));
+        event.setEndDate(LocalDateTime.of(2018, 02, 02, 14, 30));
 
         assertFalse(rule.validateAdding(event, user));
 
-        event.setDate(LocalDateTime.of(2018,02,02,12,00));
-        event.setEndDate(LocalDateTime.of(2018,02,02,14,00));
+        event.setDate(LocalDateTime.of(2018, 02, 02, 12, 00));
+        event.setEndDate(LocalDateTime.of(2018, 02, 02, 14, 00));
 
         assertFalse(rule.validateAdding(event, user));
+
     }
 
 

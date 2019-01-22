@@ -4,6 +4,7 @@ import com.devdmin.core.model.SportField;
 import com.devdmin.core.model.User;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public interface UserService {
@@ -14,7 +15,7 @@ public interface UserService {
     User addUser(User user);
     User update(Long id, User user);
     User delete(Long id);
-    List<User> findAll();
+    Set<User> findAll();
     void authorizeUser(UUID token);
     SportField addSportField(SportField sportField, User user);
     User getLoggedUser();

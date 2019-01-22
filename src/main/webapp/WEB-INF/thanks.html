@@ -59,55 +59,8 @@
             </div>
         </div>
     </nav>
-    <div class="row" ng-controller="EventInfoCtrl">
-        <div class="col-xs-12 col-sm-2 col-lg-2"></div>
-        <div class="col-xs-12 col-sm-8 col-lg-8">
-                <h2>Wydarzenie</h2>
-            <table class="table">
-              <tr>
-                    <td>Data:</td>
-                    <td>{{event.date | date:'yyyy-MM-dd' }}</td>
-                </tr>
-                 <tr>
-                    <td>Godzina:</td>
-                    <td>{{event.date | date:'HH:mm' }}-{{event.endDate | date:'HH:mm' }}</td>
-                </tr>
-                <tr>
-                    <td>Ograniczenia wiekowe:</td>
-                    <td>{{event.minAge}}-{{event.maxAge}}</td>
-                </tr>
-                <tr>
-                    <td>Organizator:</td>
-                    <td><a href="/user/{{event.author.username}}">{{event.author.username}}</a></td>
-                </tr>
-                <tr>
-                    <td>Miejsce:</td>
-                    <td><a href="https://www.google.pl/maps/place/{{sportField.lat}},{{sportField.lng}}" target="_blank">Link</a></td>
-                </tr>
-            </table>
-           
-            <a ng-show="nonParticipant" ng-click="join()" class="btn btn-block btn-lg btn-primary">Zapisz mnie</a>
-            <a ng-show="participant" ng-click="signOut()" class="btn btn-block btn-lg btn-danger">Wypisz mnie</a>
-            <a ng-show="wrong" class="btn btn-block btn-lg btn-disabled">Nie spełniasz warunków</a>
-            
-            <h3>Uczestnicy</h3>
-            <table class="table">
-                <thead>
-                        <tr>
-                            <th>Nazwa użytkownika</th>
-                            <th>Wiek</th>
-                        </tr>
-                </thead>
-                <tbody>
-                        <tr ng-repeat="user in event.users.userList | filter:searchByTime(timeCriteria) | orderBy: 'date' ">
-                            <td><a href="/user/{{user.username}}">{{user.username}}</a></td>
-                            <td>{{user.age}}</td>
-                        </tr>
-                </tbody>
-            </table>
-               
-        </div>
-        <div class="col-xs-12 col-sm-2 col-lg-2"></div>
+    <div class="row">
+        <h1>Dziękujemy za dodanie boiska ! Boisko zostanie dodane, jeżeli przejdzie przez proces weryfikacji !</h1>
     </div>
 </body>
 

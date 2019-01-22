@@ -83,6 +83,16 @@ public class MainController {
         return "event";
     }
 
+    @RequestMapping(value = "/sportfieldsuccess", method = RequestMethod.GET)
+    public String sportfieldsuccess() {
+        return "thanks";
+    }
+
+    @RequestMapping(value = "/sportfielderror", method = RequestMethod.GET)
+    public String sportfielderror() {
+        return "sportfield_adding_error";
+    }
+
     @RequestMapping(value = "/user/{user}", method = RequestMethod.GET)
     @PreAuthorize("hasRole('ROLE_USER')")
     public String user(){return "user"; }

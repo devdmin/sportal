@@ -2,6 +2,7 @@ package com.devdmin.core.model;
 
 import com.devdmin.core.model.util.SportFieldType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
