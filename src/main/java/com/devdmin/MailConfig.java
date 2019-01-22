@@ -15,8 +15,8 @@ public class MailConfig {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
-        mailSender.setUsername("");
-        mailSender.setPassword("");
+        mailSender.setUsername("sportalactivation@gmail.com");
+        mailSender.setPassword("cbf1c96cbf1c96");
         mailSender.setJavaMailProperties(getMailProperties());
 
         return mailSender;

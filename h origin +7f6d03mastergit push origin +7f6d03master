@@ -1,0 +1,645 @@
+[33mcommit c7bea9dbd7826b3e84d7a6ecbb6ed23fcb54333d[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Tue Jan 22 19:34:12 2019 +0100
+
+    posting added
+
+[33mcommit bc7292fafa28a6de88be7b264eade02f111888e9[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Tue Jan 22 19:07:10 2019 +0100
+
+    adding posts added (api)
+
+[33mcommit c0f9ccefd06b7abd3e9e9043668ec8a846a73c0c[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Tue Jun 19 14:10:42 2018 +0200
+
+    added failing tests
+
+[33mcommit b046e07068cdbc236ab651895f72b111ad3199f3[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Mon Jun 18 18:54:58 2018 +0200
+
+    improved adding events
+
+[33mcommit a9581935e58895998e5a00bf261a2a0c9b815631[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Thu Jun 7 17:22:16 2018 +0200
+
+    changed Coords Validation Rule
+
+[33mcommit 9f4d01e6164085d2f7294c8505c74af19ad1b076[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Thu Jun 7 12:44:23 2018 +0200
+
+    refactored GeoService
+
+[33mcommit 9335b3104ebc9f0568b1ad3117ab8bd254ea421b[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Wed Jun 6 23:05:57 2018 +0200
+
+    added GeoService
+
+[33mcommit 5ff896fbec9e21ef287f43d20ecacb783562166c[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Wed Jun 6 22:29:34 2018 +0200
+
+    refactored tests
+
+[33mcommit 673e820687214b8323ba7cf5303b99ed43351eb0[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Wed May 23 21:26:14 2018 +0200
+
+    refactored tests
+
+[33mcommit 6753bcdcf487d781f3fe72ff33a58a3b30a59a11[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Wed May 23 11:06:42 2018 +0200
+
+    implemented equals and hashcode method java
+
+[33mcommit 9f79b9665e070f7ddf66eb0051d70cbf60c99e79[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Tue May 22 21:23:28 2018 +0200
+
+    implemented equals and hashcode method java
+
+[33mcommit ef4073b9049d4d37f98827ffd4981e635af69e83[m
+Merge: ceb5f1f e2c0e1d
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Tue Apr 17 21:00:20 2018 +0200
+
+    Merge branch 'master' of https://github.com/devdmin/sportal into beta
+
+[33mcommit ceb5f1f806992e139b2e780d71ecb5e4bf2ed71d[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Tue Apr 17 21:00:03 2018 +0200
+
+    update
+
+[33mcommit e2c0e1d2c9d05194a1500836d9479130ad09b7f7[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Tue Apr 17 20:57:19 2018 +0200
+
+    Update pom.xml
+
+[33mcommit 15455df7d768f9b9c9c4780892a18275586cbc70[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Tue Dec 26 14:55:34 2017 +0100
+
+    added existing event rule
+
+[33mcommit 43774a9d85e5ca08fb2ead845125f34f1998d92f[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Tue Dec 26 14:22:50 2017 +0100
+
+    added localdate support
+
+[33mcommit a510fc2a2306bd17b40192dd3cce5d07b3218b62[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Mon Dec 18 21:43:00 2017 +0100
+
+    Added SportField Validator test
+
+[33mcommit 8566385413c52ac17a59165aae13dcda4dd7c277[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Sun Dec 17 22:25:43 2017 +0100
+
+    added sportfield validator
+
+[33mcommit 0b78e1d1b35b5265ffef2eed207d3c278f8f492b[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Sat Dec 16 14:25:51 2017 +0100
+
+    cleaned user model
+
+[33mcommit de1fa71edc3b8b9e086fd496ce158540fca6f4df[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Sat Dec 16 12:32:23 2017 +0100
+
+    fixed tests errors
+
+[33mcommit 03d40e5b59b9a59266276da2892a399a588cd86e[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Fri Dec 1 18:49:50 2017 +0100
+
+    added DateTimePicker
+
+[33mcommit 35073bf0403e3bcce02c8bc8366b9e1206d987f1[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Wed Nov 29 21:54:44 2017 +0100
+
+    Added DateTimePicker
+
+[33mcommit 4940565e55c982d86e75f3965ce56a19037d367c[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Thu Nov 9 20:13:02 2017 +0100
+
+    added filter by time
+
+[33mcommit d49539c74f4461527f72c14367aee1da37913877[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Sun Nov 5 11:18:43 2017 +0100
+
+    Added stats
+
+[33mcommit e0248aab76970a15d1560d8016ccaf9b087055e3[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Thu Oct 26 22:05:53 2017 +0200
+
+    added saving logging in database
+
+[33mcommit aa67089eb969f32d913528b056b73a85235844a0[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Thu Oct 26 19:57:35 2017 +0200
+
+    added login counter
+
+[33mcommit 164427a1cf4ac73d0904afabbfb2c088a4801c39[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Wed Oct 25 13:59:08 2017 +0200
+
+    added verification
+
+[33mcommit 2cc1997aab856dcd21375f9bd5444c909983186c[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Tue Oct 24 21:15:01 2017 +0200
+
+    added service function in app.js
+
+[33mcommit 60f03d82180469aaf8481b421b7b9d08a7aee3b6[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Mon Oct 23 11:55:45 2017 +0200
+
+    added admin panel
+
+[33mcommit c1e2453052a4a6917f2110c2c88df2ad5d641948[m
+Merge: 814114f 7dab59f
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Mon Oct 23 10:14:08 2017 +0200
+
+    Merge branch 'beta' of https://bitbucket.org/devdmin/sportal into beta
+
+[33mcommit 814114fea6dad7560e51c799c9668d3eefd80148[m
+Merge: 3a38bec a1cbd12
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Mon Oct 23 10:10:25 2017 +0200
+
+    Merge remote-tracking branch 'origin' into beta
+
+[33mcommit 7dab59fb857579f401d4bd5bede13007bd8fb358[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Sun Oct 22 21:19:53 2017 +0200
+
+    fixed bugs
+
+[33mcommit f7e7368a717c0330d3b7e05961502f8f0ff0229b[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Sat Oct 21 23:04:26 2017 +0200
+
+    added translating values
+
+[33mcommit 0142283c8958b94a45c77edf0ccc65be74ad2fd2[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Sat Oct 21 14:23:05 2017 +0200
+
+    fixed bug
+
+[33mcommit 7197660a3d2d402f55c950c864c5a0fda6e9866b[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Fri Oct 20 18:53:59 2017 +0200
+
+    added validator test
+
+[33mcommit d33dc7ec2751a3f81c8f1d8dda5b217253db1e01[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Fri Oct 20 16:04:27 2017 +0200
+
+    added business event validator
+
+[33mcommit 90a664642cfe1bcf1898af4ffb428698be860e38[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Thu Oct 19 19:33:17 2017 +0200
+
+    added event business validator
+
+[33mcommit 3090364a04ee233d09cab04d284b547c92f36811[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Wed Oct 18 20:49:42 2017 +0200
+
+    fixed limit adding
+
+[33mcommit cda523c365c78032c04b19875846ac3902f5ac33[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Wed Oct 18 20:32:46 2017 +0200
+
+    added business rule (daily limit) - sportfield
+
+[33mcommit 088ae3ec03750875b81a8b1f06e9934a6cbc5b6f[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Wed Oct 18 19:50:30 2017 +0200
+
+    added limiting adding sportfields
+
+[33mcommit 0e2d8bcbb4988b7b9027379c4037dba6c9dab01c[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Wed Oct 18 19:31:53 2017 +0200
+
+    added user service test
+
+[33mcommit 34cd32e719daaec6e4af9e6d09b5491e91ee5049[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Wed Oct 18 16:39:16 2017 +0200
+
+    fixed a problem with one to many
+
+[33mcommit 1d1c1a8a15d4f8317860eb5e3ec3a039aa18b2ae[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Wed Oct 18 13:27:52 2017 +0200
+
+    fixed map input
+
+[33mcommit 3a38bec6b5efe12a9571e58690beb6368e5409c5[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Tue Oct 17 21:26:36 2017 +0200
+
+    TO DO  - Limit adding sportfield per day
+
+[33mcommit dfb8cbc7480a10f9354f52c0069527dd912761e7[m
+Author: Damian Ujma <devdmin@protonmail.ch>
+Date:   Sun Oct 15 14:25:29 2017 +0200
+
+    Adding sportfield to user
+
+[33mcommit 5e9a35a710d42fcb186876f16ca917333e95f289[m
+Author: damian <leginwrocks@gmail.com>
+Date:   Sat Oct 7 13:09:57 2017 +0200
+
+    Validator, Rules, Captcha added
+
+[33mcommit e37eb9bc99c1eb4dcec79108f2fc7fff118de4bd[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Apr 15 17:11:00 2017 +0200
+
+    change navbar
+
+[33mcommit f22b708db65b1c5cac6db94e4474bf8c073d99f9[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Apr 15 13:41:28 2017 +0200
+
+    add new event controller test
+
+[33mcommit 5109cf52bbdbda4ee9c362c0c871621d5c75638a[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Wed Apr 12 20:45:36 2017 +0200
+
+    adding sportfields fixed
+
+[33mcommit 6105e0590b6168e4482184fad0103aded14da47b[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Mar 25 16:03:41 2017 +0100
+
+    cleaned code - sending emails
+
+[33mcommit 3c1858cf823c2c2f21ebec092c850a301a8ec07b[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Mar 18 20:54:52 2017 +0100
+
+    fixed map, improved links
+
+[33mcommit d12a8c972fa039e520bbb01c294646baa768d69c[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Mar 18 13:08:11 2017 +0100
+
+    logout method added
+
+[33mcommit e1fb29c4eedc3c711402a250e220a06ff9a2f37b[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Fri Mar 17 19:11:06 2017 +0100
+
+    fixed dashboard
+
+[33mcommit 3ac294646d82bd585d8d0f888eeab145cb486f45[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Fri Mar 17 18:24:54 2017 +0100
+
+    current user get method
+
+[33mcommit b19756b8befd5d115bd6f221ec5f229e86dffc72[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Mar 11 14:10:30 2017 +0100
+
+    deafult admin account added
+
+[33mcommit 46fcb8d1dc4a5ba478bede056f741dbbcd0497be[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Mar 11 11:54:55 2017 +0100
+
+    authorization by token added
+
+[33mcommit 6c8bce62ee1a81e60db37bd750fb3c1514a02093[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Fri Mar 10 21:07:36 2017 +0100
+
+    mail cofigured
+
+[33mcommit beb3a15304616ca12e87c8f36dafb2916734befb[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Mar 10 20:45:40 2017 +0100
+
+    poland map coordinates replaced with more accurate
+
+[33mcommit 3c03675de7da1caa7e3ce34afbca791f75669666[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Mar 10 20:43:10 2017 +0100
+
+    moved search input out of map
+
+[33mcommit c44d7757c20e6ba74973c09d5a56973a2a14324d[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Mar 10 20:42:13 2017 +0100
+
+    search input fixed
+
+[33mcommit 4274992204370ad337ead23d2296051ede977b82[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Mar 10 20:40:29 2017 +0100
+
+    replaced bad resources urls
+
+[33mcommit 92a3631582c0ead4fca0842e10f8cabb5848c3db[m
+Merge: cd7d8f8 33f9c52
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Mar 10 20:38:16 2017 +0100
+
+    Merge remote-tracking branch 'origin/beta' into beta
+
+[33mcommit cd7d8f84818e1aef3ab90fa4852ca9dee1fadcf6[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Mar 10 20:37:35 2017 +0100
+
+    Edited map page
+
+[33mcommit 33f9c5206d76d29dacfa61f1a95a4432b91b0415[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Fri Mar 10 19:31:24 2017 +0100
+
+    fixed css links
+
+[33mcommit 56e57426ca4e11f8e8472d4d1f150af13b7f5789[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Feb 18 11:53:39 2017 +0100
+
+    Event validator tests added
+
+[33mcommit b4cd923bf0f4fee28bf534924ab9589931028d78[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Fri Feb 17 17:56:05 2017 +0100
+
+    event validation
+
+[33mcommit 891dc954804b2e6eb423cdc58db043654d3d2131[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Mon Feb 13 21:08:19 2017 +0100
+
+    sportfield CRUD controller methods test added
+
+[33mcommit 2738f8b364a0532461d361f937c816ed691f154e[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sun Feb 12 20:24:23 2017 +0100
+
+    Sportfield controller test added
+
+[33mcommit 2f101862f9bd6094ff9d289b5155e635cf3705b1[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sun Feb 12 19:11:41 2017 +0100
+
+    CRUD method to event and sportfield controllers added
+
+[33mcommit 84e018709959dde9a668f467e16022fe020a7c8e[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sun Feb 12 14:48:16 2017 +0100
+
+    finding events by sportfield ids added
+
+[33mcommit 9de2552addf38e4a0381cfd11b8a65e00433fa59[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Feb 11 21:32:03 2017 +0100
+
+    test sportfield relations with event and user
+
+[33mcommit bcb5a4594006c4397399333e12cdde0e02b266f2[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Feb 11 15:58:10 2017 +0100
+
+    new way of formatting Java Time objects added
+
+[33mcommit 8a2821e87fc19b5da3ef3158ae8fb7f85a2f6a6c[m
+Merge: a93a1f4 f525b73
+Author: dawnap <dawnap24@gmail.com>
+Date:   Sat Feb 11 13:16:31 2017 +0100
+
+    Merge remote-tracking branch 'origin/beta' into beta
+
+[33mcommit f525b730024afc6f209a4fae8ae4249963c818f7[m
+Merge: 33fafce ac2d0d3
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Feb 11 13:08:57 2017 +0100
+
+    Merge remote-tracking branch 'origin/master' into beta
+    
+    # Conflicts:
+    #       README.md
+
+[33mcommit 33fafcee6667ea1466d6be9470a22cf2911a7335[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Feb 11 13:07:01 2017 +0100
+
+    sportfield repository test, event repository test, logger added
+
+[33mcommit a93a1f40bc0d5a7684b6cc16d4cd042fc82ba417[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Sat Feb 11 11:29:19 2017 +0100
+
+    replaced js and css links in html files
+
+[33mcommit a1cbd12342c10ef87f28b19fcf767430bf5bface[m
+Author: Dawid Napora <dawnap24@gmail.com>
+Date:   Fri Feb 10 22:03:23 2017 +0000
+
+    README.md edited online with Bitbucket
+
+[33mcommit ac2d0d31495fc9809a42f340086b9d0dff1f1c92[m
+Author: Dawid Napora <dawnap24@gmail.com>
+Date:   Fri Feb 10 22:03:01 2017 +0000
+
+    README.md edited online with Bitbucket
+
+[33mcommit 90fda1e7113c7a59c3a9c84243593baf148fa586[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Feb 10 22:59:54 2017 +0100
+
+    index.html improvement
+
+[33mcommit 40d218d24c027e49aba2bc97a6aabc01ab0af5e5[m
+Author: Dawid Napora <dawnap24@gmail.com>
+Date:   Fri Feb 10 21:57:37 2017 +0000
+
+    README.md edited online with Bitbucket
+
+[33mcommit 1c030d6843853b102894cd0086a755339123ef94[m
+Author: Dawid Napora <dawnap24@gmail.com>
+Date:   Fri Feb 10 21:54:46 2017 +0000
+
+    README.md edited online with Bitbucket
+
+[33mcommit 7a74c3aff137489efd728720db0a5105ba8d77d8[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Feb 10 22:32:36 2017 +0100
+
+    smoothed pin icon
+
+[33mcommit eb056540c21d957cf468a3a9b44ee43a3740dd33[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Feb 10 22:21:26 2017 +0100
+
+    added svg icons
+
+[33mcommit b0b7ce31bc442a3e922806ceff171559d5b88240[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Feb 10 18:45:06 2017 +0100
+
+    old bootstrap js files removed
+
+[33mcommit 10d9156ed0d037d60160a35f70ffbc308823695e[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Feb 10 18:42:10 2017 +0100
+
+    old bootstrap fonts removed
+
+[33mcommit fc0fab6e87d9db5fa6df5ce9493e44027f7fc339[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Fri Feb 10 18:40:13 2017 +0100
+
+    bootstrap moved
+
+[33mcommit 75670dd0db59886c830011e3c0bac7a8e5013e16[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Fri Feb 10 17:57:53 2017 +0100
+
+    added EventService, UserRepositoryTest
+
+[33mcommit 502f3dde3e65a32d1d6e6df5c433c422c6cd216e[m
+Merge: 3198f69 daac981
+Author: dawnap <dawnap24@gmail.com>
+Date:   Thu Feb 9 22:32:01 2017 +0100
+
+    Merge remote-tracking branch 'origin/beta' into beta
+
+[33mcommit 3198f69a382df35c6450c1e42dab4299776bf6c2[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Thu Feb 9 22:30:01 2017 +0100
+
+    0.0.2
+
+[33mcommit daac9810cc45ea82fd87ba2fa46b2124fa1b19cc[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Thu Feb 9 20:45:27 2017 +0100
+
+    fix app.js
+
+[33mcommit fb9f16f5bebe84a2fd6701e1184a65dcd0849882[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Thu Feb 9 20:31:04 2017 +0100
+
+    fix
+
+[33mcommit f89b5f7e580dd424388f4373df831bfd87598ba2[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Thu Feb 9 19:51:31 2017 +0100
+
+    README UPDATE
+
+[33mcommit af650bd01cef3e50d381658f915ab447fa2059d3[m
+Author: dawnap <dawnap24@gmail.com>
+Date:   Thu Feb 9 19:48:30 2017 +0100
+
+    0.0.1
+
+[33mcommit 394b79a0a0d169e7ea06a8927b2d1dbb35c93fdc[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Thu Feb 9 18:32:14 2017 +0100
+
+    event service added
+
+[33mcommit 2d3441e46e0173ec61cdb942c444b07bb20e6947[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Mon Feb 6 16:32:09 2017 +0100
+
+    adding new sportfields
+
+[33mcommit 132affdd99345ad2e0e7fab683b2d6bb7159e136[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Tue Jan 17 20:00:21 2017 +0100
+
+    sportfield form
+
+[33mcommit e4429f3a1c35da04f653487c3682ee805675f8bf[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Mon Jan 16 11:47:05 2017 +0100
+
+    Map
+
+[33mcommit 67e689996d8d188ff1e72bb0033cfcb7d984bd36[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Fri Jan 6 18:18:16 2017 +0100
+
+    session service
+
+[33mcommit 286d1e53f7d528432f7d6f3d55f3046f29d4cb56[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Tue Dec 27 17:57:00 2016 +0100
+
+    sportfield service
+
+[33mcommit 9e24c0b9d7bcad5ef4733078fff0135e136e58f1[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Thu Dec 22 21:30:00 2016 +0100
+
+    frontend
+
+[33mcommit e44c7088c916ac4ef7d2a249da762286679bb63a[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Thu Dec 15 17:52:01 2016 +0100
+
+    tested validator
+
+[33mcommit 11b4d70c1195492c0ed82bff95d8f010ca506438[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Mon Dec 12 18:52:11 2016 +0100
+
+    tested validation
+
+[33mcommit f928532b3dbc7ee6bd7eab06a256ab53409fc050[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sat Dec 10 21:46:26 2016 +0100
+
+    Test
+
+[33mcommit a461140f28b5e2856d8798dc13f83aed8c91183d[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Fri Dec 2 22:22:44 2016 +0100
+
+    user validator to do
+
+[33mcommit 1c4b0a30cac40e2e2b30ab6da18212a47c3a65e0[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sun Nov 27 17:17:42 2016 +0100
+
+    improve user controller
+
+[33mcommit 853ef60b5275fcae64a7517bc861e980aa05b8b7[m
+Author: devdmin <devdmin@protonmail.ch>
+Date:   Sun Nov 27 12:16:38 2016 +0100
+
+    Initial commit
