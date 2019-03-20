@@ -18,12 +18,6 @@ public class UserDto {
 
     private Gender gender;
 
-    private Set<EventDto> ownEvents;
-
-    private Set<SportFieldDto> ownSportFields;
-
-
-
     public Long getId() {
         return id;
     }
@@ -71,22 +65,4 @@ public class UserDto {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
-
-    public Set<EventDto> getOwnEvents() {
-        return ownEvents;
-    }
-
-    public void setOwnEvents(Set<EventDto> ownEvents) {
-        this.ownEvents = ownEvents;
-    }
-
-    public Set<SportFieldDto> getOwnSportFields() {
-        return ownSportFields;
-    }
-
-    public void setOwnSportFields(Set<SportFieldDto> ownSportFields) {
-        this.ownSportFields = ownSportFields;
-    }
-
-
-   }
+}

@@ -8,6 +8,8 @@ import com.devdmin.rest.controller.dto.converter.BaseConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class DefaultSporfFieldDomainConverter implements BaseConverter<SportField, SportFieldDto> {
 
@@ -21,6 +23,7 @@ public class DefaultSporfFieldDomainConverter implements BaseConverter<SportFiel
         sportFieldDto.setLat(sportField.getLat());
         sportFieldDto.setLng(sportField.getLng());
         sportFieldDto.setType(sportField.getType());
+        if(Optional.ofNullable(sportField.getEvents()).isPresent())
         sportFieldDto.setEvents(eventDomainConverter.convertAll(sportField.getEvents()));
         return sportFieldDto;
     }

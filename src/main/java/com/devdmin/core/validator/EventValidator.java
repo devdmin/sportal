@@ -7,6 +7,7 @@ import com.devdmin.core.service.EventService;
 import com.devdmin.core.service.SportFieldService;
 import com.devdmin.core.service.UserService;
 import com.devdmin.core.validator.rules.Rule;
+import com.devdmin.rest.controller.dto.EventDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -17,7 +18,7 @@ import java.util.List;
 
 /**
  * This class provides a implementation of the {@link Validator}
- * interface for {@link Event} forms
+ * interface for {@link EventDto} forms
  *
  * @author Damian Ujma
  */
@@ -25,18 +26,18 @@ import java.util.List;
 public class EventValidator implements Validator {
 
     @Autowired
-    private List<Rule<Event>> rules;
+    private List<Rule<EventDto>> rules;
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return Event.class.equals(aClass);
+        return EventDto.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        Event event = (Event) o;
+        EventDto event = (EventDto) o;
 
-        for(Rule<Event> rule : rules){
+        for(Rule<EventDto> rule : rules){
             rule.validate(event,errors);
         }
     }

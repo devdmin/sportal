@@ -4,8 +4,10 @@ package com.devdmin.rest.controller;
 import com.devdmin.core.model.User;
 
 import com.devdmin.core.service.UserService;
-import com.devdmin.core.service.util.UserList;
+import com.devdmin.core.service.util.UserDtoList;
 import com.devdmin.rest.controller.dto.UserDto;
+import com.devdmin.rest.controller.dto.converter.BaseConverter;
+import com.devdmin.rest.controller.dto.converter.dto.DeafultUserDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -44,59 +46,67 @@ public class UserController {
     }
 
 
+    @Autowired
+    private BaseConverter<User, UserDto> userDomainConverter;
+
+    @Autowired
+    private BaseConverter<UserDto, User> userDtoConverter;
+
     @PostMapping()
     @PreAuthorize("permitAll")
     public ResponseEntity<UserDto> add(@RequestBody @Valid UserDto sentUser, BindingResult result) {
+        System.out.println("OO" + userDtoConverter.toString());
         if (result.hasErrors()) {
 
             return new ResponseEntity<UserDto>(HttpStatus.BAD_REQUEST);
         } else {
-            userService.addUser(sentUser.toUserDomain());
+            System.out.println("XD " + userDtoConverter.convert(new UserDto()).toString());
+            userService.addUser(userDtoConverter.convert(sentUser));
             return new ResponseEntity<UserDto>(sentUser, HttpStatus.CREATED);
         }
     }
 
     @GetMapping
     @PreAuthorize("permitAll")
-    public ResponseEntity<UserList> findAll(){
-        UserList userList = new UserList(userService.findAll());
-        return new ResponseEntity<UserList>(userList, HttpStatus.OK);
+    public ResponseEntity<UserDtoList> findAll(){
+        UserDtoList userList = new UserDtoList(userDomainConverter.convertAll(userService.findAll()));
+        return new ResponseEntity<UserDtoList>(userList, HttpStatus.OK);
     }
 
     @GetMapping("/{username}")
     @PreAuthorize("permitAll")
-    public ResponseEntity<User> get(@PathVariable String username) {
+    public ResponseEntity<UserDto> get(@PathVariable String username) {
         return Optional.ofNullable(userService.find(username))
                 .map(user -> {
-                    return new ResponseEntity<User>(user, HttpStatus.OK);
+                    return new ResponseEntity<UserDto>(userDomainConverter.convert(user), HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<User>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<UserDto>(HttpStatus.NOT_FOUND));
     }
 
 
     @PutMapping("/{username}")
-    public ResponseEntity<User> update(@PathVariable String username, @RequestBody @Valid User sentUser){
+    public ResponseEntity<UserDto> update(@PathVariable String username, @RequestBody @Valid User sentUser){
         return Optional.ofNullable(userService.find(username))
                 .map(user -> {
                     User updatedUser = userService.update(user.getId(), sentUser);
-                    return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
+                    return new ResponseEntity<UserDto>(userDomainConverter.convert(updatedUser), HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<User>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<UserDto>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{username}")
-    public ResponseEntity<User> delete(@PathVariable String username){
+    public ResponseEntity<UserDto> delete(@PathVariable String username){
         return Optional.ofNullable(userService.find(username))
                 .map(user -> {
                     userService.delete(user.getId());
-                    return new ResponseEntity<User>(user, HttpStatus.OK);
+                    return new ResponseEntity<UserDto>(userDomainConverter.convert(user), HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<User>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<UserDto>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/user")
-    public ResponseEntity<User> currentUser(){
-        return new ResponseEntity<User>(userService.find(getAccountName()), HttpStatus.OK);
+    public ResponseEntity<UserDto> currentUser(){
+        return new ResponseEntity<UserDto>(userDomainConverter.convert(userService.find(getAccountName())), HttpStatus.OK);
     }
     /**
      * Custom handler for displaying an account name.

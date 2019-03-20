@@ -17,7 +17,6 @@ public class EventDto {
     private int maxAge;
     private int maxMembers;
     private Gender gender;
-    private Set<PostDto> posts;
 
     public Long getId() {
         return id;
@@ -81,14 +80,6 @@ public class EventDto {
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public Set<PostDto> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(Set<PostDto> posts) {
-        this.posts = posts;
     }
 
 }

@@ -7,6 +7,7 @@ import com.devdmin.core.validator.SportFieldValidator;
 import com.devdmin.core.validator.rules.Rule;
 import com.devdmin.core.validator.rules.sportfield.CoordsValidationRule;
 import com.devdmin.core.validator.rules.sportfield.SportFieldFilledFieldsRule;
+import com.devdmin.rest.controller.dto.SportFieldDto;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -30,7 +31,7 @@ public class SportFieldValidatorTest {
     private SportFieldService service;
 
     @Spy
-    private List<Rule<SportField>> rules = new ArrayList<>();
+    private List<Rule<SportFieldDto>> rules = new ArrayList<>();
 
     private Errors errors;
     private SportField sportField;

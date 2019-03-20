@@ -10,6 +10,7 @@ import com.devdmin.rest.controller.dto.converter.BaseConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -29,10 +30,11 @@ public class DefaultEventDtoConverter implements BaseConverter<EventDto, Event> 
         event.setEndDate(eventDto.getEndDate());
         event.setMaxAge(eventDto.getMaxAge());
         event.setMinAge(eventDto.getMinAge());
-        event.setUsers(userConverter.convertAll(eventDto.getUsers()));
+        if(Optional.ofNullable(eventDto.getUsers()).isPresent()) {
+            event.setUsers(userConverter.convertAll(eventDto.getUsers()));
+        }
         event.setMaxMembers(eventDto.getMaxMembers());
         event.setGender(eventDto.getGender());
-        event.setPosts(postConverter.convertAll(eventDto.getPosts()));
         return event;
     }
 }

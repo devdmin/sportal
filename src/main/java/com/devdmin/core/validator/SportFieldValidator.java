@@ -4,6 +4,7 @@ package com.devdmin.core.validator;
 import com.devdmin.core.model.SportField;
 import com.devdmin.core.service.UserService;
 import com.devdmin.core.validator.rules.Rule;
+import com.devdmin.rest.controller.dto.SportFieldDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -22,21 +23,20 @@ import java.util.List;
 @Component
 public class SportFieldValidator implements Validator {
     @Autowired
-    private List<Rule<SportField>> rules;
+    private List<Rule<SportFieldDto>> rules;
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return SportField.class.equals(aClass);
+        return SportFieldDto.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        SportField sportField = (SportField) o;
+        SportFieldDto sportField = (SportFieldDto) o;
 
-        for(Rule<SportField> rule : rules){
+        for(Rule<SportFieldDto> rule : rules){
             rule.validate(sportField, errors);
         }
 
-        System.out.println(errors.toString());
     }
 }

@@ -107,26 +107,6 @@
                     </tr>
                 </table>
         </div>
-<table id="searchTextResults" class="table col-lg-12 table-hover">
-                    <tr>
-                        <th>Data rozpoczęcia</th>
-                        <th>Data zakończenia</th>
-                        <th>Minimalny wiek</th>
-                        <th>Maksymalny wiek</th>
-                        <th>Maksymalna liczba uczestników</th>
-                        <th>Płeć</th>
-                        <th></th>
-                    </tr>
-                    <tr ng-repeat="event in sportField.events | filter:searchByTime(timeCriteria) | orderBy: 'date' " ng-click="redirectToEvent(event.id); wydarzenie=true" style="cursor: pointer;">
-                        <td style="cursor: pointer;">{{event.date | date:'yyyy-MM-dd HH:mm' }}</td>
-                        <td>{{event.endDate | date:'yyyy-MM-dd HH:mm'}}</td>
-
-                        <td>{{event.minAge}}</td>
-                        <td>{{event.maxAge}}</td>
-                        <td>{{event.maxMembers}}</td>
-                        <td>{{event.gender}}</td>
-                    </tr>
-                </table>
         </div>
 
     </div>

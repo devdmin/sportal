@@ -3,6 +3,7 @@ package com.devdmin.core.validator;
 import com.devdmin.core.model.User;
 import com.devdmin.core.service.UserService;
 import com.devdmin.core.validator.rules.Rule;
+import com.devdmin.rest.controller.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -19,20 +20,20 @@ import java.util.List;
 @Component
 public class UserValidator implements Validator {
     @Autowired
-    private List<Rule<User>> rules;
+    private List<Rule<UserDto>> rules;
     @Autowired
     private UserService service;
 
     @Override
     public boolean supports(Class<?> aClass) {
-        return User.class.equals(aClass);
+        return UserDto.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        User user = (User) o;
+        UserDto user = (UserDto) o;
 
-        for(Rule<User> rule : rules){
+        for(Rule<UserDto> rule : rules){
             rule.validate(user, errors);
         }
 

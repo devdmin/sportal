@@ -8,8 +8,12 @@ import com.devdmin.core.model.User;
 import com.devdmin.core.security.AccountUserDetails;
 import com.devdmin.core.service.EventService;
 import com.devdmin.core.service.UserService;
-import com.devdmin.core.service.util.EventList;
-import com.devdmin.core.service.util.UserList;
+import com.devdmin.core.service.util.EventDtoList;
+import com.devdmin.core.service.util.UserDtoList;
+import com.devdmin.rest.controller.dto.EventDto;
+import com.devdmin.rest.controller.dto.PostDto;
+import com.devdmin.rest.controller.dto.UserDto;
+import com.devdmin.rest.controller.dto.converter.BaseConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -34,6 +38,16 @@ public class EventController {
     private final UserService userService;
 
     @Autowired
+    private BaseConverter<Event, EventDto> eventDomainConverter;
+
+    @Autowired
+    private BaseConverter<User, UserDto> userDomainConverter;
+
+
+    @Autowired
+    private BaseConverter<EventDto, Event> eventDtoConverter;
+
+    @Autowired
     @Qualifier("eventValidator")
     private Validator eventValidator;
 
@@ -50,101 +64,101 @@ public class EventController {
 
     @PostMapping("/{sportFieldId}")
     @PreAuthorize("permitAll")
-    public ResponseEntity<Event> add(@PathVariable Long sportFieldId, @RequestBody @Valid Event sentEvent, BindingResult result) {
+    public ResponseEntity<EventDto> add(@PathVariable Long sportFieldId, @RequestBody @Valid EventDto sentEvent, BindingResult result) {
         if(result.hasErrors()){
-            return new ResponseEntity<Event>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<EventDto>(HttpStatus.BAD_REQUEST);
         }else {
-            sentEvent.setEventAuthor(getUser());
-            Event event = eventService.add(sentEvent, sportFieldId);
-            return new ResponseEntity<Event>(event, HttpStatus.CREATED);
+            Event eventDomain = eventDtoConverter.convert(sentEvent);
+            eventDomain.setEventAuthor(getUser());
+            EventDto event = eventDomainConverter.convert(eventService.add(eventDomain, sportFieldId));
+            return new ResponseEntity<EventDto>(event, HttpStatus.CREATED);
         }
     }
 
     @GetMapping
     @PreAuthorize("permitAll")
-    public ResponseEntity<EventList> findAll(){
-        EventList eventList = new EventList(eventService.findAll());
-        return new ResponseEntity<EventList>(eventList, HttpStatus.OK);
+    public ResponseEntity<EventDtoList> findAll(){
+        EventDtoList eventList = new EventDtoList(eventDomainConverter.convertAll(eventService.findAll()));
+        return new ResponseEntity<EventDtoList>(eventList, HttpStatus.OK);
     }
 
     @GetMapping("/sportField/{sportFieldId}")
     @PreAuthorize("permitAll")
-    public ResponseEntity<EventList> findBySportFieldId(@PathVariable Long sportFieldId){
-        EventList eventList = new EventList(eventService.findBySportFieldId(sportFieldId));
-        return new ResponseEntity<EventList>(eventList, HttpStatus.OK);
+    public ResponseEntity<EventDtoList> findBySportFieldId(@PathVariable Long sportFieldId){
+        EventDtoList eventList = new EventDtoList(eventDomainConverter.convertAll(eventService.findBySportFieldId(sportFieldId)));
+        return new ResponseEntity<EventDtoList>(eventList, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("permitAll")
-    public ResponseEntity<Event> get(@PathVariable Long id){
+    public ResponseEntity<EventDto> get(@PathVariable Long id){
         return Optional.ofNullable(eventService.find(id))
                 .map(event -> {
-                    return new ResponseEntity<Event>(event, HttpStatus.OK);
+                    return new ResponseEntity<EventDto>(eventDomainConverter.convert(event), HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<EventDto>(HttpStatus.NOT_FOUND));
     }
 
 
     @GetMapping("/{id}/author")
     @PreAuthorize("permitAll")
-    public ResponseEntity<User> getAuthor(@PathVariable Long id){
+    public ResponseEntity<UserDto> getAuthor(@PathVariable Long id){
         return Optional.ofNullable(eventService.find(id))
                 .map(event -> {
-                    return new ResponseEntity<User>(event.getEventAuthor(), HttpStatus.OK);
+                    return new ResponseEntity<UserDto>(userDomainConverter.convert(event.getEventAuthor()), HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<User>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<UserDto>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/{id}/participants")
-    public ResponseEntity<UserList> getParticipants(@PathVariable Long id) {
+    public ResponseEntity<UserDtoList> getParticipants(@PathVariable Long id) {
         return Optional.ofNullable(eventService.find(id))
                 .map(event -> {
-                    return new ResponseEntity<UserList>(new UserList(event.getUsers()), HttpStatus.OK);
+                    return new ResponseEntity<UserDtoList>(new UserDtoList(userDomainConverter.convertAll(event.getUsers())), HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<UserList>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<UserDtoList>(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Event> update(@PathVariable Long id, @RequestBody Event sentEvent){
+    public ResponseEntity<EventDto> update(@PathVariable Long id, @RequestBody EventDto sentEvent){
         return Optional.ofNullable(eventService.find(id))
                 .map(event -> {
-                    Event updatedEvent = eventService.update(id,sentEvent);
-                    return new ResponseEntity<Event>(updatedEvent, HttpStatus.OK);
+                    EventDto updatedEvent = eventDomainConverter.convert(eventService.update(id, eventDtoConverter.convert(sentEvent)));
+                    return new ResponseEntity<EventDto>(updatedEvent, HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<EventDto>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Event> delete(@PathVariable Long id){
+    public ResponseEntity<EventDto> delete(@PathVariable Long id){
         return Optional.ofNullable(eventService.find(id))
                 .map(event -> {
                     eventService.delete(event.getId());
-                    return new ResponseEntity<Event>(event, HttpStatus.OK);
+                    return new ResponseEntity<EventDto>(eventDomainConverter.convert(event), HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<EventDto>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/{id}/join")
     @PreAuthorize("permitAll")
-    public ResponseEntity<Event> join(@PathVariable Long id){
+    public ResponseEntity<EventDto> join(@PathVariable Long id){
         return Optional.ofNullable(eventService.find(id))
                 .map(event -> {
-                    System.out.println(event);
                     event = eventService.join(event, userService.find(getUser().getUsername()));
-                    return new ResponseEntity<Event>(event, HttpStatus.OK);
+                    return new ResponseEntity<EventDto>(eventDomainConverter.convert(event), HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<EventDto>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/{id}/join")
     @PreAuthorize("permitAll")
-    public ResponseEntity<Event> signOut(@PathVariable Long id){
+    public ResponseEntity<EventDto> signOut(@PathVariable Long id){
         return Optional.ofNullable(eventService.find(id))
                 .map(event -> {
                     event = eventService.signOut(event, userService.find(getUser().getUsername()));
-                    return new ResponseEntity<Event>(event, HttpStatus.OK);
+                    return new ResponseEntity<EventDto>(eventDomainConverter.convert(event), HttpStatus.OK);
                 })
-                .orElse(new ResponseEntity<Event>(HttpStatus.NOT_FOUND));
+                .orElse(new ResponseEntity<EventDto>(HttpStatus.NOT_FOUND));
     }
 
 

@@ -3,9 +3,7 @@ package com.devdmin.core.service;
 import com.devdmin.core.model.Event;
 import com.devdmin.core.model.Post;
 import com.devdmin.core.model.User;
-import com.devdmin.core.service.util.PostList;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 

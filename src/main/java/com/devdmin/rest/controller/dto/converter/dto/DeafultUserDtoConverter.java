@@ -25,8 +25,7 @@ public class DeafultUserDtoConverter implements BaseConverter<UserDto, User> {
         user.setEmail(userDto.getPassword());
         user.setGender(userDto.getGender());
         user.setAge(userDto.getAge());
-        user.setOwnEvents(eventDtoConverter.convertAll(userDto.getOwnEvents()));
-        user.setOwnSportFields(sportFieldDtoConverter.convertAll(userDto.getOwnSportFields()));
+
         return user;
     }
 }

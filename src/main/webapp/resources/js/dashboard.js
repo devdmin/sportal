@@ -23,9 +23,8 @@ var dashboard = angular.module("dashboard", ['sportal', 'ui.bootstrap.datetimepi
                 $scope.sportField = $filter('filter')(sportFields, {
                     id: sportFieldId
                 })[0];
-              
+                console.log($scope.sportField.events);
                 $scope.sportField.events.forEach(function (entry) {
-                 
                     if(Array.isArray(entry.date)){
                     entry.date = eventFormService.convertArrayToDate(entry.date);
                     entry.endDate = eventFormService.convertArrayToDate(entry.endDate);

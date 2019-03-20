@@ -8,6 +8,8 @@ import com.devdmin.rest.controller.dto.converter.BaseConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class DefaultPostDtoConverter implements BaseConverter<PostDto, Post> {
 
@@ -18,7 +20,9 @@ public class DefaultPostDtoConverter implements BaseConverter<PostDto, Post> {
         Post post = new Post();
         post.setId(postDto.getId());
         post.setText(postDto.getText());
-        post.setAuthor(userDtoConverter.convert(postDto.getAuthor()));
+        if(Optional.ofNullable(postDto.getAuthor()).isPresent()) {
+            post.setAuthor(userDtoConverter.convert(postDto.getAuthor()));
+        }
         post.setDate(postDto.getDate());
         return post;
     }

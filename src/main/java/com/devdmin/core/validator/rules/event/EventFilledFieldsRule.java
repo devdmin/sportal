@@ -2,6 +2,7 @@ package com.devdmin.core.validator.rules.event;
 
 import com.devdmin.core.model.Event;
 import com.devdmin.core.validator.rules.Rule;
+import com.devdmin.rest.controller.dto.EventDto;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -9,10 +10,10 @@ import org.springframework.validation.ValidationUtils;
 import java.lang.reflect.Field;
 
 @Component
-public class EventFilledFieldsRule implements Rule<Event> {
+public class EventFilledFieldsRule implements Rule<EventDto> {
 
     @Override
-    public void validate(Event regData, Errors errors) {
+    public void validate(EventDto regData, Errors errors) {
 
         ValidationUtils.rejectIfEmpty(errors, "gender", "gender.empty");
         ValidationUtils.rejectIfEmpty(errors, "minAge", "minAge.empty");

@@ -1,6 +1,5 @@
 package com.devdmin.core.service.impl;
 
-import com.devdmin.core.businessvalidator.BusinessRule;
 import com.devdmin.core.businessvalidator.BusinessValidator;
 import com.devdmin.core.model.Event;
 import com.devdmin.core.model.Post;
@@ -11,14 +10,11 @@ import com.devdmin.core.repository.PostRespository;
 import com.devdmin.core.repository.SportFieldRepository;
 import com.devdmin.core.repository.UserRepository;
 import com.devdmin.core.service.EventService;
-import com.devdmin.core.service.UserService;
-import com.devdmin.core.service.exceptions.DateException;
-import com.devdmin.core.service.util.PostList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service

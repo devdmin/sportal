@@ -4,8 +4,6 @@ import com.devdmin.core.model.Event;
 import com.devdmin.core.model.Post;
 import com.devdmin.core.security.AccountUserDetails;
 import com.devdmin.core.service.EventService;
-import com.devdmin.core.service.util.EventList;
-import com.devdmin.core.service.util.PostList;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -48,7 +46,7 @@ public class PostControllerTest {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .build();
-            }
+    }
     @Test
     public void addPost() throws Exception{
 

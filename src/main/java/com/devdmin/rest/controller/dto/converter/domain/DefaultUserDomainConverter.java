@@ -24,8 +24,6 @@ public class DefaultUserDomainConverter implements BaseConverter<User, UserDto> 
         userDto.setAge(user.getAge());
         userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
-        userDto.setOwnEvents(eventDomainConverter.convertAll(user.getOwnEvents()));
-        userDto.setOwnSportFields(sportFieldDomainConverter.convertAll(user.getOwnSportFields()));
         return userDto;
     }
 }
