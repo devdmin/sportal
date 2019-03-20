@@ -50,7 +50,7 @@ public class User {
     private UUID token;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true)
-    @JsonManagedReference(value="author-movement")
+    @JsonBackReference(value="author-movement")
     @JsonIgnore
     private Set<Post> ownPosts;
 
@@ -113,7 +113,20 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-//
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    //
 //    public Set<Post> getOwnPosts() {
 //        return ownPosts;
 //    }

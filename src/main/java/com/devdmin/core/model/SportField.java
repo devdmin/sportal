@@ -83,6 +83,22 @@ public class SportField {
         this.author = author;
     }
 
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public void setType(SportFieldType type) {
+        this.type = type;
+    }
+
+    public void setAddingDate(LocalDate addingDate) {
+        this.addingDate = addingDate;
+    }
+
     public SportField() {
         this.addingDate = LocalDate.now();
         this.isVerified = false;

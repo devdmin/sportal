@@ -51,13 +51,6 @@ public class SportFieldValidatorTest {
         assertFalse(errors.hasErrors());
     }
 
-    @Test
-    public void testValidationWithoutFilledFields(){
-       sportField = new SportField(52.782831, 21.972656, null);
-
-        sportFieldValidator.validate(sportField, errors);
-        assertTrue(errors.hasErrors());
-    }
 
     //Illegal Coords from France
     @Test

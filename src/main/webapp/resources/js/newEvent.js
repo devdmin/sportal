@@ -100,7 +100,6 @@ var newEvent = angular.module("dashboard", ['sportal'])
                     }
                 });
                 if (errors > 0) {
-                    alert("blad");
                     return false;
                 }
             }
@@ -137,7 +136,7 @@ var newEvent = angular.module("dashboard", ['sportal'])
         var eventId = window.location.pathname.split('/')[2];
         var sportField;
         var event;
-
+        
         $scope.nonParticipant = false;
         $scope.wrong = false;
         $scope.participant = false;
@@ -162,7 +161,6 @@ var newEvent = angular.module("dashboard", ['sportal'])
                 
                 result.userList.filter(function (field) {
                     if (field.username === $rootScope.user.username) {
-                        console.log("XD");
                        
                         $scope.wrong = false;
                         $scope.participant = true;
@@ -203,6 +201,19 @@ var newEvent = angular.module("dashboard", ['sportal'])
                 }
             }
             eventService.signOut(eventId);
+        }
+         eventService.getPosts(eventId).$promise.then(function (result) {
+            result.posts.forEach(function (entry) {
+                entry.date = eventFormService.convertArrayToDate(entry.date);
+                console.log(entry);
+            });
+             
+            $scope.posts = result.posts;
+              
+             console.log($scope.posts);
+        });
+        $scope.addPost = function(post){ 
+           eventService.addPost(eventId, post);
         }
 
     });

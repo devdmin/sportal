@@ -5,6 +5,7 @@ import com.devdmin.core.model.User;
 
 import com.devdmin.core.service.UserService;
 import com.devdmin.core.service.util.UserList;
+import com.devdmin.rest.controller.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -45,13 +46,13 @@ public class UserController {
 
     @PostMapping()
     @PreAuthorize("permitAll")
-    public ResponseEntity<User> add(@RequestBody @Valid User sentUser, BindingResult result) {
+    public ResponseEntity<UserDto> add(@RequestBody @Valid UserDto sentUser, BindingResult result) {
         if (result.hasErrors()) {
 
-            return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<UserDto>(HttpStatus.BAD_REQUEST);
         } else {
-            userService.addUser(sentUser);
-            return new ResponseEntity<User>(sentUser, HttpStatus.CREATED);
+            userService.addUser(sentUser.toUserDomain());
+            return new ResponseEntity<UserDto>(sentUser, HttpStatus.CREATED);
         }
     }
 

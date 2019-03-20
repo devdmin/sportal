@@ -36,5 +36,7 @@ public class SportFieldValidator implements Validator {
         for(Rule<SportField> rule : rules){
             rule.validate(sportField, errors);
         }
+
+        System.out.println(errors.toString());
     }
 }

@@ -160,9 +160,24 @@ var sportal = angular.module('sportal', ['ngResource'])
             var Event = $resource("/api/events/" + eventId + "/join");
             Event.remove();
         }
+        
+        service.addPost = function (eventId, post, success, failure){
+            var Post = $resource("/api/events/"+eventId+"/addPost");
+            var PostResponse;
+            Post.save({}, post, function(data){
+               
+            },failure);
+                     
+        };
+        
+        service.getPosts = function (eventId, success, failure){
+            var Posts = $resource("/api/events/"+eventId+"/posts");
+            return Posts.get();
+        }
 
         return service;
     })
+
     .service("eventFormService", function () {
         this.convertDateToArray = function (date) {
             return [
@@ -234,39 +249,12 @@ var sportal = angular.module('sportal', ['ngResource'])
         };
     })
 
+
     .controller('UsersCtrl', function ($scope, userService) {
         userService.findAll().$promise.then(function (data) {
             angular.forEach(data.userList, function (value, index) {});
         });
     })
-
-
-    //.controller('MapCtrl', function($scope, sportFieldService, $filter, sessionService, userService, translator){
-    //	var sportFields;
-    //	$scope.hide = false;
-    //	sportFieldService.findAll().$promise.then(function (result) {
-    //		sportFields = result.sportFieldList;
-    //		localStorage.setItem("sportFields",  JSON.stringify(sportFields));
-    //		initAutocomplete();
-    //
-    //
-    //	});
-    //
-    //	$scope.show = function(sportFieldId){
-    //
-    //		$scope.hide = false;
-    //		$scope.$apply(function () {
-    //			$scope.sportField = $filter('filter')(sportFields, {id: sportFieldId})[0];
-    //            $scope.sportField = translator.translate($scope.sportField);
-    //		});
-    //		console.log($scope.sportField.addingDate);
-    //	}
-    //    
-    //    $scope.addEvent = function(event){
-    //        console.log(event);
-    //    }
-    //})
-
 
     .controller('SportFieldCtrl', function ($scope, sportFieldService, $window) {
         var sportField;

@@ -3,6 +3,7 @@ package com.devdmin.core.model;
 
 import com.devdmin.core.LocalDateTimeAttributeConverter;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,7 +22,7 @@ public class Post {
 
     @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name = "author_id")
-    @JsonBackReference(value="author-movement")
+    @JsonManagedReference(value="author-movement")
     private User author;
 
     @ManyToOne(fetch= FetchType.EAGER)
@@ -79,6 +80,10 @@ public class Post {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
     }
 
     @Override

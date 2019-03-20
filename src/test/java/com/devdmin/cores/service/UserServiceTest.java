@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.UUID;
@@ -27,6 +28,8 @@ public class UserServiceTest {
 
     @Mock
     VerificationLinksSender sender;
+    @Mock
+    PasswordEncoder encoder;
 
     @InjectMocks
     UserServiceImpl service;
@@ -41,6 +44,7 @@ public class UserServiceTest {
     @Test
     public void addUserTest(){
         User user = new User();
+        user.setPassword("password");
         when(userRepository.save(any(User.class))).thenReturn(user);
         doNothing().when(sender).send(any(UUID.class),any(String.class));
         service.addUser(user);

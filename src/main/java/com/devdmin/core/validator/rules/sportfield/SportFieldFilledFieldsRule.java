@@ -14,6 +14,5 @@ public class SportFieldFilledFieldsRule implements Rule<SportField> {
         ValidationUtils.rejectIfEmpty(errors, "lng", "sportField.empty");
         ValidationUtils.rejectIfEmpty(errors, "type", "sportField.empty");
 
-        System.out.println(errors.getFieldValue("lat"));
     }
 }
