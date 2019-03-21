@@ -58,8 +58,8 @@ var dashboard = angular.module("dashboard", ['sportal', 'ui.bootstrap.datetimepi
         $scope.searchByTime = function (timeCriteria) {
            
             return function (item) {
-               
                 if (validateUser(user, item)) {
+
                     if (timeCriteria == null) {
                         if(days_between(item.date,new Date()) >= 0){
                         return item;}
@@ -96,7 +96,6 @@ var dashboard = angular.module("dashboard", ['sportal', 'ui.bootstrap.datetimepi
 
         function validateUser(user, event) {
             var toReturn = true;
-
             if (user.age > event.maxAge || user.age < event.minAge || user.gender !== event.gender) {
                 toReturn = false;
             }

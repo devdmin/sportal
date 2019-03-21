@@ -70,6 +70,7 @@ public class UserController {
     @PreAuthorize("permitAll")
     public ResponseEntity<UserDtoList> findAll(){
         UserDtoList userList = new UserDtoList(userDomainConverter.convertAll(userService.findAll()));
+
         return new ResponseEntity<UserDtoList>(userList, HttpStatus.OK);
     }
 

@@ -2,6 +2,7 @@ package com.devdmin.rest.controller.dto;
 
 
 import com.devdmin.core.model.util.Gender;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -10,6 +11,7 @@ public class EventDto {
     private Long id;
     private Set<UserDto> users;
 
+    @JsonSerialize
     private LocalDateTime date;
     private LocalDateTime endDate;
 

@@ -24,6 +24,7 @@ public class DefaultUserDomainConverter implements BaseConverter<User, UserDto> 
         userDto.setAge(user.getAge());
         userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
+        userDto.setGender(user.getGender());
         return userDto;
     }
 }
